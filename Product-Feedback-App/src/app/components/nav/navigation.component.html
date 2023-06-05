@@ -1,0 +1,26 @@
+<!-- Mobile -->
+<nav class="flex justify-between p-4 bg-red-200 md:hidden">
+    <div class="text-white">
+        <h1 class="text-md">Frontend Mentor</h1>
+        <p class="text-sm">Feedback baord</p>
+    </div>
+
+    <button type="button">
+        <img src="../../../assets/shared/mobile/icon-hamburger.svg">
+    </button>
+</nav>
+
+<!-- Tablet / Desktop -->
+<nav 
+    class=" 
+    hidden p-4
+    lg:flex lg:flex-col lg:p-0 lg:space-y-5 lg:mr-5
+    md:grid grid-cols-3 gap-x-3"
+    >
+    <div class="flex flex-col justify-end bg-red-200 lg:h-[130px] text-white p-5 rounded-lg">
+        <h1 class="text-lg">Frontend Mentor</h1>
+        <p class="text-md">Feedback baord</p>
+    </div>
+    <app-tags></app-tags>
+    <app-roadmap></app-roadmap>
+</nav>

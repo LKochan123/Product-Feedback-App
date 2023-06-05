@@ -1,0 +1,30 @@
+<header 
+    class="
+    max-w-screen-lg lg:mx-auto
+    md:mx-5 md:rounded-lg 
+    flex justify-between items-center bg-header text-white p-4"
+    >
+    <div class="hidden md:flex md:items-center font-bold">
+        <i class="fa-regular fa-lightbulb mr-2"></i>
+        <p>0 Suggestions</p>
+    </div>
+    <div>
+        <label for="posts" class="text-sm mr-1">Sort by:</label>
+        <select
+            class="bg-transparent text-sm font-semibold outline-0 select" 
+            name="Sorting posts" 
+            id="posts"
+            >
+            <option 
+                class="text-sm text-blue" 
+                *ngFor="let option of optionArr"
+                [value]="option">
+                {{ option }}
+            </option>
+        </select>
+    </div>
+
+    <button type="button" class="text-sm bg-purple py-2 px-3 rounded-md font-semibold">
+        + Add Feedback
+    </button>
+</header>
