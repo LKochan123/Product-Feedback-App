@@ -1,24 +1,15 @@
-
-<div class="lg:grid lg:grid-cols-4 lg:mt-16 lg:px-5 max-w-screen-xlg mx-auto">
+<div class="lg:grid lg:grid-cols-5 lg:mt-16 lg:px-5 max-w-screen-xlg mx-auto">
     <app-navigation class="lg:col-span-1"></app-navigation>
-    <div class="lg:col-span-3">
+    <div class="lg:col-span-4">
         <app-header></app-header>
         <main class="px-4 lg:px-0 py-5">
-            <section class="flex flex-col items-center bg-white px-5 py-16 rounded-lg py-24">
-                <img
-                    src="../../../assets/suggestions/illustration-empty.svg" 
-                    class="mb-3">
-                <h2 class="text-lg my-4 text-blue">There is no feedback yet.</h2>
-                <p class="text-center text-sm text-blue mb-5 max-w-xs">
-                    Got a suggestion? Found a bug that need to be squashed?
-                    We love hearing about new ideas to improve your app.
-                </p>
-                <button 
-                    type="button" 
-                    class="text-sm bg-purple text-white py-2 px-3 rounded-md font-semibold">
-                    + Add Feedback
-                </button>
+            <section *ngIf="!feedbackData.length">
+                <app-empty-feedback></app-empty-feedback>
             </section>
+
+            <section *ngIf="feedbackData.length">
+                <app-feedback-information [feedbackArr]="feedbackData"></app-feedback-information>
+            </section>       
         </main>
     </div>
 </div>

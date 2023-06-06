@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './tags.component.html'
 })
 export class TagsComponent {
-  tagsArr = ['ALL', 'UI', 'UX', 'Enhancment', 'Bug', 'Feature']
+  tagsArr = ['ALL', 'UI', 'UX', 'Enhancment', 'Bug', 'Feature'];
 }

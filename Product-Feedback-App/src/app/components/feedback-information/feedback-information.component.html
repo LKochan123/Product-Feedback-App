@@ -1,0 +1,14 @@
+<article 
+    *ngFor="let post of feedbackArr" 
+    class="bg-white p-5 my-4 rounded-xl"
+    >
+    <h3 class="mb-3">{{ post.title }}</h3>
+    <div class="text-sm">{{ post.description }}</div>
+    <span class="inline-block text-sm text-blue bg-cyan-200 my-4 py-2 px-4 rounded-lg">
+        {{ post.category }}
+    </span>
+    <div class="flex justify-between text-sm">
+        <span>{{ post.upvotes }}</span>
+        <p>0</p>
+    </div>
+</article>
