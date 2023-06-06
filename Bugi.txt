@@ -1,2 +1,0 @@
-- Sekcja z tagami na rozdzielczości 992px, wychodzi poza obszar.
-- Crate-post na 480px brak marginesu.
