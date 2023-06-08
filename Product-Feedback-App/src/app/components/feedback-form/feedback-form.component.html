@@ -1,0 +1,84 @@
+<form [formGroup]="feedbackForm" (submit)="onSubmit()">
+    <h2
+        class="text-lg py-3">
+        {{ !fMode.isEditingPost ? 'Create New Feedback' : 'Editing  "' + title.value + '"'}}
+    </h2>
+
+    <div class="py-3">
+        <h3 class="text-sm">Feedback Title</h3>
+        <label for="title" class="text-xs">Add a short, descriptive headline</label>
+        <input
+            #title
+            formControlName="title" 
+            type="text" 
+            id="title" 
+            class="bg-body w-full p-3 mt-3 rounded-lg">
+    </div>
+
+    <div class="py-3">
+        <h3 class="text-sm">Category</h3>
+        <label for="category" class="text-sm">Choose a category, for your feedback</label>
+        <select 
+            formControlName="category"
+            id="category" 
+            class="bg-body w-full p-3 mt-3 rounded-lg"
+            >
+            <option *ngFor="let category of categoryOptions" [value]="category">
+                {{ category }}
+            </option>
+        </select>
+    </div>
+
+    <div *ngIf="fMode.isEditingPost" class="py-3">
+        <h3 class="text-sm">Update Status</h3>
+        <label for="status" class="text-sm">Change Feature State</label>
+        <select 
+            id="status"
+            class="bg-body w-full p-3 mt-3 rounded-lg"
+            >
+            <option *ngFor="let status of statusOptions" [value]="status">
+                {{ status }}
+            </option>
+        </select>
+    </div>
+
+    <div class="py-3">
+        <h3 class="text-sm">Feedback Detail</h3>
+        <label for="detail" class="text-xs">
+            Include any specific comments on what 
+            should be improved, added, etc.
+        </label>
+        <textarea
+            formControlName="detail" 
+            id="detail" 
+            class="
+            bg-body w-full p-3 mt-3 rounded-lg 
+            min-h-[60px] h-24 max-h-60">
+        </textarea>
+    </div>
+
+    <div class="
+        flex flex-col sm:flex-row-reverse sm:justify-start 
+        w-full py-3 mt-4">
+        <button
+            type="submit" 
+            class="
+            bg-purple text-sm text-white p-3 sm:px-6 rounded-xl 
+            mb-3 sm:mb-0 sm:ml-3">
+            {{ !fMode.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
+        </button>
+        <button
+            routerLink="/" 
+            type="button" 
+            class="bg-dark-blue text-sm text-white p-3 sm:px-6 rounded-xl">
+            Cancel
+        </button>
+        <button
+            type="button"  
+            *ngIf="fMode.isEditingPost"
+            (click)="onDelete(fMode.id)" 
+            class="text-sm text-white p-3 mx-3 bg-red-500 rounded-xl">
+            Delete
+        </button>
+    </div>
+</form>

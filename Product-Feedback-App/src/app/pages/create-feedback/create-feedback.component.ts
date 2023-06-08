@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
     selector: 'app-feedback-post',
@@ -7,18 +7,20 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   })
 export class CreateFeedbackComponent implements OnInit {
 
-  feedbackForm!: FormGroup;
-  isCreatingFeedback = true;
+  formMode!: { 
+    isEditingPost: boolean, 
+    id: string | null 
+  };
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.feedbackForm = new FormGroup({
-      'title': new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(30)]
-      }),
-      'category': new FormControl(),
-      'detail': new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(100)]
-      })
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('id')) {
+        this.formMode = { isEditingPost: true, id: paramMap.get('id') };
+      } else {
+        this.formMode = { isEditingPost: false, id: null };
+      }
     })
   }
 }

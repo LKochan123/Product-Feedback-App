@@ -5,7 +5,8 @@ import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'create-feedback', component: CreateFeedbackComponent }
+    { path: 'create-feedback', component: CreateFeedbackComponent },
+    { path: 'edit-feedback/:id', component: CreateFeedbackComponent }
 ]
 
 @NgModule({

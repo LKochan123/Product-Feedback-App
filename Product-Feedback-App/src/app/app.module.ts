@@ -13,6 +13,7 @@ import { TagsComponent } from './components/nav/tags/tags.component';
 import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback.component';
 import { FeedbackInformationComponent } from './components/feedback-information/feedback-information.component';
 import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedback.component';
+import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedba
     TagsComponent,
     CreateFeedbackComponent,
     FeedbackInformationComponent,
-    EmptyFeedbackComponent
+    EmptyFeedbackComponent,
+    FeedbackFormComponent
   ],
   imports: [
     BrowserModule,

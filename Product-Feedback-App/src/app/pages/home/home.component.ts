@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Post } from 'src/app/models/post.model';
 import { ProductsService } from 'src/app/services/products.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-home',
@@ -10,31 +11,13 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class HomeComponent implements OnInit {
 
-  feedbackData: Post[] = [
-    {
-      id: 1,
-      title: 'Add tags for solution',
-      category: 'Enhancment',
-      upvotes: 112,
-      status: 'Planned',
-      description: 'Short description example data bla bla bal bla asgag o tak o suuper',
-      comments: []
-    },
-    {
-      id: 1,
-      title: 'Add tags for solution',
-      category: 'Enhancment',
-      upvotes: 112,
-      status: 'Planned',
-      description: 'Short description example data bla bla bal bla asgag o tak o suuper',
-      comments: []
-    }
-  ]
+  feedbackData$!: Observable<Post[]>;
 
   constructor(public productService: ProductsService) { }
 
   ngOnInit() {
-    //
+    this.feedbackData$ = this.productService.getPosts().pipe(
+      map(res => res.feedbacks)
+    );
   }
-
 }

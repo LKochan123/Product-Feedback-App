@@ -1,6 +1,7 @@
-<article 
+<article
+    [routerLink]="['edit-feedback', post._id]"
     *ngFor="let post of feedbackArr" 
-    class="bg-white p-5 my-4 rounded-xl"
+    class="bg-white p-5 my-4 rounded-xl cursor-pointer"
     >
     <h3 class="mb-3">{{ post.title }}</h3>
     <div class="text-sm">{{ post.description }}</div>
