@@ -4,14 +4,25 @@
         <app-header></app-header>
         <main class="px-4 lg:px-0 py-5">
 
-            <section *ngIf="(feedbackData$ | async) as feedbacks; else loading">
-                <app-empty-feedback *ngIf="!feedbacks.length"></app-empty-feedback>
-                <app-feedback-information [feedbackArr]="feedbacks"></app-feedback-information>
+            <section *ngIf="feedbackData && !isLoading">
+                <app-empty-feedback *ngIf="!feedbackData.length"></app-empty-feedback>
+                <app-feedback-information
+                    *ngIf="feedbackData.length" 
+                    [feedbackArr]="feedbackData">
+                </app-feedback-information>
+                <mat-paginator 
+                    *ngIf="feedbackData.length"
+                    [pageIndex]="currentPage - 1"
+                    [length]="allPages"
+                    [pageSize]="itemsPerPage"
+                    [pageSizeOptions]="itemsOptions"
+                    (page)="onChangedPage($event)">
+                </mat-paginator>
             </section>
 
-            <ng-template #loading>
-                Loading...
-            </ng-template>
+            <div *ngIf="isLoading">
+                <mat-spinner color="accent" class="mx-auto"></mat-spinner>
+            </div>
         </main>
     </div>
 </div>

@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const Feedback = require('./models/feedback');
+const feedbackRoutes = require('./routes/feedbacks')
 const DB_URL = require('./db')
 
 const app = express();
@@ -39,82 +39,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.post('/feedbacks', async (req, res, next) => {
-    
-    const feedback = new Feedback({
-        title: req.body.title,
-        category: req.body.category,
-        upvotes: req.body.upvotes,
-        status: req.body.status,
-        description: req.body.description
-    });
-
-    await feedback.save();
-
-    res.status(201).json({
-        message: 'Post added successfuly!',
-    });
-})
-
-app.delete('/feedbacks/:id', async (req, res, next) => {
-    
-    try {
-        await Feedback.deleteOne({ _id: req.params.id });
-        res.status(200).json({
-            message: 'Post deleted!'
-        });
-    } catch {
-        //
-    }
-})
-
-app.put('/feedbacks/:id', async (req, res, next) => {
-
-    const feedback = new Feedback({
-        title: req.body.title,
-        category: req.body.category,
-        upvotes: req.body.upvotes,
-        status: req.body.status,
-        description: req.body.description
-    });
-
-    try {
-        await Feedback.updateOne({ _id: req.params.id }, feedback);
-        res.status(200).json({
-            message: 'Update succesful!'
-        })
-    } catch {
-        res.status(404).json({
-            message: 'Some error occured!'
-        })
-    }
-})
-
-app.get('/feedbacks/:id', async (req, res, next) => {
-    try {
-        const feedback = await Feedback.findById({ _id: req.params.id });
-        res.status(200).json({
-            message: 'Feedback fetched!',
-            feedback: feedback
-        })
-    } catch {
-        res.status(404).json({
-            message: "Feedback not found!"
-        })
-    }
-})
-
-app.get('/feedbacks', async (req, res, next) => {
-
-    try {
-        const feedbacks = await Feedback.find();
-        res.status(200).json({
-            message: 'Feedbacks fetched succesful!',
-            feedbacks: feedbacks
-        });
-    } catch {
-        //
-    }
-});
+app.use('/feedbacks', feedbackRoutes);
 
 module.exports = app;

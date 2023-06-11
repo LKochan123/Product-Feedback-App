@@ -1,0 +1,103 @@
+const express = require('express');
+const Feedback = require('../models/feedback');
+
+const router = express.Router();
+
+router.post('', async (req, res, next) => {
+    
+    const feedback = new Feedback({
+        title: req.body.title,
+        category: req.body.category,
+        upvotes: req.body.upvotes,
+        status: req.body.status,
+        description: req.body.description
+    });
+
+    await feedback.save();
+
+    res.status(201).json({
+        message: 'Post added successfuly!',
+    });
+})
+
+router.delete('/:id', async (req, res, next) => {
+    
+    try {
+        await Feedback.deleteOne({ _id: req.params.id });
+        res.status(200).json({
+            message: 'Post deleted!'
+        });
+    } catch {
+        //
+    }
+})
+
+router.patch('/:id', async (req, res, next) => {
+    try {
+        const feedback = await Feedback.findById({ _id: req.params.id });
+        if (!feedback) {
+            res.status(404).json({
+                message: 'Feedback not found!'
+            })
+        }
+
+        feedback.title = req.body.title;
+        feedback.category = req.body.category;
+        feedback.upvotes = req.body.upvotes;
+        feedback.status = req.body.status;
+        feedback.description = req.body.description;
+        await feedback.save();
+
+        res.status(200).json({
+            message: 'Update succesfull!'
+        })
+
+    } catch {
+        res.status(500).json({
+            message: 'An error occurred!'
+        });
+    }
+})
+
+router.get('/:id', async (req, res, next) => {
+    try {
+        const feedback = await Feedback.findById({ _id: req.params.id });
+        res.status(200).json({
+            message: 'Feedback fetched!',
+            feedback: feedback
+        })
+    } catch {
+        res.status(404).json({
+            message: "Feedback not found!"
+        })
+    }
+})
+
+router.get('', async (req, res, next) => {
+
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+    const postQuery = Feedback.find();
+    let fetchedPosts;
+
+    if (pageSize && currentPage) {
+        postQuery
+            .skip(pageSize * (currentPage - 1))
+            .limit(pageSize);
+    }
+
+    postQuery
+        .then(feedbacks => {
+            fetchedPosts = feedbacks;
+            return Feedback.count();
+        })
+        .then(count => {
+            res.status(200).json({
+                message: "Feedbacks fetch succesfulyl!",
+                feedbacks: fetchedPosts,
+                countAll: count
+            })
+        })
+});
+
+module.exports = router;

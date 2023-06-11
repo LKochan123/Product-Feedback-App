@@ -11,6 +11,7 @@ export class FeedbackFormComponent implements OnInit {
 
     @Input() fMode!: { isEditingPost: boolean, id: string | null };
     feedbackForm!: FormGroup;
+    headingName!: string;
     categoryOptions = ['UI', 'UX', 'Enhancment', 'Feature', 'Bug'];
     statusOptions = ['Suggestion', 'Planned', 'In progress', 'Live']
   
@@ -22,10 +23,11 @@ export class FeedbackFormComponent implements OnInit {
       
       if (this.fMode.id) {
         this.productsServcie.getPostById(this.fMode.id).subscribe(res => {
+          this.headingName = `Editing "${res.feedback.title}"`;
           this.feedbackForm.setValue({
             'title': res.feedback.title,
             'category': res.feedback.category,
-            'status': '',
+            'status': 'Suggestion',
             'detail': res.feedback.description
           });
         })
@@ -49,20 +51,22 @@ export class FeedbackFormComponent implements OnInit {
   
     onSubmit() {
       const title = this.feedbackForm.value.title;
-      const category = this.feedbackForm.value.title;
-      const detail = this.feedbackForm.value.title;
+      const category = this.feedbackForm.value.category;
+      const detail = this.feedbackForm.value.detail;
       const status = this.feedbackForm.value.status;
 
       if (this.feedbackForm.valid) {
-        if (this.fMode.isEditingPost) {
-          // this.productsServcie.updatePost(this.fMode.id!, title, category, status, detail);
+        if (this.fMode.id) {
+          this.productsServcie.updatePost(this.fMode.id, title, category, status, detail);
         } else {
           this.productsServcie.addPost(title, category, detail);
         }
       } else {
         console.log('Form invalid!');
       }
+      
       this.feedbackForm.reset();
+      this.router.navigate(['/']);
     }
 
     onDelete(id: string | null) {

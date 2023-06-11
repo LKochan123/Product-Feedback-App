@@ -14,8 +14,9 @@ export class ProductsService {
 
     constructor(private http: HttpClient) { }
 
-    getPosts() {
-        return this.http.get<{message: string, feedbacks: Post[]}>(this.url);
+    getPosts(feedbacksPerPage: number, currentPage: number) {
+        const queryParams = `?pagesize=${feedbacksPerPage}&page=${currentPage}`;
+        return this.http.get<{message: string, feedbacks: Post[], countAll: number}>(this.url + queryParams);
     }
 
     getPostById(id: string) {
@@ -42,17 +43,17 @@ export class ProductsService {
         })
     }
 
-    // updatePost(id: string, title: string, category: string, status: string, detail: string) {
-    //     const feedback = {
-    //         title: title, 
-    //         category: category,
-    //         upvotes: 0,
-    //         status: status, 
-    //         description: detail
-    //     };
+    updatePost(id: string, title: string, category: string, status: string, detail: string) {
+        const feedback = {
+            title: title, 
+            category: category,
+            upvotes: 0,
+            status: status, 
+            description: detail
+        };
 
-    //     this.http.put<{message: string}>(this.url + id, feedback).subscribe(res => {
-    //         console.log(res);
-    //     })
-    // }
+        this.http.patch<{message: string}>(this.url + id, feedback).subscribe(res => {
+            console.log(res);
+        })
+    }
 }

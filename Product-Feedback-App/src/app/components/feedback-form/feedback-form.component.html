@@ -1,14 +1,13 @@
 <form [formGroup]="feedbackForm" (submit)="onSubmit()">
     <h2
         class="text-lg py-3">
-        {{ !fMode.isEditingPost ? 'Create New Feedback' : 'Editing  "' + title.value + '"'}}
+        {{ !fMode.isEditingPost ? 'Create New Feedback' : headingName }}
     </h2>
 
     <div class="py-3">
         <h3 class="text-sm">Feedback Title</h3>
         <label for="title" class="text-xs">Add a short, descriptive headline</label>
         <input
-            #title
             formControlName="title" 
             type="text" 
             id="title" 
@@ -32,7 +31,8 @@
     <div *ngIf="fMode.isEditingPost" class="py-3">
         <h3 class="text-sm">Update Status</h3>
         <label for="status" class="text-sm">Change Feature State</label>
-        <select 
+        <select
+            formControlName="status" 
             id="status"
             class="bg-body w-full p-3 mt-3 rounded-lg"
             >
