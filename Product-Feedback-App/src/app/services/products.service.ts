@@ -19,6 +19,11 @@ export class ProductsService {
         return this.http.get<{message: string, feedbacks: Post[], countAll: number}>(this.url + queryParams);
     }
 
+    getPostsByStatus(status: string) {
+        const queryParams = `?status=${status}`
+        return this.http.get<{message: string, feedbacks: Post[], occurance: number}>(this.url +  'status' + queryParams);
+    }
+
     getPostById(id: string) {
         return this.http.get<{message: string, feedback: Post}>(this.url + id);
     }
@@ -28,7 +33,7 @@ export class ProductsService {
             title: title, 
             category: category,
             upvotes: 0,
-            status: 'Planned', 
+            status: 'Suggestion', 
             description: description
         };
 

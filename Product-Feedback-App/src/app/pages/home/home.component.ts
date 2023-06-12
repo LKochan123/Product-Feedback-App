@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { ProductsService } from 'src/app/services/products.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -13,7 +11,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class HomeComponent implements OnInit {
 
   feedbackData!: Post[];
-  allPages!: number;
+  allSuggestions!: number;
   isLoading = false;
   currentPage = 1;
   itemsPerPage = 2;
@@ -33,10 +31,11 @@ export class HomeComponent implements OnInit {
     this.onGetPosts();
   }
 
-  onGetPosts() {
-    this.productService.getPosts(this.itemsPerPage, this.currentPage).subscribe(response => {
-      this.feedbackData = response.feedbacks;
-      this.allPages = response.countAll;
+  onGetPosts() {    
+    this.productService.getPosts(this.itemsPerPage, this.currentPage)
+    .subscribe(res => {
+      this.feedbackData = res.feedbacks;
+      this.allSuggestions = res.countAll;
       this.isLoading = false;
     })
   }

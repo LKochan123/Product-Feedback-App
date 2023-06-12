@@ -4,14 +4,17 @@
     md:mx-5 md:rounded-lg 
     flex justify-between items-center bg-header text-white p-4"
     >
-    <div class="hidden md:flex md:items-center font-bold">
+    <div 
+        *ngIf="actualPage === 'Suggestions'" 
+        class="hidden md:flex md:items-center"
+        >
         <i class="fa-regular fa-lightbulb mr-2"></i>
-        <p>0 Suggestions</p>
+        <p>{{ countSuggestions }} Suggestions</p>
     </div>
-    <div>
+    <div *ngIf="actualPage === 'Suggestions'">
         <label for="posts" class="text-sm mr-1">Sort by:</label>
         <select
-            class="bg-transparent text-sm font-semibold outline-0 select" 
+            class="bg-transparent text-sm" 
             name="Sorting posts" 
             id="posts"
             >
@@ -24,10 +27,21 @@
         </select>
     </div>
 
+    <div *ngIf="actualPage === 'Roadmap'">
+        <a routerLink="/" class="inline-flex">
+            <i class="text-xs fa-solid fa-arrow-left"></i>
+            <p
+                class="text-xs ml-2 md:ml-3">
+                Go Back
+            </p>
+        </a>
+        <h2 class="text-sm md:text-lg">Roadmap</h2>
+    </div>
+
     <button
-        class="text-sm bg-purple py-2 px-3 rounded-md font-semibold"
-        type="button"
-        routerLink="/create-feedback">
+        routerLink="/create-feedback"
+        class="text-sm bg-purple py-2 px-3 rounded-md"
+        type="button">
         + Add Feedback
     </button>
 </header>

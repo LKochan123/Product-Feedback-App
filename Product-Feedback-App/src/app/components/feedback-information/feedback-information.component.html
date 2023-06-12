@@ -2,14 +2,20 @@
     [routerLink]="['edit-feedback', post._id]"
     *ngFor="let post of feedbackArr" 
     class="bg-white p-5 my-4 rounded-xl cursor-pointer"
+    [ngClass]="post.status.toLowerCase()"
     >
-    <h3 class="mb-3">{{ post.title }}</h3>
-    <div class="text-sm">{{ post.description }}</div>
-    <span class="inline-block text-sm text-blue bg-cyan-200 my-4 py-2 px-4 rounded-lg">
-        {{ post.category }}
-    </span>
+    <app-feedback-details
+        [status]="post.status" 
+        [feedbackDetails]="
+        { 
+            title: post.title, 
+            description: post.description, 
+            category: post.category 
+        }">
+    </app-feedback-details>
+
     <div class="flex justify-between text-sm">
-        <span>{{ post.upvotes }}</span>
-        <p>0</p>
+        <app-upvotes-button [upvotes]="post.upvotes"></app-upvotes-button>
+        <app-comment-icon [comments]="0"></app-comment-icon>
     </div>
 </article>

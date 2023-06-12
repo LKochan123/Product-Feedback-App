@@ -13,7 +13,7 @@ export class FeedbackFormComponent implements OnInit {
     feedbackForm!: FormGroup;
     headingName!: string;
     categoryOptions = ['UI', 'UX', 'Enhancment', 'Feature', 'Bug'];
-    statusOptions = ['Suggestion', 'Planned', 'In progress', 'Live']
+    statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live']
   
     constructor(private productsServcie: ProductsService, 
       private router: Router) { }
@@ -42,7 +42,7 @@ export class FeedbackFormComponent implements OnInit {
         'category': new FormControl('Feature', { 
           validators: [Validators.required] 
         }),
-        'status': new FormControl(),
+        'status': new FormControl('Suggestion'),
         'detail': new FormControl(null, {
           validators: [Validators.required, Validators.maxLength(200)]
         })

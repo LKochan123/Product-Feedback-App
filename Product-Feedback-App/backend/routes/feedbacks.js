@@ -59,6 +59,24 @@ router.patch('/:id', async (req, res, next) => {
     }
 })
 
+router.get('/status', async (req, res, next) => {
+    const status = req.query.status;
+    try {
+        const feedbacks = await Feedback.find({ status: status });
+        const countFeedbacks = await Feedback.countDocuments({ status: status });
+        res.status(200).json({
+            message: `Feedbacks with status '${status}' fetched!`,
+            feedbacks: feedbacks,
+            occurance: countFeedbacks
+        })
+    } catch(error) {
+        res.status(500).json({
+            message: "ERROR OCCURED!",
+            error: error
+        });
+    }
+})
+
 router.get('/:id', async (req, res, next) => {
     try {
         const feedback = await Feedback.findById({ _id: req.params.id });
@@ -77,7 +95,7 @@ router.get('', async (req, res, next) => {
 
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
-    const postQuery = Feedback.find();
+    const postQuery = Feedback.find({ status: 'Suggestion' });
     let fetchedPosts;
 
     if (pageSize && currentPage) {
@@ -89,15 +107,16 @@ router.get('', async (req, res, next) => {
     postQuery
         .then(feedbacks => {
             fetchedPosts = feedbacks;
-            return Feedback.count();
+            return Feedback.countDocuments({ status: 'Suggestion' });
         })
         .then(count => {
             res.status(200).json({
-                message: "Feedbacks fetch succesfulyl!",
+                message: "Feedbacks fetch succesfully!",
                 feedbacks: fetchedPosts,
                 countAll: count
             })
         })
 });
+
 
 module.exports = router;

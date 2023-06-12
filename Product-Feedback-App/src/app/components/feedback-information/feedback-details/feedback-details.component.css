@@ -1,0 +1,11 @@
+.planned {
+    background-color: orange;
+}
+
+.in-progress {
+    background-color: rgb(188, 23, 188);
+}
+
+.live {
+    background-color: rgb(89, 229, 229);
+}

@@ -1,0 +1,89 @@
+<div class="md:py-10 lg:py-12 max-w-screen-lg mx-auto">
+    <app-header [actualPage]="'Roadmap'"></app-header>
+    <nav class="px-5 py-4 md:hidden">
+        <ul class="flex flex-row justify-between items-center text-sm">
+            <li>
+                <a 
+                    (click)="onStatusChange('Planned')"
+                    [ngClass]="{'active planned': currentStatus === 'Planned'}">
+                    Planned ({{ countPlanned }})
+                </a>
+            </li>
+            <li>
+                <a 
+                    (click)="onStatusChange('In-Progress')"
+                    [ngClass]="{'active in-progress': currentStatus === 'In-Progress'}">
+                    In-Progress ({{ countInProgress }})
+                </a>
+            </li>
+            <li>
+                <a 
+                    (click)="onStatusChange('Live')" 
+                    [ngClass]="{'active live': currentStatus === 'Live'}">
+                    Live ({{ countLive }})
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <hr class="md:hidden">
+
+    <section class="px-5 py-6 lg:px-0">
+        <div *ngIf="!isLoading" [ngSwitch]="currentStatus" class="md:hidden">
+            <div *ngSwitchCase="'Planned'">
+                <h2 class="text-lg">Planned ({{ countPlanned }})</h2>
+                <p class="text-sm">Ideas prioritized for research</p>
+                <app-feedback-information 
+                    [feedbackArr]="plannedFeedbacks">
+                </app-feedback-information>
+            </div>
+
+            <div *ngSwitchCase="'In-Progress'">
+                <h2 class="text-lg">In Progress ({{ countInProgress }})</h2>
+                <p class="text-sm">Features currently being developed</p>
+                <app-feedback-information 
+                    [feedbackArr]="inProgressFeedbacks">
+                </app-feedback-information>
+            </div>
+
+            <div *ngSwitchCase="'Live'">
+                <h2 class="text-lg">Live ({{ countLive }})</h2>
+                <p class="text-sm">Released features</p>
+                <app-feedback-information 
+                    [feedbackArr]="liveFeedbacks">
+                </app-feedback-information>
+            </div>
+        </div>
+
+        <!-- > 768px -->
+        <div class="hidden md:flex md:flex-row md:gap-4">
+            <div class="w-full lg:w-1/3">
+                <h2 class="text-sm lg:text-md">Planned ({{ countPlanned }})</h2>
+                <p class="text-xs lg:text-sm">Ideas prioritized for research</p>
+                <app-feedback-information 
+                    [feedbackArr]="plannedFeedbacks">
+                </app-feedback-information>
+            </div>
+
+            <div class="w-full lg:w-1/3">
+                <h2 class="text-sm lg:text-md">In Progress ({{ countInProgress }})</h2>
+                <p class="text-xs lg:text-sm">Features currently being developed</p>
+                <app-feedback-information 
+                    [feedbackArr]="inProgressFeedbacks">
+                </app-feedback-information>
+            </div>
+
+            <div class="w-full lg:w-1/3">
+                <h2 class="text-sm lg:text-md">Live ({{ countLive }})</h2>
+                <p class="text-xs lg:text-sm">Released features</p>
+                <app-feedback-information 
+                    [feedbackArr]="liveFeedbacks">
+                </app-feedback-information>
+            </div>
+        </div>
+
+        <mat-spinner 
+            *ngIf="isLoading" color="accent" class="mx-auto md:py-10">
+        </mat-spinner>
+    </section>
+</div>

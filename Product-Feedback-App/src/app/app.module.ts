@@ -11,12 +11,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavigationComponent } from './components/nav/navigation.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RoadmapComponent } from './components/nav/roadmap/roadmap.component';
+import { RoadmapBoxComponent } from './components/nav/roadmap/roadmap-box.component';
 import { TagsComponent } from './components/nav/tags/tags.component';
 import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback.component';
 import { FeedbackInformationComponent } from './components/feedback-information/feedback-information.component';
 import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedback.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
+import { SuggestionPipe } from './pipes/suggestion.pipe';
+import { RoadmapComponent } from './pages/roadmap/roadmap.component';
+import { UpvotesButtonComponent } from './components/feedback-information/upvotes-button/upvotes-button.component';
+import { CommentIconComponent } from './components/feedback-information/comment-icon/comment-icon.component';
+import { FeedbackDetailsComponent } from './components/feedback-information/feedback-details/feedback-details.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +29,17 @@ import { FeedbackFormComponent } from './components/feedback-form/feedback-form.
     HomeComponent,
     NavigationComponent,
     HeaderComponent,
-    RoadmapComponent,
+    RoadmapBoxComponent,
     TagsComponent,
     CreateFeedbackComponent,
     FeedbackInformationComponent,
     EmptyFeedbackComponent,
-    FeedbackFormComponent
+    FeedbackFormComponent,
+    SuggestionPipe,
+    RoadmapComponent,
+    UpvotesButtonComponent,
+    CommentIconComponent,
+    FeedbackDetailsComponent
   ],
   imports: [
     BrowserModule,

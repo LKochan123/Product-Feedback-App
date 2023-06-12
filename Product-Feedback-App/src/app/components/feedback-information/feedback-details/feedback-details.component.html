@@ -1,0 +1,12 @@
+<div 
+    *ngIf="roadmapStatus.includes(status)"
+    class="flex flex-row items-center mb-3"
+    >
+    <div [ngClass]="status.toLowerCase()" class="w-2 h-2 mr-2 rounded-full"></div>
+    <p class="text-xs">{{ status }}</p>
+</div>
+<h3 class="mb-3">{{ feedbackDetails.title }}</h3>
+<div class="text-xs">{{ feedbackDetails.description }}</div>
+<span class="inline-block text-xs text-blue bg-cyan-200 my-4 py-2 px-4 rounded-lg">
+    {{ feedbackDetails.category }}
+</span>
