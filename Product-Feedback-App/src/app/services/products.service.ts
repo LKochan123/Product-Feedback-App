@@ -8,13 +8,21 @@ import { Subject } from 'rxjs';
 })
 export class ProductsService {
 
-    localFeedbacks: Post[] = [];
-    updatedFeedbacks = new Subject<Post[]>();
+    feedbacksSubject = new Subject<Post[]>();
+    feedbacksArr: Post[] = [];
     private url = 'http://localhost:3000/feedbacks/';
 
     constructor(private http: HttpClient) { }
 
-    getPosts(feedbacksPerPage: number, currentPage: number) {
+    getPostsSubject() {
+        return this.feedbacksSubject.asObservable();
+    }
+
+    getPosts() {
+        //
+    }
+
+    getPostsByPagination(feedbacksPerPage: number, currentPage: number) {
         const queryParams = `?pagesize=${feedbacksPerPage}&page=${currentPage}`;
         return this.http.get<{message: string, feedbacks: Post[], countAll: number}>(this.url + queryParams);
     }

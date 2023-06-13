@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   }
 
   onGetPosts() {    
-    this.productService.getPosts(this.itemsPerPage, this.currentPage)
+    this.productService.getPostsByPagination(this.itemsPerPage, this.currentPage)
     .subscribe(res => {
       this.feedbackData = res.feedbacks;
       this.allSuggestions = res.countAll;

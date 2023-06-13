@@ -19,9 +19,11 @@ import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedba
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { SuggestionPipe } from './pipes/suggestion.pipe';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
-import { UpvotesButtonComponent } from './components/feedback-information/upvotes-button/upvotes-button.component';
+import { UpvotesButtonHorizontalComponent } from './components/feedback-information/upvotes-button-horizontal/upvotes-button-horizontal.component';
+import { UpvotesButtonVerticalComponent } from './components/feedback-information/upvotes-button-vertical/upvotes-button-vertical.component';
 import { CommentIconComponent } from './components/feedback-information/comment-icon/comment-icon.component';
 import { FeedbackDetailsComponent } from './components/feedback-information/feedback-details/feedback-details.component';
+import { FeedbackInfoRoadmapComponent } from './components/feedback-information/feedback-info-roadmap.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +39,11 @@ import { FeedbackDetailsComponent } from './components/feedback-information/feed
     FeedbackFormComponent,
     SuggestionPipe,
     RoadmapComponent,
-    UpvotesButtonComponent,
+    UpvotesButtonHorizontalComponent,
+    UpvotesButtonVerticalComponent,
     CommentIconComponent,
-    FeedbackDetailsComponent
+    FeedbackDetailsComponent,
+    FeedbackInfoRoadmapComponent
   ],
   imports: [
     BrowserModule,

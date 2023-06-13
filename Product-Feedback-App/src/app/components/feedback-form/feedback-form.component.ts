@@ -27,7 +27,7 @@ export class FeedbackFormComponent implements OnInit {
           this.feedbackForm.setValue({
             'title': res.feedback.title,
             'category': res.feedback.category,
-            'status': 'Suggestion',
+            'status': res.feedback.status,
             'detail': res.feedback.description
           });
         })

@@ -2,20 +2,40 @@
     [routerLink]="['edit-feedback', post._id]"
     *ngFor="let post of feedbackArr" 
     class="bg-white p-5 my-4 rounded-xl cursor-pointer"
-    [ngClass]="post.status.toLowerCase()"
     >
-    <app-feedback-details
-        [status]="post.status" 
-        [feedbackDetails]="
-        { 
-            title: post.title, 
-            description: post.description, 
-            category: post.category 
-        }">
-    </app-feedback-details>
+    <div class="md:hidden">
+        <app-feedback-details
+            [feedbackDetails]="
+            { 
+                title: post.title, 
+                description: post.description, 
+                category: post.category 
+            }">
+        </app-feedback-details>
 
-    <div class="flex justify-between text-sm">
-        <app-upvotes-button [upvotes]="post.upvotes"></app-upvotes-button>
-        <app-comment-icon [comments]="0"></app-comment-icon>
+        <div class="flex justify-between text-sm">
+            <app-upvotes-button-horizontal 
+                [upvotes]="post.upvotes">
+            </app-upvotes-button-horizontal>
+            <app-comment-icon [comments]="0"></app-comment-icon>
+        </div>
+    </div>
+
+    <div class="hidden md:flex gap-5 px-2">
+        <app-upvotes-button-vertical 
+            [upvotes]="post.upvotes">
+        </app-upvotes-button-vertical>
+        <div class="flex-grow flex flex-row items-center gap-5">
+            <app-feedback-details
+                class="flex-grow"
+                [feedbackDetails]="
+                { 
+                    title: post.title, 
+                    description: post.description, 
+                    category: post.category 
+                }">
+            </app-feedback-details>
+            <app-comment-icon [comments]="0"></app-comment-icon>
+        </div>
     </div>
 </article>

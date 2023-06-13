@@ -11,7 +11,10 @@ module.exports = {
         'blue': '#4761E6',
         'body': '#F7F8FD',
         'header': '#3a4373',
-        'dark-blue': '#647196'
+        'dark-blue': '#647196',
+        'planned-status': 'orange',
+        'progress-status': 'rgb(188, 23, 188)',
+        'live-status': 'rgb(89, 229, 229)'
       },
     },
     screens: {

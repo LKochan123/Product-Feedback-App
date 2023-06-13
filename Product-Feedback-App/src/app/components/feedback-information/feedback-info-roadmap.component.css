@@ -1,0 +1,29 @@
+article {
+    position: relative;
+}
+
+article::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    top: 0;
+    height: 5px;
+    width: 100%;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.planned-circle,
+article.planned::after {
+    background-color: orange;
+}
+
+.in-progress-circle,
+article.in-progress::after {
+    background-color: rgb(188, 23, 188);
+}
+
+.live-circle,
+article.live::after {
+    background-color: rgb(89, 229, 229);
+}

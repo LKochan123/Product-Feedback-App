@@ -1,0 +1,30 @@
+<article
+    [routerLink]="['/', 'edit-feedback', post._id]"
+    *ngFor="let post of feedbackArr" 
+    class="bg-white p-5 my-4 rounded-xl cursor-pointer"
+    [ngClass]="post.status.toLowerCase()"
+    >
+    <div class="flex flex-row items-center mb-3">
+        <div 
+            [ngClass]="post.status.toLowerCase().concat('-circle')" 
+            class="w-2 h-2 mr-2 rounded-full">
+        </div>
+        <p class="text-xs">{{ post.status }}</p>
+    </div>
+
+    <app-feedback-details
+        [feedbackDetails]="
+        { 
+            title: post.title, 
+            description: post.description, 
+            category: post.category 
+        }">
+    </app-feedback-details>
+
+    <div class="flex justify-between text-sm mt-4">
+        <app-upvotes-button-horizontal 
+            [upvotes]="post.upvotes">
+        </app-upvotes-button-horizontal>
+        <app-comment-icon [comments]="0"></app-comment-icon>
+    </div>
+</article>
