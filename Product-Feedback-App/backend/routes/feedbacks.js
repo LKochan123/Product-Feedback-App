@@ -92,31 +92,19 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.get('', async (req, res, next) => {
-
-    const pageSize = +req.query.pagesize;
-    const currentPage = +req.query.page;
-    const postQuery = Feedback.find({ status: 'Suggestion' });
-    let fetchedPosts;
-
-    if (pageSize && currentPage) {
-        postQuery
-            .skip(pageSize * (currentPage - 1))
-            .limit(pageSize);
+    try {
+        const feedbacks = await Feedback.find();
+        const countAll = await Feedback.countDocuments();
+        res.status(200).json({
+            message: 'All feedbacks fetched!',
+            feedbacks: feedbacks,
+            occurance: countAll
+        })
+    } catch {
+        res.status(404).json({
+            message: 'Feedbacks not found!'
+        })
     }
-
-    postQuery
-        .then(feedbacks => {
-            fetchedPosts = feedbacks;
-            return Feedback.countDocuments({ status: 'Suggestion' });
-        })
-        .then(count => {
-            res.status(200).json({
-                message: "Feedbacks fetch succesfully!",
-                feedbacks: fetchedPosts,
-                countAll: count
-            })
-        })
 });
-
 
 module.exports = router;

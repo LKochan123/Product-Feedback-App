@@ -1,6 +1,6 @@
 <article
     [routerLink]="['edit-feedback', post._id]"
-    *ngFor="let post of feedbackArr" 
+    *ngFor="let post of feedbackArr | categoryFilter:(category$ | async)" 
     class="bg-white p-5 my-4 rounded-xl cursor-pointer"
     >
     <div class="md:hidden">
@@ -13,7 +13,7 @@
             }">
         </app-feedback-details>
 
-        <div class="flex justify-between text-sm">
+        <div class="flex justify-between text-sm mt-4">
             <app-upvotes-button-horizontal 
                 [upvotes]="post.upvotes">
             </app-upvotes-button-horizontal>

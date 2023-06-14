@@ -1,38 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductsService {
 
-    feedbacksSubject = new Subject<Post[]>();
-    feedbacksArr: Post[] = [];
+    feedbacks$ = new Subject<Post[]>();
     private url = 'http://localhost:3000/feedbacks/';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private router: Router) { }
 
-    getPostsSubject() {
-        return this.feedbacksSubject.asObservable();
+    getPostsUpdate$(): Observable<Post[]> {
+        return this.feedbacks$.asObservable();
     }
 
     getPosts() {
-        //
+        this.http.get<{message: string, feedbacks: Post[], occurance: number}>(this.url)
+        .subscribe(response => {
+            this.feedbacks$.next([...response.feedbacks]);
+        })
     }
 
-    getPostsByPagination(feedbacksPerPage: number, currentPage: number) {
-        const queryParams = `?pagesize=${feedbacksPerPage}&page=${currentPage}`;
-        return this.http.get<{message: string, feedbacks: Post[], countAll: number}>(this.url + queryParams);
-    }
-
-    getPostsByStatus(status: string) {
+    getPostsByStatus$(status: string) {
         const queryParams = `?status=${status}`
-        return this.http.get<{message: string, feedbacks: Post[], occurance: number}>(this.url +  'status' + queryParams);
+        return this.http.get<{message: string, feedbacks: Post[], occurance: number}>
+        (this.url +  'status' + queryParams);
     }
 
-    getPostById(id: string) {
+    getPostById$(id: string) {
         return this.http.get<{message: string, feedback: Post}>(this.url + id);
     }
 
@@ -46,14 +45,12 @@ export class ProductsService {
         };
 
         this.http.post<{message: string}>(this.url, feedback).subscribe(res => {
-            console.log(res);
+            this.router.navigate(['/']);
         });
     }
 
-    deletePost(id: string) {
-        this.http.delete<{message: string}>(this.url + id).subscribe(res => {
-            console.log('Post deleted!');
-        })
+    deletePost$(id: string) {
+        return this.http.delete<{message: string}>(this.url + id);
     }
 
     updatePost(id: string, title: string, category: string, status: string, detail: string) {
@@ -66,7 +63,11 @@ export class ProductsService {
         };
 
         this.http.patch<{message: string}>(this.url + id, feedback).subscribe(res => {
-            console.log(res);
+            this.navigateByStatus(status);
         })
+    }
+
+    navigateByStatus(status: string) {
+        this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
     }
 }

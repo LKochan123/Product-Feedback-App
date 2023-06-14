@@ -24,9 +24,9 @@ export class RoadmapComponent implements OnInit {
     constructor(private productsService: ProductsService) { }
 
     ngOnInit() {
-        const planned$ = this.productsService.getPostsByStatus('Planned');
-        const inProgress$ = this.productsService.getPostsByStatus('In-Progress');
-        const live$ = this.productsService.getPostsByStatus('Live');
+        const planned$ = this.productsService.getPostsByStatus$('Planned');
+        const inProgress$ = this.productsService.getPostsByStatus$('In-Progress');
+        const live$ = this.productsService.getPostsByStatus$('Live');
 
         forkJoin([planned$, inProgress$, live$]).subscribe(([plannedRes, inProgressRes, liveRes]) => {
             this.plannedFeedbacks = plannedRes.feedbacks;

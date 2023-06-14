@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ProductsService } from 'src/app/services/products.service';
 import { Router } from '@angular/router';
+import { ProductsService } from 'src/app/services/products.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-feedback-form',
@@ -15,14 +16,13 @@ export class FeedbackFormComponent implements OnInit {
     categoryOptions = ['UI', 'UX', 'Enhancment', 'Feature', 'Bug'];
     statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live']
   
-    constructor(private productsServcie: ProductsService, 
-      private router: Router) { }
+    constructor(private productsServcie: ProductsService, private router: Router) { }
   
     ngOnInit() {
       this.createFeedbackForm();
       
       if (this.fMode.id) {
-        this.productsServcie.getPostById(this.fMode.id).subscribe(res => {
+        this.productsServcie.getPostById$(this.fMode.id).subscribe(res => {
           this.headingName = `Editing "${res.feedback.title}"`;
           this.feedbackForm.setValue({
             'title': res.feedback.title,
@@ -64,15 +64,19 @@ export class FeedbackFormComponent implements OnInit {
       } else {
         console.log('Form invalid!');
       }
-      
-      this.feedbackForm.reset();
-      this.router.navigate(['/']);
     }
 
     onDelete(id: string | null) {
       if (id) {
-        this.productsServcie.deletePost(id);
-        this.router.navigate(['/']);
+        this.productsServcie.deletePost$(id).pipe(
+          tap(() => {
+            if (this.feedbackForm.value.status === 'Suggestion') {
+              this.router.navigate(['/']);
+            } else {
+              this.router.navigate(['/roadmap']);
+            }
+          })
+        ).subscribe();
       }
     }
 }

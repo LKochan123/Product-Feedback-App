@@ -1,9 +1,13 @@
-<div class="h-[180px] p-5 bg-white rounded-lg">
-    <ul class="flex flex-row flex-wrap text-sm">
-        <li 
-            class="mr-1 mb-2 px-3 py-1 text-blue bg-green-200 rounded-lg"
+<div class="h-[180px] text-sm p-5 bg-white rounded-lg">
+    <div class="flex flex-row flex-wrap">
+        <a
+            class="
+            m-1 px-2 py-1 rounded-lg cursor-pointer
+            text-blue bg-green-200 hover:bg-yellow-200 "
+            [class.bg-green-300]="(currentTag$ | async) === tag"
+            (click)="onFilterCategory(tag)"
             *ngFor="let tag of tagsArr">
             {{ tag }}
-        </li>
-    </ul>
+        </a>
+    </div>
 </div>

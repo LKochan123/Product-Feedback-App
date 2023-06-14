@@ -17,7 +17,7 @@ import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback
 import { FeedbackInformationComponent } from './components/feedback-information/feedback-information.component';
 import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedback.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
-import { SuggestionPipe } from './pipes/suggestion.pipe';
+import { CategoryPipe } from './pipes/category.pipe';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { UpvotesButtonHorizontalComponent } from './components/feedback-information/upvotes-button-horizontal/upvotes-button-horizontal.component';
 import { UpvotesButtonVerticalComponent } from './components/feedback-information/upvotes-button-vertical/upvotes-button-vertical.component';
@@ -37,7 +37,7 @@ import { FeedbackInfoRoadmapComponent } from './components/feedback-information/
     FeedbackInformationComponent,
     EmptyFeedbackComponent,
     FeedbackFormComponent,
-    SuggestionPipe,
+    CategoryPipe,
     RoadmapComponent,
     UpvotesButtonHorizontalComponent,
     UpvotesButtonVerticalComponent,

@@ -16,11 +16,10 @@ export class RoadmapBoxComponent implements OnInit {
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-
     forkJoin([
-      this.countStatusOccurance('Planned'),
-      this.countStatusOccurance('In-Progress'),
-      this.countStatusOccurance('Live')
+      this.countStatusOccurance$('Planned'),
+      this.countStatusOccurance$('In-Progress'),
+      this.countStatusOccurance$('Live')
     ]).subscribe(([plannedCounter, progressCounter, liveCounter]) => {
       this.countPlanned = plannedCounter;
       this.countInProgress = progressCounter;
@@ -29,8 +28,8 @@ export class RoadmapBoxComponent implements OnInit {
     })
   }
 
-  countStatusOccurance(status: string) {
-    return this.productsService.getPostsByStatus(status).pipe(
+  countStatusOccurance$(status: string) {
+    return this.productsService.getPostsByStatus$(status).pipe(
       map(response => response.occurance)
     );
   }
