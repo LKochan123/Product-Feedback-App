@@ -1,10 +1,11 @@
-<div class="h-[180px] text-sm p-5 bg-white rounded-lg">
+<div class="h-[170px] lg:h-auto text-sm p-5 bg-white rounded-lg">
     <div class="flex flex-row flex-wrap">
         <a
             class="
-            m-1 px-2 py-1 rounded-lg cursor-pointer
-            text-blue bg-green-200 hover:bg-yellow-200 "
-            [class.bg-green-300]="(currentTag$ | async) === tag"
+            text-blue bg-light-blue
+            m-1 px-3 py-2 text-xs md:text-sm font-medium
+            rounded-lg cursor-pointer"
+            [ngClass]="{'tag-background': (currentTag$ | async) === tag}"
             (click)="onFilterCategory(tag)"
             *ngFor="let tag of tagsArr">
             {{ tag }}

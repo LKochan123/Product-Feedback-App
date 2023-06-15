@@ -1,12 +1,12 @@
 <form [formGroup]="feedbackForm" (submit)="onSubmit()">
     <h2
-        class="text-lg py-3">
+        class="text-dark-blue text-lg py-3 font-semibold">
         {{ !fMode.isEditingPost ? 'Create New Feedback' : headingName }}
     </h2>
 
     <div class="py-3">
-        <h3 class="text-sm">Feedback Title</h3>
-        <label for="title" class="text-xs">Add a short, descriptive headline</label>
+        <h3 class="text-dark-blue text-sm font-medium">Feedback Title</h3>
+        <label for="title" class="text-gray text-xs">Add a short, descriptive headline</label>
         <input
             formControlName="title" 
             type="text" 
@@ -15,8 +15,8 @@
     </div>
 
     <div class="py-3">
-        <h3 class="text-sm">Category</h3>
-        <label for="category" class="text-sm">Choose a category, for your feedback</label>
+        <h3 class="text-dark-blue text-sm font-medium">Category</h3>
+        <label for="category" class="text-gray text-xs">Choose a category, for your feedback</label>
         <select 
             formControlName="category"
             id="category" 
@@ -29,8 +29,8 @@
     </div>
 
     <div *ngIf="fMode.isEditingPost" class="py-3">
-        <h3 class="text-sm">Update Status</h3>
-        <label for="status" class="text-sm">Change Feature State</label>
+        <h3 class="text-dark-blue text-sm font-medium">Update Status</h3>
+        <label for="status" class="text-gray text-sm">Change Feature State</label>
         <select
             formControlName="status" 
             id="status"
@@ -43,8 +43,8 @@
     </div>
 
     <div class="py-3">
-        <h3 class="text-sm">Feedback Detail</h3>
-        <label for="detail" class="text-xs">
+        <h3 class="text-dark-blue text-sm font-medium">Feedback Detail</h3>
+        <label for="detail" class="text-gray text-xs">
             Include any specific comments on what 
             should be improved, added, etc.
         </label>

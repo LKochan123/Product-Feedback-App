@@ -1,25 +1,26 @@
 <header 
     class="
+    bg-header text-white
     max-w-screen-lg lg:mx-auto
-    md:mx-5 md:rounded-lg 
-    flex justify-between items-center bg-header text-white p-4"
+    md:mx-5 p-4 md:rounded-lg 
+    flex justify-between items-center"
     >
     <div 
         *ngIf="actualPage === 'Suggestions'" 
         class="hidden md:flex md:items-center"
         >
         <i class="fa-regular fa-lightbulb mr-2"></i>
-        <p>{{ countSuggestions }} Suggestions</p>
+        <p class="tesxt-sm md:text-md">{{ countSuggestions$ | async }} Suggestions</p>
     </div>
-    <div *ngIf="actualPage === 'Suggestions'">
-        <label for="posts" class="text-sm mr-1">Sort by:</label>
+    <div *ngIf="actualPage === 'Suggestions'" class="text-sm md:text-md">
+        <label for="posts" class="mr-1">Sort by:</label>
         <select
-            class="bg-transparent text-sm" 
+            class="bg-transparent" 
             name="Sorting posts" 
             id="posts"
             >
             <option 
-                class="text-sm text-blue" 
+                class="text-blue"
                 *ngFor="let option of optionArr"
                 [value]="option">
                 {{ option }}
@@ -31,7 +32,7 @@
         <a routerLink="/" class="inline-flex">
             <i class="text-xs fa-solid fa-arrow-left"></i>
             <p
-                class="text-xs ml-2 md:ml-3">
+                class="text-xs md:text-sm ml-2 md:ml-3">
                 Go Back
             </p>
         </a>
@@ -40,7 +41,7 @@
 
     <button
         routerLink="/create-feedback"
-        class="text-sm bg-purple py-2 px-3 rounded-md"
+        class="bg-purple text-sm md:text-md py-2 px-3 rounded-md"
         type="button">
         + Add Feedback
     </button>

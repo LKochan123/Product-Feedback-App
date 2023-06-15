@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { forkJoin, map } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { forkJoin, map, Subscription } from 'rxjs';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-roadmap-box',
   templateUrl: './roadmap-box.component.html'
 })
-export class RoadmapBoxComponent implements OnInit {
+export class RoadmapBoxComponent implements OnInit, OnDestroy {
 
   countPlanned!: number;
   countInProgress!: number;
   countLive!: number;
+  forkSub!: Subscription;
   isLoading = true;
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    forkJoin([
+    this.forkSub = forkJoin([
       this.countStatusOccurance$('Planned'),
       this.countStatusOccurance$('In-Progress'),
       this.countStatusOccurance$('Live')
@@ -32,5 +33,9 @@ export class RoadmapBoxComponent implements OnInit {
     return this.productsService.getPostsByStatus$(status).pipe(
       map(response => response.occurance)
     );
+  }
+
+  ngOnDestroy() {
+    this.forkSub.unsubscribe();
   }
 }

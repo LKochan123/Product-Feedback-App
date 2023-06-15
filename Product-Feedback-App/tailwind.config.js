@@ -8,10 +8,12 @@ module.exports = {
       colors: {
         'purple': '#B11FEA',
         'white': '#fff',
-        'blue': '#4761E6',
         'body': '#F7F8FD',
         'header': '#3a4373',
-        'dark-blue': '#647196',
+        'gray': '#647196',
+        'light-blue': 'rgb(241, 243, 254)',
+        'blue': '#4761E6',
+        'dark-blue': 'rgb(55, 63, 104)',
         'planned-status': 'orange',
         'progress-status': 'rgb(188, 23, 188)',
         'live-status': 'rgb(89, 229, 229)'
