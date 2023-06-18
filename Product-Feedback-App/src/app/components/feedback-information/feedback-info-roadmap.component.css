@@ -13,17 +13,20 @@ article::after {
     border-top-right-radius: 12px;
 }
 
-.planned-circle,
-article.planned::after {
+
+article.planned::after,
+.planned-circle {
     background-color: orange;
 }
 
-.in-progress-circle,
-article.in-progress::after {
+
+article.in-progress::after,
+.in-progress-circle {
     background-color: rgb(188, 23, 188);
 }
 
-.live-circle,
-article.live::after {
+
+article.live::after,
+.live-circle {
     background-color: rgb(89, 229, 229);
 }

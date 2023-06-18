@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -24,6 +25,14 @@ import { UpvotesButtonVerticalComponent } from './components/feedback-informatio
 import { CommentIconComponent } from './components/feedback-information/comment-icon/comment-icon.component';
 import { FeedbackDetailsComponent } from './components/feedback-information/feedback-details/feedback-details.component';
 import { FeedbackInfoRoadmapComponent } from './components/feedback-information/feedback-info-roadmap.component';
+import { SignUpComponent } from './pages/signup/signup.component';
+import { SignUpFormComponent } from './components/auth/signup/signup-form.component';
+import { LoginFormComponent } from './components/auth/login/login-form.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { DropdownMenuComponent } from './components/buttons/dropdown-menu/dropdown-menu.component';
+import { AddFeedbackButtonComponent } from './components/buttons/add-feedback-button/add-feedback-button.component';
+import { LoginButtonComponent } from './components/buttons/login-button/login-button.component';
 
 @NgModule({
   declarations: [
@@ -43,18 +52,28 @@ import { FeedbackInfoRoadmapComponent } from './components/feedback-information/
     UpvotesButtonVerticalComponent,
     CommentIconComponent,
     FeedbackDetailsComponent,
-    FeedbackInfoRoadmapComponent
+    FeedbackInfoRoadmapComponent,
+    SignUpFormComponent,
+    SignUpComponent,
+    LoginFormComponent,
+    LoginComponent,
+    DropdownMenuComponent,
+    AddFeedbackButtonComponent,
+    LoginButtonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,6 @@ import { Post } from 'src/app/models/post.model';
 import { forkJoin } from 'rxjs';
 
 @Component({
-    selector: 'app-roadmap',
     templateUrl: './roadmap.component.html',
     styleUrls: ['./roadmap.component.css']
 })

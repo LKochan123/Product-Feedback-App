@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
-    selector: 'app-feedback-post',
-    templateUrl: './create-feedback.component.html'
-  })
+  templateUrl: './create-feedback.component.html'
+})
 export class CreateFeedbackComponent implements OnInit {
 
   formMode!: { 

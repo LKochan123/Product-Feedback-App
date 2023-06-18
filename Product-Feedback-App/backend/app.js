@@ -2,8 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const feedbackRoutes = require('./routes/feedbacks')
-const DB_URL = require('./db')
+const feedbackRoutes = require('./routes/feedbacks');
+const userRoutes = require('./routes/user');
+const DB_URL = require('./db');
 
 const app = express();
 
@@ -30,15 +31,16 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
         'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Contetnt-Type, Accept'
+        'Origin, X-Requested-With, Contetnt-Type, Accept, Authorization'
     );
     res.setHeader(
         'Acces-Control-Allow-Methods', 
-        'GET, POST, DELETE, PUT, OPTIONS'
+        'GET, POST, DELETE, PUT, PATCH, OPTIONS'
     );
     next();
 });
 
 app.use('/feedbacks', feedbackRoutes);
+app.use('/user', userRoutes);
 
 module.exports = app;

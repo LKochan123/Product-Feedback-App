@@ -1,6 +1,6 @@
 <form [formGroup]="feedbackForm" (submit)="onSubmit()">
     <h2
-        class="text-dark-blue text-lg py-3 font-semibold">
+        class="text-dark-blue text-base md:text-lg py-3 font-semibold">
         {{ !fMode.isEditingPost ? 'Create New Feedback' : headingName }}
     </h2>
 
@@ -11,7 +11,7 @@
             formControlName="title" 
             type="text" 
             id="title" 
-            class="bg-body w-full p-3 mt-3 rounded-lg">
+            class="bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue">
     </div>
 
     <div class="py-3">
@@ -20,7 +20,8 @@
         <select 
             formControlName="category"
             id="category" 
-            class="bg-body w-full p-3 mt-3 rounded-lg"
+            class="select-arrow
+            bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
             >
             <option *ngFor="let category of categoryOptions" [value]="category">
                 {{ category }}
@@ -30,11 +31,12 @@
 
     <div *ngIf="fMode.isEditingPost" class="py-3">
         <h3 class="text-dark-blue text-sm font-medium">Update Status</h3>
-        <label for="status" class="text-gray text-sm">Change Feature State</label>
+        <label for="status" class="text-gray text-xs">Change Feature State</label>
         <select
             formControlName="status" 
             id="status"
-            class="bg-body w-full p-3 mt-3 rounded-lg"
+            class="select-arrow 
+            bg-body text-sm w-full p-3 mt-3 rounded-lg outline-blue"
             >
             <option *ngFor="let status of statusOptions" [value]="status">
                 {{ status }}
@@ -52,32 +54,32 @@
             formControlName="detail" 
             id="detail" 
             class="
-            bg-body w-full p-3 mt-3 rounded-lg 
-            min-h-[60px] h-24 max-h-60">
+            bg-body w-full text-sm p-3 mt-3 rounded-lg 
+            min-h-[80px] h-24 max-h-60 outline-blue">
         </textarea>
     </div>
 
     <div class="
+        sm:relative
         flex flex-col sm:flex-row-reverse sm:justify-start 
-        w-full py-3 mt-4">
+        w-full py-3 mt-4 text-white">
         <button
             type="submit" 
             class="
-            bg-purple text-sm text-white p-3 sm:px-6 rounded-xl 
-            mb-3 sm:mb-0 sm:ml-3">
+            bg-purple text-sm p-3 sm:px-6 rounded-xl">
             {{ !fMode.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
         </button>
         <button
             routerLink="/" 
             type="button" 
-            class="bg-dark-blue text-sm text-white p-3 sm:px-6 rounded-xl">
+            class="bg-dark-blue text-sm  p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl">
             Cancel
         </button>
         <button
             type="button"  
             *ngIf="fMode.isEditingPost"
             (click)="onDelete(fMode.id)" 
-            class="text-sm text-white p-3 mx-3 bg-red-500 rounded-xl">
+            class="bg-red-500 text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl">
             Delete
         </button>
     </div>

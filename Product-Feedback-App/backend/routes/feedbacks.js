@@ -1,9 +1,10 @@
 const express = require('express');
 const Feedback = require('../models/feedback');
+const checkAuth = require('../middleware/check-auth');
 
 const router = express.Router();
 
-router.post('', async (req, res, next) => {
+router.post('', checkAuth, async (req, res, next) => {
     
     const feedback = new Feedback({
         title: req.body.title,
@@ -20,7 +21,7 @@ router.post('', async (req, res, next) => {
     });
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', checkAuth, async (req, res, next) => {
     
     try {
         await Feedback.deleteOne({ _id: req.params.id });
@@ -32,7 +33,7 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', checkAuth, async (req, res, next) => {
     try {
         const feedback = await Feedback.findById({ _id: req.params.id });
         if (!feedback) {

@@ -6,7 +6,12 @@ import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-feedback-form',
-    templateUrl: './feedback-form.component.html'
+    templateUrl: './feedback-form.component.html',
+    styles: [
+      `.select-arrow {
+        border-right: 12px solid transparent;
+      }`
+    ]
 })
 export class FeedbackFormComponent implements OnInit {
 
