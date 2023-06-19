@@ -1,0 +1,15 @@
+<div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
+    <div class="flex justify-between items-center">
+        <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
+        <app-edit-button [feedbackID]="feedbackID"></app-edit-button>
+    </div>
+
+    <section *ngIf="!isLoading" >
+        <app-feedback-information [feedback]="feedback"></app-feedback-information>
+        <app-add-comment ></app-add-comment>     
+    </section>
+
+    <mat-spinner 
+        *ngIf="isLoading" color="accent" class="mx-auto">
+    </mat-spinner>
+</div>

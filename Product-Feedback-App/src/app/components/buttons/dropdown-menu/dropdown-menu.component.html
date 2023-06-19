@@ -3,11 +3,13 @@
         (click)="onShowDropdown()" 
         type="button" 
         class="flex flex-row items-center
-        bg-purple py-2 px-4 rounded-md">
-        <p class="pr-2">Username</p>
+        bg-purple py-2 px-3 md:px-4 rounded-md">
+        <p class="pr-2">{{ username }}</p>
         <i class="fa-solid fa-caret-down"></i>
     </button>
-    <ul class="
+    <ul
+    *ngIf="showDropdown" 
+    class="
     absolute left-0 top-full w-full py-2 px-3 rounded-md shadow-md
     text-dark-blue bg-white text-sm"
     [ngClass]="showDropdown ? 'opacity-1' : 'opacity-0'">

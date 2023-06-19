@@ -1,0 +1,28 @@
+<form 
+    #commentForm="ngForm" 
+    (submit)="onSubmit(commentForm)" 
+    class="bg-white p-5 rounded-xl"
+    >
+    <h3 class="text-dark-blue font-medium text-sm md:text-base">Add Comment</h3>
+    <textarea 
+        name="Add comment"
+        required
+        [maxlength]="250"
+        [(ngModel)]="comment"
+        name="comment"
+        placeholder="Type your comment here..."
+        class="resize-y bg-body text-dark-blue w-full text-xs md:text-sm my-2 md:my-4 p-2 
+        min-h-[40px] h-16 max-h-40 rounded-lg outline-blue">
+    </textarea>
+    <div class="flex justify-between items-center">
+        <p class="text-dark-blue text-xs md:text-sm">
+            <span>{{ 250 - comment.length }}</span> 
+            Characters left
+        </p>
+        <button 
+            class="bg-purple text-white text-xs md:text-sm p-2 md:px-4 
+            rounded-md cursor-pointer">
+            Post Comment
+        </button>
+    </div>
+</form>

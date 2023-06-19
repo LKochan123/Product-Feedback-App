@@ -1,5 +1,5 @@
 <article
-    [routerLink]="['/', 'edit-feedback', post._id]"
+    [routerLink]="['/', 'feedback', post._id]"
     *ngFor="let post of feedbackArr" 
     class="bg-white p-5 my-4 rounded-xl cursor-pointer"
     [ngClass]="post.status.toLowerCase()"

@@ -6,21 +6,21 @@
                 <a 
                     (click)="onStatusChange('Planned')"
                     [ngClass]="{'active planned': currentStatus === 'Planned'}">
-                    Planned ({{ countPlanned }})
+                    Planned ({{ countPlanned ?? '..' }})
                 </a>
             </li>
             <li>
                 <a 
                     (click)="onStatusChange('In-Progress')"
                     [ngClass]="{'active in-progress': currentStatus === 'In-Progress'}">
-                    In-Progress ({{ countInProgress }})
+                    In-Progress ({{ countInProgress ?? '..' }})
                 </a>
             </li>
             <li>
                 <a 
                     (click)="onStatusChange('Live')" 
                     [ngClass]="{'active live': currentStatus === 'Live'}">
-                    Live ({{ countLive }})
+                    Live ({{ countLive ?? '..' }})
                 </a>
             </li>
         </ul>
@@ -31,7 +31,7 @@
     <section class="px-5 py-6 lg:px-0">
         <div *ngIf="!isLoading" [ngSwitch]="currentStatus" class="md:hidden">
             <div *ngSwitchCase="'Planned'">
-                <h3 class="text-base">Planned ({{ countPlanned }})</h3>
+                <h3 class="text-base">Planned ({{ countPlanned ?? '..' }})</h3>
                 <p class="text-sm">Ideas prioritized for research</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="plannedFeedbacks">
@@ -39,7 +39,7 @@
             </div>
 
             <div *ngSwitchCase="'In-Progress'">
-                <h3 class="text-base">In Progress ({{ countInProgress }})</h3>
+                <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
                 <p class="text-sm">Features currently being developed</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="inProgressFeedbacks">
@@ -47,7 +47,7 @@
             </div>
 
             <div *ngSwitchCase="'Live'">
-                <h3 class="text-base">Live ({{ countLive }})</h3>
+                <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
                 <p class="text-sm">Released features</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="liveFeedbacks">
@@ -58,7 +58,7 @@
         <!-- > 768px -->
         <div class="hidden md:flex md:flex-row md:gap-2 lg:gap-4">
             <div class="w-full lg:w-1/3">
-                <h3 class="text-base">Planned ({{ countPlanned }})</h3>
+                <h3 class="text-base">Planned ({{ countPlanned ?? '..'  }})</h3>
                 <p class="text-sm">Ideas prioritized for research</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="plannedFeedbacks">
@@ -66,7 +66,7 @@
             </div>
 
             <div class="w-full lg:w-1/3">
-                <h3 class="text-base">In Progress ({{ countInProgress }})</h3>
+                <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
                 <p class="text-sm">Features currently being developed</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="inProgressFeedbacks">
@@ -74,7 +74,7 @@
             </div>
 
             <div class="w-full lg:w-1/3">
-                <h3 class="text-base">Live ({{ countLive }})</h3>
+                <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
                 <p class="text-sm">Released features</p>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="liveFeedbacks">

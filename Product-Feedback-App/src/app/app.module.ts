@@ -33,6 +33,11 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { DropdownMenuComponent } from './components/buttons/dropdown-menu/dropdown-menu.component';
 import { AddFeedbackButtonComponent } from './components/buttons/add-feedback-button/add-feedback-button.component';
 import { LoginButtonComponent } from './components/buttons/login-button/login-button.component';
+import { ReturnHomeButtonComponent } from './components/buttons/return-home-button/return-home-button';
+import { FeedbackIdComponent } from './pages/feedback-id/feedback-id.component';
+import { EditButtonComponent } from './components/buttons/edit-button/edit-button.component';
+import { AddCommentComponent } from './components/comments/add-comment/add-comment.component';
+import { CommentComponent } from './components/comments/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +64,12 @@ import { LoginButtonComponent } from './components/buttons/login-button/login-bu
     LoginComponent,
     DropdownMenuComponent,
     AddFeedbackButtonComponent,
-    LoginButtonComponent
+    LoginButtonComponent,
+    ReturnHomeButtonComponent,
+    FeedbackIdComponent,
+    EditButtonComponent,
+    AddCommentComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

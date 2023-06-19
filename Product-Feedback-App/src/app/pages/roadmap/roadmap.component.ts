@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { Post } from 'src/app/models/post.model';
-import { forkJoin } from 'rxjs';
+import { combineLatest } from 'rxjs';
 
 @Component({
     templateUrl: './roadmap.component.html',
@@ -13,9 +13,9 @@ export class RoadmapComponent implements OnInit {
     inProgressFeedbacks!: Post[];
     liveFeedbacks!: Post[];
 
-    countPlanned!: number;
-    countInProgress!: number;
-    countLive!: number;
+    countPlanned: number | null = null;
+    countInProgress: number | null = null;
+    countLive: number | null = null;
 
     currentStatus = 'Planned';
     isLoading = true;
@@ -27,7 +27,7 @@ export class RoadmapComponent implements OnInit {
         const inProgress$ = this.productsService.getPostsByStatus$('In-Progress');
         const live$ = this.productsService.getPostsByStatus$('Live');
 
-        forkJoin([planned$, inProgress$, live$]).subscribe(([plannedRes, inProgressRes, liveRes]) => {
+        combineLatest([planned$, inProgress$, live$]).subscribe(([plannedRes, inProgressRes, liveRes]) => {
             this.plannedFeedbacks = plannedRes.feedbacks;
             this.countPlanned = plannedRes.occurance;
       

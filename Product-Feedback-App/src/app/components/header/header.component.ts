@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SuggestionsCountService } from 'src/app/services/suggestions-count.service';
-import { Observable, Subscription, forkJoin } from 'rxjs';
+import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,10 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   @Input() actualPage!: string;
-  isAuthenticatedSub!: Subscription;
+  username!: string | null;
   isAuthenticated = false;
   showDropdown = false;
   countSuggestions$!: Observable<number|string>;
@@ -25,9 +25,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuthenticated();
-    this.isAuthenticatedSub = this.authService.getIsAuthenticated$().subscribe(isLogin => {
-      this.isAuthenticated = isLogin;
-    })
     this.suggestionCountService.setCountDisplayedSuggestions();
     this.countSuggestions$ = this.suggestionCountService.getCountDisplayedSuggestions$().pipe(
       startWith('..')
@@ -40,10 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onShowDropdown() {
     this.showDropdown = !this.showDropdown;
-  }
-
-  ngOnDestroy() {
-    this.isAuthenticatedSub.unsubscribe();
   }
 
 }

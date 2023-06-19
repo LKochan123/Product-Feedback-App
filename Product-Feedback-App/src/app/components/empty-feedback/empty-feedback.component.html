@@ -8,5 +8,6 @@
         Got a suggestion? Found a bug that need to be squashed?
         We love hearing about new ideas to improve your app.
     </p>
-    <app-add-feedback-button></app-add-feedback-button>
+    <app-add-feedback-button *ngIf="isAuthenticated"></app-add-feedback-button>
+    <app-login-button  *ngIf="!isAuthenticated"></app-login-button>
 </div>

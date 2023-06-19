@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Subject, Observable } from 'rxjs'
 
 @Injectable({ 
@@ -9,7 +10,7 @@ import { Subject, Observable } from 'rxjs'
 export class AuthService {
 
     private isAuthenticated = false;
-    private isAuthenticated$ = new Subject<boolean>();
+    private currentUser$ = new Subject<string | null>();
     private token!: string;
     private tokenTimer!: any;
     private url = 'http://localhost:3000/user';
@@ -24,8 +25,8 @@ export class AuthService {
         return this.isAuthenticated;
     }
 
-    getIsAuthenticated$(): Observable<boolean> {
-        return this.isAuthenticated$.asObservable();
+    getCurrentUser$(): Observable<string | null> {
+        return this.currentUser$.asObservable();
     }
 
     signUp(username: string, email: string, password: string) {
@@ -56,8 +57,8 @@ export class AuthService {
                 const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
 
                 this.isAuthenticated = true;
-                this.isAuthenticated$.next(true);
-                this.saveTokenInLocalStorage(this.token, expirationDate);
+                this.currentUser$.next(username);
+                this.saveDataInLocalStorage(this.token, expirationDate, username);
                 this.router.navigate(['/']);
             }
         });
@@ -65,7 +66,7 @@ export class AuthService {
 
     logOut() {
         this.isAuthenticated = false;
-        this.isAuthenticated$.next(false);
+        this.currentUser$.next(null);
         this.clearLocalStorage();
         clearTimeout(this.tokenTimer);
     }
@@ -82,7 +83,7 @@ export class AuthService {
             this.isAuthenticated = true;
             this.token = authoDetails!.token;
             this.setAuthTimer(expiresIn / 1000);
-            this.isAuthenticated$.next(true);
+            this.currentUser$.next(authoDetails.username);
         }
     }
 
@@ -92,24 +93,28 @@ export class AuthService {
         }, duration * 1000);
     }
 
-    private saveTokenInLocalStorage(token: string, expirationDate: Date) {
+    private saveDataInLocalStorage(token: string, expirationDate: Date, username: string) {
         localStorage.setItem('token', token);
         localStorage.setItem('expiration', expirationDate.toISOString());
+        localStorage.setItem('username', username);
     }
 
     private clearLocalStorage() {
         localStorage.removeItem('token');
         localStorage.removeItem('expiration');
+        localStorage.removeItem('username');
     }
 
     private getLocalStorage() {
         const token = localStorage.getItem('token');
         const expirationDate = localStorage.getItem('expiration');
+        const username = localStorage.getItem('username');
 
-        if (token && expirationDate) {
+        if (token && expirationDate && username) {
             return {
                 token: token,
-                expirationDate: new Date(expirationDate)
+                expirationDate: new Date(expirationDate),
+                username: username
             }
         } else {
             return;
