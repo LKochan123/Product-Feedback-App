@@ -1,3 +1,25 @@
-<div>
-    
+<div class="bg-white p-5 rounded-xl mb-4">
+    <div class="text-dark-blue">
+
+        <h3 class="font-medium text-sm md:text-base">4 Comments</h3>
+
+        <div class="text-xs md:text-sm my-3 px-1 md:my-5">
+            <div class="flex">
+                <app-comment-photo></app-comment-photo>
+                <div>
+                    <app-comment-content></app-comment-content>
+                    <!-- Comment Reply -->
+                    <div class="-ml-4 sm:-ml-5 mt-5 flex">
+                        <app-comment-photo></app-comment-photo>
+                        <div>
+                            <app-comment-content></app-comment-content>
+                            <app-comment-reply></app-comment-reply>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="text-gray mt-3 md:mt-5">
+        </div>
+
+    </div>
 </div>

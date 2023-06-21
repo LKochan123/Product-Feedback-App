@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         'purple': '#B11FEA',
         'white': '#fff',
-        'body': '#F7F8FD',
+        'body': 'rgb(242, 242, 242)',
         'header': '#3a4373',
         'gray': '#647196',
         'light-blue': 'rgb(241, 243, 254)',
@@ -20,6 +20,7 @@ module.exports = {
       },
     },
     screens: {
+      xs: '360px',
       sm: '480px',
       md: '768px',
       lg: '976px',

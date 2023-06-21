@@ -1,7 +1,6 @@
 <article
-    [routerLink]="['/', 'feedback', post._id]"
     *ngFor="let post of feedbackArr" 
-    class="bg-white p-5 my-4 rounded-xl cursor-pointer"
+    class="bg-white p-5 my-4 rounded-xl"
     [ngClass]="post.status.toLowerCase()"
     >
     <div class="flex flex-row items-center mb-3">
@@ -14,7 +13,8 @@
 
     <app-feedback-details
         [feedbackDetails]="
-        { 
+        {
+            _id: post._id, 
             title: post.title, 
             description: post.description, 
             category: post.category 

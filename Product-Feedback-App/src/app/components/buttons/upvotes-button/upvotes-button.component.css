@@ -1,0 +1,17 @@
+.upvotes-button {
+    transition: background-color .3s;
+}
+
+i, p {
+    transition: color .3s;
+}
+
+.upvotes-button:hover {
+    background-color: #818fd8;
+    cursor: pointer;
+}
+
+.upvotes-button:hover > i,
+.upvotes-button:hover > p {
+    color: white;
+}

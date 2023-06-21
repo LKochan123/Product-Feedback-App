@@ -1,11 +1,9 @@
-<article
-    [routerLink]="['feedback', feedback._id]"
-    class="bg-white p-5 my-4 rounded-xl cursor-pointer"
-    >
+<article class="bg-white p-5 my-4 rounded-xl">
     <div class="md:hidden">
         <app-feedback-details
             [feedbackDetails]="
-            { 
+            {
+                _id: feedback._id, 
                 title: feedback.title, 
                 description: feedback.description, 
                 category: feedback.category 
@@ -28,7 +26,8 @@
             <app-feedback-details
                 class="flex-grow"
                 [feedbackDetails]="
-                { 
+                {
+                    _id: feedback._id, 
                     title: feedback.title, 
                     description: feedback.description, 
                     category: feedback.category 

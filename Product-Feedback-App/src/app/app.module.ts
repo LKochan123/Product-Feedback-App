@@ -20,8 +20,8 @@ import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedba
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { CategoryPipe } from './pipes/category.pipe';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
-import { UpvotesButtonHorizontalComponent } from './components/feedback-information/upvotes-button-horizontal/upvotes-button-horizontal.component';
-import { UpvotesButtonVerticalComponent } from './components/feedback-information/upvotes-button-vertical/upvotes-button-vertical.component';
+import { UpvotesButtonHorizontalComponent } from './components/buttons/upvotes-button/upvotes-button-horizontal.component';
+import { UpvotesButtonVerticalComponent } from './components/buttons/upvotes-button/upvotes-button-vertical.component';
 import { CommentIconComponent } from './components/feedback-information/comment-icon/comment-icon.component';
 import { FeedbackDetailsComponent } from './components/feedback-information/feedback-details/feedback-details.component';
 import { FeedbackInfoRoadmapComponent } from './components/feedback-information/feedback-info-roadmap.component';
@@ -38,6 +38,9 @@ import { FeedbackIdComponent } from './pages/feedback-id/feedback-id.component';
 import { EditButtonComponent } from './components/buttons/edit-button/edit-button.component';
 import { AddCommentComponent } from './components/comments/add-comment/add-comment.component';
 import { CommentComponent } from './components/comments/comment/comment.component';
+import { CommentReplyComponent } from './components/comments/comment-reply/comment-reply.component';
+import { CommentPhotoComponent } from './components/comments/comment-photo/comment-photo.component';
+import { CommentContentComponent } from './components/comments/comment-content/comment-content.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +72,10 @@ import { CommentComponent } from './components/comments/comment/comment.componen
     FeedbackIdComponent,
     EditButtonComponent,
     AddCommentComponent,
-    CommentComponent
+    CommentComponent,
+    CommentReplyComponent,
+    CommentPhotoComponent,
+    CommentContentComponent,
   ],
   imports: [
     BrowserModule,
