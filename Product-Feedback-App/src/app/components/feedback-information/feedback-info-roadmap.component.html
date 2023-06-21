@@ -1,29 +1,29 @@
 <article
-    *ngFor="let post of feedbackArr" 
+    *ngFor="let feedback of feedbackArr" 
     class="bg-white p-5 my-4 rounded-xl"
-    [ngClass]="post.status.toLowerCase()"
+    [ngClass]="feedback.status.toLowerCase()"
     >
     <div class="flex flex-row items-center mb-3">
         <div 
-            [ngClass]="post.status.toLowerCase().concat('-circle')" 
+            [ngClass]="feedback.status.toLowerCase().concat('-circle')" 
             class="w-2 h-2 mr-2 rounded-full">
         </div>
-        <p class="text-xs">{{ post.status }}</p>
+        <p class="text-xs">{{ feedback.status }}</p>
     </div>
 
     <app-feedback-details
         [feedbackDetails]="
         {
-            _id: post._id, 
-            title: post.title, 
-            description: post.description, 
-            category: post.category 
+            _id: feedback._id, 
+            title: feedback.title, 
+            description: feedback.description, 
+            category: feedback.category 
         }">
     </app-feedback-details>
 
     <div class="flex justify-between items-center text-sm mt-4">
         <app-upvotes-button-horizontal 
-            [upvotes]="post.upvotes">
+            [upvotesDetail]="{id: feedback._id, upvotes: feedback.upvotes}">
         </app-upvotes-button-horizontal>
         <app-comment-icon [comments]="0"></app-comment-icon>
     </div>

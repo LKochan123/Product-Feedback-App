@@ -1,4 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
     selector: 'app-upvotes-button-vertical',
@@ -14,18 +17,43 @@ import { Component, Input } from '@angular/core';
         </i>
         <p
             [ngClass]="isClicked ? 'text-white' : 'text-dark-blue'" 
-            class="mt-1">{{ upvotes }}
+            class="mt-1">{{ upvotesDetail.upvotes.length }}
         </p>
     </div>
     `,
     styleUrls: ['./upvotes-button.component.css']
 })
-export class UpvotesButtonVerticalComponent {
-    @Input() upvotes!: number;
-    isClicked = false;
+export class UpvotesButtonVerticalComponent implements OnInit {
+    @Input() upvotesDetail!: {id: string, upvotes: string[]};
+    isClicked!: boolean;
+    userID!: string | null;
+    
+    constructor(private productsService: ProductsService, 
+        private authService: AuthService) { }
+
+    ngOnInit() {
+        this.userID = this.authService.getCurrentUserID();
+
+        this.productsService.getPostById$(this.upvotesDetail.id).pipe(
+            map(response => response.feedback.upvotes),
+            map(upvotesArr => upvotesArr.includes(this.userID!))).subscribe(isUpvoted => {
+                this.isClicked = isUpvoted;
+            }
+        );
+    }
 
     onUpvotesButton() {
-        this.upvotes = this.isClicked ? this.upvotes - 1 : this.upvotes + 1;
-        this.isClicked = !this.isClicked;
+        if (this.authService.getIsAuthenticated()) {
+
+            if (this.isClicked) {
+                this.upvotesDetail.upvotes.length -= 1;
+                this.productsService.upvotesOnPost(this.upvotesDetail.id, false);
+            } else {
+                this.upvotesDetail.upvotes.length += 1;
+                this.productsService.upvotesOnPost(this.upvotesDetail.id, true);
+            }
+            
+            this.isClicked = !this.isClicked;
+        }
     }
 }

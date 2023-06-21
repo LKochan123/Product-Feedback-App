@@ -57,7 +57,6 @@ export class ProductsService {
         const feedback = {
             title: title, 
             category: category,
-            upvotes: 0,
             status: status, 
             description: detail
         };
@@ -65,6 +64,16 @@ export class ProductsService {
         this.http.patch<{message: string}>(this.url + id, feedback).subscribe(res => {
             this.navigateByStatus(status);
         })
+    }
+
+    upvotesOnPost(id: string, upvote: boolean) {
+
+        const isUpvoted = {
+            upvote: upvote,
+            downvote: !upvote
+        }
+
+        this.http.patch<{message: string}>(this.url + 'upvotes/' + id, isUpvoted).subscribe();
     }
 
     navigateByStatus(status: string) {
