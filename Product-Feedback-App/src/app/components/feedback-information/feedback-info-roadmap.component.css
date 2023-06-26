@@ -13,6 +13,10 @@ article::after {
     border-top-right-radius: 12px;
 }
 
+article.empty::after {
+    background-color: rgb(176, 34, 34);
+}
+
 
 article.planned::after,
 .planned-circle {

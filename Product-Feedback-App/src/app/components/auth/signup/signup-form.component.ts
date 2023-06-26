@@ -48,9 +48,7 @@ export class SignUpFormComponent implements OnInit {
 
     onCreateUser() {
         if (this.signUpForm.valid) {
-            const username = this.signUpForm.value.username;
-            const email = this.signUpForm.value.email;
-            const password = this.signUpForm.value.password;
+            const { username, email, password } = this.signUpForm.value;
             this.authService.signUp(username, email, password);
         } else {
             console.log('Form invalid!')

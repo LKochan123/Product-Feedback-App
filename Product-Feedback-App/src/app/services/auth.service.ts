@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, Observable } from 'rxjs'
+import { User } from '../models/user.model';
 
 @Injectable({ 
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
     private currentUserID!: string | null;
     private token!: string;
     private tokenTimer!: any;
-    private url = 'http://localhost:3000/user';
+    private url = 'http://localhost:3000/user/';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -33,6 +34,19 @@ export class AuthService {
         return this.currentUserID;
     }
 
+    getUserDetailsByID() {
+        return;
+    }
+
+    getUserById(id: string) {
+        return this.http.get<{message: string, user: User}>(this.url + id);
+    }
+
+    getUserByIDs(ids: string[]) {
+        const query = `?ids=${ids.join(',')}`;
+        return this.http.get<{message: string, users: User[]}>(this.url + 'multiple' + query);
+    }
+
     signUp(username: string, email: string, password: string) {
         const user = {
             username: username,
@@ -40,7 +54,7 @@ export class AuthService {
             password: password
         };
 
-        this.http.post(this.url + '/signup', user).subscribe(response => {
+        this.http.post(this.url + 'signup', user).subscribe(response => {
             this.router.navigate(['/login']);
         });
     }
@@ -51,7 +65,7 @@ export class AuthService {
             password: password
         };
 
-        this.http.post<{id: string, token: string, expiresIn: number}>(this.url + '/login', user)
+        this.http.post<{id: string, token: string, expiresIn: number}>(this.url + 'login', user)
         .subscribe(response => {
             this.token = response.token;
             if (this.token) {

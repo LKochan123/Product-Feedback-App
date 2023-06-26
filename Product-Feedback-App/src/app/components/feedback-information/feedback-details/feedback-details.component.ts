@@ -11,4 +11,8 @@ export class FeedbackDetailsComponent {
     description: string,
     category: string
   }
+
+  ngOnInit() {
+    // console.log(this.feedbackDetails);
+  }
 }

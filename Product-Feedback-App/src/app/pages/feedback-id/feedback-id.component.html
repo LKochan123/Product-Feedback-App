@@ -4,11 +4,13 @@
         <app-edit-button [feedbackID]="feedbackID"></app-edit-button>
     </div>
 
-    <section *ngIf="!isLoading" >
+    <ng-container *ngIf="(feedback$ | async) as feedback">
         <app-feedback-information [feedback]="feedback"></app-feedback-information>
-        <app-comment></app-comment>
-        <app-add-comment ></app-add-comment>     
-    </section>
+        <div *ngIf="feedback.comments.length">
+            <app-comment [commentsIds]="feedback.comments"></app-comment>
+        </div>
+        <app-add-comment [feedbackID]="feedbackID!"></app-add-comment>  
+    </ng-container>
 
     <mat-spinner 
         *ngIf="isLoading" color="accent" class="mx-auto">

@@ -12,15 +12,15 @@
 
         <div class="flex justify-between items-center mt-4">
             <app-upvotes-button-horizontal 
-                [upvotesDetail]="{id: feedback._id, upvotes: feedback.upvotes}">
+                [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes }">
             </app-upvotes-button-horizontal>
-            <app-comment-icon [comments]="0"></app-comment-icon>
+            <app-comment-icon [comments]="feedback.comments.length"></app-comment-icon>
         </div>
     </div>
 
     <div class="hidden md:flex gap-5 px-2">
         <app-upvotes-button-vertical 
-            [upvotesDetail]="{id: feedback._id, upvotes: feedback.upvotes}">
+            [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes }">
         </app-upvotes-button-vertical>
         <div class="flex-grow flex flex-row items-center gap-5">
             <app-feedback-details
@@ -33,7 +33,7 @@
                     category: feedback.category 
                 }">
             </app-feedback-details>
-            <app-comment-icon [comments]="0"></app-comment-icon>
+            <app-comment-icon [comments]="feedback.comments.length"></app-comment-icon>
         </div>
     </div>
 </article>

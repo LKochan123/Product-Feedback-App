@@ -1,19 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, map } from 'rxjs';
+import { ProductsService } from './products.service';
+import { Comment } from '../models/comment.model';
 
 @Injectable({ 
     providedIn: 'root'
 })
 export class CommentsService {
 
-    private replyComment$ = new Subject<string | null>();
+    private replyComment$ = new Subject<{id: string, username: string | null}>();
+    private url = 'http://localhost:3000/feedbacks/';
+    private commentURL = 'http://localhost:3000/comment/';
 
-    getReplayComment$(): Observable<string | null> {
+    constructor(private http: HttpClient, 
+        private productsService: ProductsService) { }
+
+    getReplayComment$(): Observable<{id: string, username: string | null}> {
         return this.replyComment$.asObservable();
     }
 
-    setReplyComment(username: string | null) {
-        this.replyComment$.next(username);
+    setReplyComment(id: string, username: string | null) {
+        this.replyComment$.next({id: id, username: username});
     }
 
+    sendComment(feedbackID: string, text: string) {
+        const request = { text: text };
+        this.http.post<{message: string}>(this.url + feedbackID + '/comments', request).subscribe(res => {
+            console.log(res);
+        })
+    }
+
+    getCommentsToEachFeedback(feedbackID: string) {
+        return this.productsService.getPostById$(feedbackID).pipe(
+            map(res => res.feedback.comments)
+        );
+    }
+
+    getCommentsByIDs(ids: string[]) {
+        const query = `?ids=${ids.join(',')}`;
+        return this.http.get<{message: string, comments: Comment[]}>(this.commentURL + 'multiple' + query);
+    }
+
+    getCommentByID(id: string) { 
+        return this.http.get<{message: string, comment: Comment}>(this.commentURL + id);
+    }
 }

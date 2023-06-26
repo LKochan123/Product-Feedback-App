@@ -24,7 +24,7 @@ import { map } from 'rxjs';
     styleUrls: ['./upvotes-button.component.css']
 })
 export class UpvotesButtonHorizontalComponent implements OnInit {
-    @Input() upvotesDetail!: {id: string, upvotes: string[]};
+    @Input() upvotesDetail!: { _id: string, upvotes: string[] };
     isClicked!: boolean;
     userID!: string | null;
 
@@ -34,7 +34,7 @@ export class UpvotesButtonHorizontalComponent implements OnInit {
     ngOnInit() {
         this.userID = this.authService.getCurrentUserID();
 
-        this.productsService.getPostById$(this.upvotesDetail.id).pipe(
+        this.productsService.getPostById$(this.upvotesDetail._id).pipe(
             map(response => response.feedback.upvotes),
             map(upvotesArr => upvotesArr.includes(this.userID!))).subscribe(isUpvoted => {
                 this.isClicked = isUpvoted;
@@ -48,10 +48,10 @@ export class UpvotesButtonHorizontalComponent implements OnInit {
 
             if (this.isClicked) {
                 this.upvotesDetail.upvotes.length -= 1;
-                this.productsService.upvotesOnPost(this.upvotesDetail.id, false);
+                this.productsService.upvotesOnPost(this.upvotesDetail._id, false);
             } else {
                 this.upvotesDetail.upvotes.length += 1;
-                this.productsService.upvotesOnPost(this.upvotesDetail.id, true);
+                this.productsService.upvotesOnPost(this.upvotesDetail._id, true);
             }
             
             this.isClicked = !this.isClicked;

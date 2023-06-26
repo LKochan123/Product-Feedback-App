@@ -55,10 +55,7 @@ export class FeedbackFormComponent implements OnInit {
     }
   
     onSubmit() {
-      const title = this.feedbackForm.value.title;
-      const category = this.feedbackForm.value.category;
-      const detail = this.feedbackForm.value.detail;
-      const status = this.feedbackForm.value.status;
+      const { title, category, status, detail } = this.feedbackForm.value;
 
       if (this.feedbackForm.valid) {
         if (this.fMode.id) {

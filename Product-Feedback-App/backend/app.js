@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const feedbackRoutes = require('./routes/feedbacks');
 const userRoutes = require('./routes/user');
+const commentRoutes = require('./routes/comments');
 const DB_URL = require('./db');
 
 const app = express();
@@ -42,5 +43,6 @@ app.use((req, res, next) => {
 
 app.use('/feedbacks', feedbackRoutes);
 app.use('/user', userRoutes);
+app.use('/comment', commentRoutes);
 
 module.exports = app;

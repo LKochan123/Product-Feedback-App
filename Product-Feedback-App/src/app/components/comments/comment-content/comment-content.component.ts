@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -7,11 +7,21 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentContentComponent {
 
-    username = 'James Skriner';
+    @Input() comment!: {
+        _id: string,
+        author: string,
+        email: string,
+        text: string
+    };
 
     constructor(private commentsService: CommentsService) { }
 
+    ngOnInit() {
+        // console.log(this.username)
+    }
+
     onReplyComment() {
-        this.commentsService.setReplyComment(this.username);
+        const { _id, author } = this.comment;
+        this.commentsService.setReplyComment(_id, author);
     }
 }

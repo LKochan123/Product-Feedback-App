@@ -1,7 +1,5 @@
-import { User } from "./user.model";
-
 export interface Comment {
-    id: number,
-    content: string,
-    user: User
+    _id: string,
+    author: string,
+    text: string
 }

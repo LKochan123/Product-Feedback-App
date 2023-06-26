@@ -53,4 +53,55 @@ router.post("/login", async (req, res, next) => {
     });
 })
 
+router.get('', async (req, res, next) => {
+    try {
+        const users = await User.find().select('-password');
+        const countUsers = await User.countDocuments();
+        res.status(200).json({
+            message: 'All users fetched!',
+            users: users,
+            occurance: countUsers
+        })
+    } catch(error) {
+        res.status(500).json({
+            error: error,
+            message: 'Error occured :?'
+        })
+    }
+})
+
+router.get('/multiple', async (req, res, next) => {
+    try {
+        const userIds = req.query.ids.split(',');
+        const users = await User.find({ _id: { $in: userIds } }).select('-password');
+        res.status(200).json({
+            message: 'Multiple users fetched!',
+            users: users
+        });
+    } catch(error) {
+        res.status(500).json({
+            error: error,
+            message: 'An error occurred'
+        });
+    }
+})
+
+router.get('/:id', async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found!' });
+        }
+        res.status(200).json({
+            message: 'User fetched!',
+            user: user
+        });
+    } catch(error) {
+        res.status(500).json({
+            error: error,
+            message: 'An error occurred'
+        })
+    }
+})
+
 module.exports = router;

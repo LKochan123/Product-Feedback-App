@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentReplyComponent implements OnInit {
 
-    username$!: Observable<string | null>;
+    username$!: Observable<{id: string, username: string | null}>;
 
     constructor(private commentsService: CommentsService) { }
 
@@ -18,10 +18,10 @@ export class CommentReplyComponent implements OnInit {
     }
 
     onCancel() {
-        this.commentsService.setReplyComment(null);
+        // this.commentsService.setReplyComment(null);
     }
 
     onReplyComment(form: NgForm) {
-        
+
     }
 }

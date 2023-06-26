@@ -1,13 +1,12 @@
 <div>
     <div class="xs:flex xs:justify-between xs:items-center">
-        <div>
-            <p class="font-medium">{{ username }}</p>
-            <p>lukaszek2302@gmail.com</p>
+        <div class="text-blue">
+            <p class="font-medium">{{ comment.author }}</p>
+            <p>{{ comment.email }}</p>
         </div>
         <button (click)="onReplyComment()" type="button" class="text-blue">
             Reply
         </button>
     </div>
-    <p class="mt-2 md:mt-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum sit modi amet at harum, exercitationem ipsum odio aperiam rerum, officia inventore iste nihil fugit facere voluptas. Neque, cupiditate! Corporis, error?
-    </p>
+    <p class="mt-2 md:mt-3">{{ comment.text }}</p>
 </div>

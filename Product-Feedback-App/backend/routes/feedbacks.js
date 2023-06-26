@@ -1,6 +1,7 @@
 const express = require('express');
 const Feedback = require('../models/feedback');
 const checkAuth = require('../middleware/check-auth');
+const Comment = require('../models/comment');
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ router.post('', checkAuth, async (req, res, next) => {
         category: req.body.category,
         upvotes: [],
         status: req.body.status,
-        description: req.body.description
+        description: req.body.description,
+        comments: []
     });
 
     await feedback.save();
@@ -20,6 +22,40 @@ router.post('', checkAuth, async (req, res, next) => {
     res.status(201).json({
         message: 'Post added successfuly!',
     });
+})
+
+router.post('/:id/comments', checkAuth, async (req, res, next) => {
+    try {
+        // Pobierz id feedbacku z parametrów żądania
+        const feedbackId = req.params.id;
+    
+        // Sprawdź, czy feedback istnieje
+        const feedback = await Feedback.findById(feedbackId);
+        if (!feedback) {
+          return res.status(404).json({ message: 'Feedback not found' });
+        }
+    
+        // Utwórz nowy obiekt Comment na podstawie danych z żądania
+        const comment = new Comment({
+          author: req.userData.id,
+          text: req.body.text
+        });
+    
+        // Zapisz komentarz do bazy danych
+        await comment.save();
+    
+        // Dodaj komentarz do listy komentarzy w feedbacku
+        feedback.comments.push(comment._id);
+        await feedback.save();
+    
+        res.status(201).json({
+          message: 'Comment added successfully!',
+          comment: comment
+        });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'An error occurred' });
+      }
 })
 
 router.delete('/:id', checkAuth, async (req, res, next) => {
@@ -68,10 +104,6 @@ router.patch('/upvotes/:id', checkAuth, async (req, res, next) => {
         const userID = req.userData.id;
         const idx = feedback.upvotes.indexOf(userID);
 
-        console.log(feedback);
-        console.log(userID);
-        console.log(idx);
-
         if (idx === -1) { 
             feedback.upvotes.push(userID);
         } else {
@@ -90,6 +122,22 @@ router.patch('/upvotes/:id', checkAuth, async (req, res, next) => {
         })
     }
 })
+
+router.get('', async (req, res, next) => {
+    try {
+        const feedbacks = await Feedback.find();
+        const countAll = await Feedback.countDocuments();
+        res.status(200).json({
+            message: 'All feedbacks fetched!',
+            feedbacks: feedbacks,
+            occurance: countAll
+        })
+    } catch {
+        res.status(404).json({
+            message: 'Feedbacks not found!'
+        })
+    }
+});
 
 router.get('/status', async (req, res, next) => {
     const status = req.query.status;
@@ -122,21 +170,5 @@ router.get('/:id', async (req, res, next) => {
         })
     }
 })
-
-router.get('', async (req, res, next) => {
-    try {
-        const feedbacks = await Feedback.find();
-        const countAll = await Feedback.countDocuments();
-        res.status(200).json({
-            message: 'All feedbacks fetched!',
-            feedbacks: feedbacks,
-            occurance: countAll
-        })
-    } catch {
-        res.status(404).json({
-            message: 'Feedbacks not found!'
-        })
-    }
-});
 
 module.exports = router;

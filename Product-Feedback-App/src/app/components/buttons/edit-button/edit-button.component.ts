@@ -12,5 +12,5 @@ import { Component, Input } from '@angular/core';
     `
 })
 export class EditButtonComponent {
-    @Input() feedbackID!: string;
+    @Input() feedbackID!: string | null;
 }
