@@ -44,7 +44,7 @@ export class TagsComponent implements OnInit {
   onFilterCategory(category: string) {
     this.categoryTagService.setCurrentTag(category);
     this.router.navigate([''], { 
-      queryParams: (category === 'ALL') ? null : { category: category } 
+      queryParams: (category === 'ALL') ? null : { category: category }
     })
   };
 }

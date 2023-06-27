@@ -20,6 +20,7 @@ export class FeedbackFormComponent implements OnInit {
     headingName!: string;
     categoryOptions = ['UI', 'UX', 'Enhancment', 'Feature', 'Bug'];
     statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live']
+    isLoading!: boolean;
   
     constructor(private productsServcie: ProductsService, private router: Router) { }
   
@@ -27,6 +28,7 @@ export class FeedbackFormComponent implements OnInit {
       this.createFeedbackForm();
       
       if (this.fMode.id) {
+        this.isLoading = true;
         this.productsServcie.getPostById$(this.fMode.id).subscribe(res => {
           this.headingName = `Editing "${res.feedback.title}"`;
           this.feedbackForm.setValue({
@@ -35,6 +37,7 @@ export class FeedbackFormComponent implements OnInit {
             'status': res.feedback.status,
             'detail': res.feedback.description
           });
+          this.isLoading = false;
         })
       }
     }
@@ -72,11 +75,8 @@ export class FeedbackFormComponent implements OnInit {
       if (id) {
         this.productsServcie.deletePost$(id).pipe(
           tap(() => {
-            if (this.feedbackForm.value.status === 'Suggestion') {
-              this.router.navigate(['/']);
-            } else {
-              this.router.navigate(['/roadmap']);
-            }
+            const { status } = this.feedbackForm.value;
+            this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
           })
         ).subscribe();
       }

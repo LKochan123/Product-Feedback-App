@@ -8,7 +8,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 export class CommentContentComponent {
 
     @Input() comment!: {
-        _id: string,
+        id: string,
         author: string,
         email: string,
         text: string
@@ -21,7 +21,7 @@ export class CommentContentComponent {
     }
 
     onReplyComment() {
-        const { _id, author } = this.comment;
-        this.commentsService.setReplyComment(_id, author);
+        const { id, author } = this.comment;
+        this.commentsService.setReplyComment(id, author);
     }
 }

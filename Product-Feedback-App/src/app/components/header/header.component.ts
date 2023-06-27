@@ -3,6 +3,7 @@ import { SuggestionsCountService } from 'src/app/services/suggestions-count.serv
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,8 +20,10 @@ export class HeaderComponent implements OnInit {
     'Most upvotes', 'Least upvotes', 'Most comments', 'Least comments'
   ];
 
-  constructor(private suggestionCountService: SuggestionsCountService, 
-    private authService: AuthService) { }
+  constructor(
+    private suggestionCountService: SuggestionsCountService, 
+    private authService: AuthService,
+    private router:Router) { }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuthenticated();

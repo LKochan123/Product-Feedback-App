@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoryTagService } from 'src/app/services/category-tag.service';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
 
   feedbackSuggestions!: Post[];
   category!: string;
@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     private categoryTagService: CategoryTagService) { }
 
   ngOnInit() {
-
     const category$ = this.categoryTagService.getCurrentTag$();
     const suggestions$ = this.productService.getPostsUpdate$().pipe(
       map(feedbacks => feedbacks.filter(feedback => feedback.status === 'Suggestion'))
@@ -37,8 +36,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     })
   }
 
-  ngOnDestroy() {
-    // this.categorySubscription.unsubscribe();
-    // this.suggestionSubscription.unsubscribe();
+  trackBySuggestion(index: number, suggestion: Post) {
+    return suggestion._id;
   }
+
 }

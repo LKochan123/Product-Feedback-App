@@ -34,7 +34,6 @@
                 <h3 class="text-base">Planned ({{ countPlanned ?? '..' }})</h3>
                 <p class="text-sm mb-1">Ideas prioritized for research</p>
 
-                <app-empty-feedback *ngIf="!plannedFeedbacks.length"></app-empty-feedback>
                 <app-feedback-info-roadmap
                     [feedbackArr]="plannedFeedbacks">
                 </app-feedback-info-roadmap>
@@ -44,7 +43,6 @@
                 <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
                 <p class="text-sm mb-1">Features currently being developed</p>
 
-                <app-empty-feedback *ngIf="!inProgressFeedbacks.length"></app-empty-feedback>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="inProgressFeedbacks">
                 </app-feedback-info-roadmap>
@@ -54,7 +52,6 @@
                 <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
                 <p class="text-sm mb-1">Released features</p>
 
-                <app-empty-feedback *ngIf="!liveFeedbacks.length"></app-empty-feedback>
                 <app-feedback-info-roadmap 
                     [feedbackArr]="liveFeedbacks">
                 </app-feedback-info-roadmap>

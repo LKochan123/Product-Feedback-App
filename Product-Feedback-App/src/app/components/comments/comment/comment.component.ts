@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment.model';
-import { map, concatMap, switchMap, of, forkJoin, Observable, zip, mergeMap, combineLatest, toArray } from 'rxjs';
+import { map, switchMap, Observable, zip, combineLatest, toArray } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 // import { of } from 'rxjs/operators';
 
 interface IComment {
-    _id: string,
+    id: string,
     author: string,
     email: string,
     text: string
@@ -52,7 +52,7 @@ export class CommentComponent implements OnInit {
             switchMap(([commentAuthors, comments]) =>
             zip(commentAuthors, comments).pipe(
               map(([commentAuthor, comment]) => ({
-                _id: comment._id,
+                id: comment._id,
                 author: commentAuthor.username,
                 email: commentAuthor.email,
                 text: comment.text

@@ -1,4 +1,4 @@
-<form [formGroup]="feedbackForm" (submit)="onSubmit()">
+<form *ngIf="!isLoading" [formGroup]="feedbackForm" (submit)="onSubmit()">
     <h2
         class="text-dark-blue text-base md:text-lg py-3 font-semibold">
         {{ !fMode.isEditingPost ? 'Create New Feedback' : headingName }}
@@ -84,3 +84,5 @@
         </button>
     </div>
 </form>
+
+<mat-spinner *ngIf="isLoading"></mat-spinner>

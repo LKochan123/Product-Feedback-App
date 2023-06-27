@@ -1,10 +1,13 @@
 <div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
-    <div class="flex justify-between items-center">
-        <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
-        <app-edit-button [feedbackID]="feedbackID"></app-edit-button>
-    </div>
 
     <ng-container *ngIf="(feedback$ | async) as feedback">
+        <div class="flex justify-between items-center">
+            <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
+            <app-edit-button
+                *ngIf="feedback.author === currentUserID" 
+                [feedbackID]="feedbackID">
+            </app-edit-button>
+        </div>
         <app-feedback-information [feedback]="feedback"></app-feedback-information>
         <div *ngIf="feedback.comments.length">
             <app-comment [commentsIds]="feedback.comments"></app-comment>
