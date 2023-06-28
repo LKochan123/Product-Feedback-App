@@ -15,7 +15,8 @@
                     </app-empty-feedback>
 
                     <app-feedback-information
-                        *ngFor="let suggestion of filteredSuggestions; trackBy: trackBySuggestion"
+                        *ngFor="let suggestion of filteredSuggestions | sortFeedbacks:sortingMethod; 
+                        trackBy: trackBySuggestion"
                         [feedback]="suggestion">
                     </app-feedback-information>
                 </section>

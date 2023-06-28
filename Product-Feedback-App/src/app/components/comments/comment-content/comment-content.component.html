@@ -4,7 +4,11 @@
             <p class="font-medium">{{ comment.author }}</p>
             <p>{{ comment.email }}</p>
         </div>
-        <button (click)="onReplyComment()" type="button" class="text-blue">
+        <button 
+            *ngIf="isAuthenticated" 
+            (click)="onReplyComment()"
+            type="button" 
+            class="text-blue">
             Reply
         </button>
     </div>

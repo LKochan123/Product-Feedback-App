@@ -19,6 +19,7 @@ import { FeedbackInformationComponent } from './components/feedback-information/
 import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedback.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { CategoryPipe } from './pipes/category.pipe';
+import { SortingFeedbacksPipe } from './pipes/sorting.pipe';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { UpvotesButtonHorizontalComponent } from './components/buttons/upvotes-button/upvotes-button-horizontal.component';
 import { UpvotesButtonVerticalComponent } from './components/buttons/upvotes-button/upvotes-button-vertical.component';
@@ -41,6 +42,7 @@ import { CommentComponent } from './components/comments/comment/comment.componen
 import { CommentReplyComponent } from './components/comments/comment-reply/comment-reply.component';
 import { CommentPhotoComponent } from './components/comments/comment-photo/comment-photo.component';
 import { CommentContentComponent } from './components/comments/comment-content/comment-content.component';
+import { ErrorPageComponent } from './pages/error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { CommentContentComponent } from './components/comments/comment-content/c
     EmptyFeedbackComponent,
     FeedbackFormComponent,
     CategoryPipe,
+    SortingFeedbacksPipe,
     RoadmapComponent,
     UpvotesButtonHorizontalComponent,
     UpvotesButtonVerticalComponent,
@@ -76,6 +79,7 @@ import { CommentContentComponent } from './components/comments/comment-content/c
     CommentReplyComponent,
     CommentPhotoComponent,
     CommentContentComponent,
+    ErrorPageComponent,
   ],
   imports: [
     BrowserModule,

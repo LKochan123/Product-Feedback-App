@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { tap } from 'rxjs/operators';
+import { CategoryTagEnum } from 'src/app/models/enums/category-tag';
 
 @Component({
     selector: 'app-feedback-form',
@@ -19,7 +20,7 @@ import { tap } from 'rxjs/operators';
 })
 export class FeedbackFormComponent implements OnInit {
 
-    categoryOptions = ['UI', 'UX', 'Enhancment', 'Feature', 'Bug'];
+    categoryOptions = CategoryTagEnum;
     statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live']
     @Input() fMode!: { isEditingPost: boolean, id: string | null };
     feedbackForm!: FormGroup;
@@ -37,12 +38,13 @@ export class FeedbackFormComponent implements OnInit {
       if (this.fMode.id) {
         this.isLoading = true;
         this.productsServcie.getPostById$(this.fMode.id).subscribe(res => {
-          this.headingName = `Editing "${res.feedback.title}"`;
+          const { title, category, status, description } = res.feedback;
+          this.headingName = `Editing "${title}"`;
           this.feedbackForm.setValue({
-            'title': res.feedback.title,
-            'category': res.feedback.category,
-            'status': res.feedback.status,
-            'detail': res.feedback.description
+            'title': title,
+            'category': category,
+            'status': status,
+            'detail': description
           });
           this.isLoading = false;
         })
@@ -54,7 +56,7 @@ export class FeedbackFormComponent implements OnInit {
         'title': new FormControl(null, {
           validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)]
         }),
-        'category': new FormControl('Feature', { 
+        'category': new FormControl('FEATURE', { 
           validators: [Validators.required] 
         }),
         'status': new FormControl('Suggestion'),
@@ -66,12 +68,13 @@ export class FeedbackFormComponent implements OnInit {
   
     onSubmit() {
       const { title, category, status, detail } = this.feedbackForm.value;
+      const enumCategory = CategoryTagEnum[category as keyof typeof CategoryTagEnum];
 
       if (this.feedbackForm.valid) {
         if (this.fMode.id) {
-          this.productsServcie.updatePost(this.fMode.id, title?.trim(), category, status, detail?.trim());
+          this.productsServcie.updatePost(this.fMode.id, title?.trim(), enumCategory, status, detail?.trim());
         } else {
-          this.productsServcie.addPost(title, category, detail);
+          this.productsServcie.addPost(title, enumCategory, detail);
         }
       } else {
         this.errorTitleText = this.getErrorMessage('title');

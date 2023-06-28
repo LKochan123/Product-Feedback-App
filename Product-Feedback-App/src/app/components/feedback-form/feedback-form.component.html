@@ -27,8 +27,8 @@
             class="select-arrow
             bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
             >
-            <option *ngFor="let category of categoryOptions" [value]="category">
-                {{ category }}
+            <option *ngFor="let category of categoryOptions | keyvalue" [value]="category.key">
+                {{ category.value }}
             </option>
         </select>
     </div>

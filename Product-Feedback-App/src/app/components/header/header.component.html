@@ -17,15 +17,17 @@
     <div *ngIf="actualPage === 'Suggestions'" class="text-sm md:text-base">
         <label for="posts" class="mr-1">Sort by:</label>
         <select
+            #method
+            (change)="onSortingMethod(method.value)"
             class="bg-transparent outline-0" 
             name="Sorting posts" 
             id="posts"
             >
             <option
                 class="text-blue"
-                *ngFor="let option of optionArr"
-                [value]="option">
-                {{ option }}
+                *ngFor="let method of sortingFeedbackEnum | keyvalue"
+                [value]="method.key">
+                {{ method.value }}
             </option>
         </select>
     </div>

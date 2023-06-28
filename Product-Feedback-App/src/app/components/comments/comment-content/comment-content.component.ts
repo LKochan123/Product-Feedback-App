@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentContentComponent {
 
+    isAuthenticated = false;
     @Input() comment!: {
         id: string,
         author: string,
@@ -14,10 +16,11 @@ export class CommentContentComponent {
         text: string
     };
 
-    constructor(private commentsService: CommentsService) { }
+    constructor(private commentsService: CommentsService, 
+        private authService: AuthService) { }
 
     ngOnInit() {
-        // console.log(this.username)
+        this.isAuthenticated = this.authService.getIsAuthenticated();
     }
 
     onReplyComment() {

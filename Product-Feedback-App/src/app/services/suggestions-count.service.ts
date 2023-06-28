@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { ProductsService } from './products.service';
 import { CategoryTagService } from './category-tag.service';
 import { Post } from '../models/post.model';
+import { CategoryTagEnum } from '../models/enums/category-tag';
 
 @Injectable({
     providedIn: 'root'
@@ -34,8 +35,8 @@ export class SuggestionsCountService implements OnDestroy {
         })
     }
 
-    countLikeCategoryPipe(feedbacks: Post[], category: string): number {
-        if (category === 'ALL') {
+    countLikeCategoryPipe(feedbacks: Post[], category: CategoryTagEnum): number {
+        if (category === CategoryTagEnum.ALL) {
             return feedbacks.length;
         } else {
             return feedbacks.filter(feedback => feedback.category === category).length;

@@ -3,7 +3,8 @@ import { SuggestionsCountService } from 'src/app/services/suggestions-count.serv
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { SortingFeedbackEnum } from 'src/app/models/enums/sorting-feedback';
+import { CategoryTagService } from 'src/app/services/category-tag.service';
 
 @Component({
   selector: 'app-header',
@@ -16,14 +17,12 @@ export class HeaderComponent implements OnInit {
   isAuthenticated = false;
   showDropdown = false;
   countSuggestions$!: Observable<number|string>;
-  optionArr = [ 
-    'Most upvotes', 'Least upvotes', 'Most comments', 'Least comments'
-  ];
+  sortingFeedbackEnum = SortingFeedbackEnum;
 
   constructor(
     private suggestionCountService: SuggestionsCountService, 
     private authService: AuthService,
-    private router:Router) { }
+    private cateogryTagService: CategoryTagService) { }
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuthenticated();
@@ -39,6 +38,11 @@ export class HeaderComponent implements OnInit {
 
   onShowDropdown() {
     this.showDropdown = !this.showDropdown;
+  }
+
+  onSortingMethod(actualMethod: string) {
+    const enumMenthod = this.sortingFeedbackEnum[actualMethod as keyof typeof SortingFeedbackEnum];
+    this.cateogryTagService.setCurrentSortingMethod(enumMenthod);
   }
 
 }

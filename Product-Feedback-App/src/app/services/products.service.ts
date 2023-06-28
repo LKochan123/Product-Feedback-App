@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Post } from '../models/post.model';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { CategoryTagEnum } from '../models/enums/category-tag';
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +36,7 @@ export class ProductsService {
         return this.http.get<{message: string, feedback: Post}>(this.url + id);
     }
 
-    addPost(title: string, category: string, description: string) {
+    addPost(title: string, category: CategoryTagEnum, description: string) {
         const feedback = {
             title: title, 
             category: category,
@@ -53,7 +54,7 @@ export class ProductsService {
         return this.http.delete<{message: string}>(this.url + id);
     }
 
-    updatePost(id: string, title: string, category: string, status: string, detail: string) {
+    updatePost(id: string, title: string, category: CategoryTagEnum, status: string, detail: string) {
         const feedback = {
             title: title, 
             category: category,
