@@ -61,10 +61,10 @@ export class SignUpFormComponent implements OnInit {
             } else {
                 this.errorText = 'Cant be empty';
             }
+        } else {
+            const { username, email, password } = this.signUpForm.value;
+            this.authService.signUp(username, email, password);
         }
-         
-        const { username, email, password } = this.signUpForm.value;
-        this.authService.signUp(username, email, password);
         this.isSubmitted = true;
     }
 

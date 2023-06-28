@@ -74,20 +74,23 @@
         <button
             type="submit" 
             class="
-            bg-purple text-sm p-3 sm:px-6 rounded-xl">
+            bg-purple text-sm p-3 sm:px-6 rounded-xl
+            hover:opacity-90 transition-opacity duration-300">
             {{ !fMode.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
         </button>
         <button
             routerLink="/" 
             type="button" 
-            class="bg-dark-blue text-sm  p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl">
+            class="bg-dark-blue text-sm  p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl
+            hover:opacity-90 transition-opacity duration-300">
             Cancel
         </button>
         <button
             type="button"  
             *ngIf="fMode.isEditingPost"
             (click)="onDelete(fMode.id)" 
-            class="bg-red-500 text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl">
+            class="bg-red-500 text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl
+            hover:opacity-90 transition-opacity duration-300">
             Delete
         </button>
     </div>

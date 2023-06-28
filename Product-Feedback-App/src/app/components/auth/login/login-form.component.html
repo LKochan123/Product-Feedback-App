@@ -42,15 +42,17 @@
 
     <div class="text-white text-xs md:text-sm flex flex-col my-3">
         <button
+            (click)="onClear(loginForm)"
             type="button" 
-            class="bg-dark-blue p-2 mb-3 rounded-xl"
-            (click)="onClear(loginForm)">
+            class="bg-dark-blue p-2 mb-3 rounded-xl 
+            hover:opacity-90 transition-opacity duration-300">
             Clear
         </button>
         <button
             [disabled]="loginForm.invalid"
             type="submit"
-            class="bg-purple p-2 rounded-xl disabled:opacity-50">
+            class="bg-purple p-2 rounded-xl disabled:opacity-50
+            hover:opacity-90 transition-opacity duration-300">
             Login
         </button>
     </div>

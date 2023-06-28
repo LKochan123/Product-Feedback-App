@@ -9,7 +9,7 @@ export class FeedbackInformationComponent {
   @Input() feedback!: Post;
 
   ngOnInit() {
-    // console.log(this.feedback);
+    
   }
 
 }

@@ -49,18 +49,21 @@
                 fa-regular">
             </i>
         </div>
+        <p class="text-red-500 text-xs" [ngClass]="errorText ? 'opacity-1' : 'opacity-0'">
+            {{ errorText || 'Transparent text' }}
+        </p>
     </div>
 
     <div class="text-white text-xs md:text-sm flex flex-col my-3">
         <button
             type="button" 
-            class="bg-dark-blue p-2 mb-3 rounded-xl"
+            class="bg-dark-blue p-2 mb-3 rounded-xl hover:opacity-90 transition-opacity duration-300"
             (click)="onClear()">
             Clear
         </button>
         <button
             type="submit"
-            class="bg-purple p-2 rounded-xl">
+            class="bg-purple p-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
             Sign Up
         </button>
     </div>

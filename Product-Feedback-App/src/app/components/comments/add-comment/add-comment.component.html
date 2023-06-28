@@ -22,7 +22,7 @@
         <button
             [disabled]="commentForm.invalid" 
             class="bg-purple text-white text-xs md:text-sm p-2 md:px-4 
-            rounded-md disabled:opacity-50"
+            rounded-md hover:opacity-80 transition-opacity duration-300 disabled:opacity-50"
             [ngClass]="{'cursor-pointer': commentForm.valid}">
             Post Comment
         </button>
