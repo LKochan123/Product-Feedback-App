@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError, filter, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,10 +12,12 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginFormComponent {
 
     showPassword = false;
+    errorText = "";
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     onClear(form: NgForm) {
+        this.errorText = '';
         form.resetForm();
     }
 
@@ -21,10 +26,19 @@ export class LoginFormComponent {
     }
 
     onLogin(form: NgForm) {
+        const { username, password } = form.value;
+
         if (form.invalid) {
             return;
         }
-        const { username, password } = form.value;
-        this.authService.logIn(username, password);
+
+        this.authService.logIn$(username, password).pipe(
+            catchError((error: HttpErrorResponse) => {
+                this.errorText = error.error.message;
+                throw "Logging error!";
+            })
+        ).subscribe(res => {
+            this.router.navigate(['/']);
+        });
     }
 }

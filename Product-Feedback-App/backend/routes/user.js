@@ -27,30 +27,36 @@ router.post("/signup", async (req, res, next) => {
 })
 
 router.post("/login", async (req, res, next) => {
-    const user = await User.findOne({ username: req.body.username });
-    if (!user) {
-        res.status(401).json({
-            message: 'User not found'
+    try {
+        const user = await User.findOne({ username: req.body.username });
+        if (!user) {
+            return res.status(401).json({
+                message: 'User not found'
+            });
+        }
+        const matched = await bcrypt.compare(req.body.password, user.password);
+        if (!matched) {
+            return res.status(401).json({
+                message: 'Invalid password'
+            });
+        }
+    
+        const token = jwt.sign(
+            { username: user.username, id: user._id }, 
+            secretKey,
+            { expiresIn: '1h' }
+        );
+    
+        res.status(200).json({
+            id: user._id,
+            token: token,
+            expiresIn: 3600
+        });
+    } catch(error) {
+        res.status(500).json({
+            error: error
         });
     }
-    const matched = await bcrypt.compare(req.body.password, user.password);
-    if (!matched) {
-        res.status(401).json({
-            message: 'Invalid password'
-        });
-    }
-
-    const token = jwt.sign(
-        { username: user.username, id: user._id }, 
-        secretKey,
-        { expiresIn: '1h' }
-    );
-
-    res.status(200).json({
-        id: user._id,
-        token: token,
-        expiresIn: 3600
-    });
 })
 
 router.get('', async (req, res, next) => {

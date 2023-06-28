@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Observable } from 'rxjs'
+import { Subject, Observable, map, tap } from 'rxjs'
 import { User } from '../models/user.model';
 
 @Injectable({ 
@@ -59,29 +59,29 @@ export class AuthService {
         });
     }
 
-    logIn(username: string, password: string) {
+    logIn$(username: string, password: string) {
         const user = {
             username: username,
             password: password
         };
 
-        this.http.post<{id: string, token: string, expiresIn: number}>(this.url + 'login', user)
-        .subscribe(response => {
-            this.token = response.token;
-            if (this.token) {
-                const expiresInDuration = response.expiresIn;
-                this.setAuthTimer(expiresInDuration);
+        return this.http.post<{id: string, token: string, expiresIn: number}>(this.url + 'login', user).pipe(
+            map(response => {
+                this.token = response.token;
+                if (this.token) {
+                    const expiresInDuration = response.expiresIn;
+                    this.setAuthTimer(expiresInDuration);
 
-                const now = new Date();
-                const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+                    const now = new Date();
+                    const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
 
-                this.isAuthenticated = true;
-                this.currentUserID = response.id;
-                this.currentUser$.next(username);
-                this.saveDataInLocalStorage(this.token, expirationDate, username, this.currentUserID);
-                this.router.navigate(['/']);
-            }
-        });
+                    this.isAuthenticated = true;
+                    this.currentUserID = response.id;
+                    this.currentUser$.next(username);
+                    this.saveDataInLocalStorage(this.token, expirationDate, username, this.currentUserID);
+                }
+            })
+        )
     }
 
     logOut() {

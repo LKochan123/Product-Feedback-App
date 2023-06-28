@@ -13,7 +13,6 @@
             id="username"
             placeholder="Enter username..."
             class="bg-body text-dark-blue w-full text-xs md:text-sm p-2 rounded-lg outline-blue">
-        <p class="text-red-600 text-xs mt-1">Can't be empty!</p>
     </div>
 
     <div class="py-0.5">
@@ -36,10 +35,12 @@
                 fa-regular">
             </i>
         </div>
-        <p class="text-red-600 text-xs mt-1">Can't be empty!</p>
+        <p class="text-red-600 text-xs mt-0.5" [ngClass]="errorText ? 'opacity-1' : 'opacity-0'">
+           {{ errorText ? errorText : 'Transparent text' }}
+        </p>
     </div>
 
-    <div class="text-white text-xs md:text-sm flex flex-col my-5">
+    <div class="text-white text-xs md:text-sm flex flex-col my-3">
         <button
             type="button" 
             class="bg-dark-blue p-2 mb-3 rounded-xl"
@@ -47,8 +48,9 @@
             Clear
         </button>
         <button
+            [disabled]="loginForm.invalid"
             type="submit"
-            class="bg-purple p-2 rounded-xl">
+            class="bg-purple p-2 rounded-xl disabled:opacity-50">
             Login
         </button>
     </div>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, map } from 'rxjs';
 import { ProductsService } from './products.service';
 import { Comment } from '../models/comment.model';
+import { Router } from '@angular/router';
 
 @Injectable({ 
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class CommentsService {
     private url = 'http://localhost:3000/feedbacks/';
     private commentURL = 'http://localhost:3000/comment/';
 
-    constructor(private http: HttpClient, 
+    constructor(
+        private http: HttpClient, 
         private productsService: ProductsService) { }
 
     getReplayComment$(): Observable<{id: string, username: string | null}> {
@@ -27,7 +29,7 @@ export class CommentsService {
     sendComment(feedbackID: string, text: string) {
         const request = { text: text };
         this.http.post<{message: string}>(this.url + feedbackID + '/comments', request).subscribe(res => {
-            console.log(res);
+            window.location.reload();
         })
     }
 

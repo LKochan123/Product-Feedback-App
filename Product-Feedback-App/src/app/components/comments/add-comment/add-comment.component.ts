@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CommentsService } from 'src/app/services/comments.service';
 
@@ -16,8 +16,6 @@ export class AddCommentComponent {
     onSubmit(commentForm: NgForm) {
         if (commentForm.valid) {
             this.commentsService.sendComment(this.feedbackID, commentForm.value.comment);
-        } else {
-            console.log('Comment invalid!');
-        }
+        } 
     }
 }
