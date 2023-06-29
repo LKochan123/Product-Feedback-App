@@ -1,13 +1,21 @@
 <!-- Mobile -->
-<nav class="md:hidden flex justify-between p-4 bg-gradient-to-r from-violet-500 to-fuchsia-500">
+<nav class="relative md:hidden flex justify-between p-4 bg-gradient-to-r from-violet-500 to-fuchsia-500">
     <div class="text-white ">
         <h1 class="text-md">Feecback Board</h1>
         <p class="text-sm">Frontend Mentor</p>
     </div>
 
-    <button type="button">
-        <img src="../../../assets/shared/mobile/icon-hamburger.svg">
+    <button type="button" (click)="onToggleNav()">
+        <img [src]="isOpened ? closeIcon : hamburgerIcon">
     </button>
+
+    <div class="background-shadow" [ngClass]="isOpened ? 'active' : ''"></div>
+    <aside class="menu bg-body p-6" [ngClass]="isOpened ? 'open' : ''">
+        <div class="mb-6">
+            <app-tags></app-tags>
+        </div>
+        <app-roadmap-box></app-roadmap-box>
+    </aside>
 </nav>
 
 <!-- Tablet / Desktop -->

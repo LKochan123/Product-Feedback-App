@@ -2,9 +2,9 @@
     <button
         (click)="onShowDropdown()" 
         type="button" 
-        class="flex flex-row items-center
+        class="flex flex-row justify-center items-center min-w-[90px] md:min-w-[110px]
         bg-purple py-2 px-3 md:px-4 rounded-md">
-        <p class="pr-2">{{ username }}</p>
+        <p class="pr-2">{{ username | truncate:15:'...' }}</p>
         <i class="fa-solid fa-caret-down"></i>
     </button>
     <ul

@@ -7,13 +7,10 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
 
 html { 
-    scroll-behavior: smooth; 
-}
-
-body { 
-    margin: 0; 
-    font-family: "Roboto", "Helvetica Neue", sans-serif; 
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
 }

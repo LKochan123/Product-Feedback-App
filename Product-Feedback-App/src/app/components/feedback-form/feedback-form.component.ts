@@ -42,7 +42,7 @@ export class FeedbackFormComponent implements OnInit {
           this.headingName = `Editing "${title}"`;
           this.feedbackForm.setValue({
             'title': title,
-            'category': category,
+            'category': category.toUpperCase(),
             'status': status,
             'detail': description
           });
@@ -96,7 +96,7 @@ export class FeedbackFormComponent implements OnInit {
           case control.hasError('pattern'):
             return `${capitalizedControlName} should contain at least one non-space character.`;
           default:
-            return 'Undifined error';
+            return '';
         }
       }
       return '';

@@ -7,13 +7,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class DropdownMenuComponent implements OnInit {
 
-    username!: string | null;
+    username!: string;
     showDropdown = false;
 
     constructor(private authService: AuthService) { }
 
     ngOnInit() {
-        this.username = localStorage.getItem('username');
+        this.username = localStorage.getItem('username')!;
     }
 
     onShowDropdown() {

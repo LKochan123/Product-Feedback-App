@@ -1,7 +1,7 @@
 <div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
 
     <ng-container *ngIf="(feedback$ | async) as feedback">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-4">
             <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
             <app-edit-button
                 *ngIf="feedback.author === currentUserID" 

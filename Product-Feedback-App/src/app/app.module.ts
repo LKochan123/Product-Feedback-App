@@ -20,6 +20,7 @@ import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedba
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
 import { CategoryPipe } from './pipes/category.pipe';
 import { SortingFeedbacksPipe } from './pipes/sorting.pipe';
+import { TruncatePipe } from './pipes/trancute.pipe';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { UpvotesButtonHorizontalComponent } from './components/buttons/upvotes-button/upvotes-button-horizontal.component';
 import { UpvotesButtonVerticalComponent } from './components/buttons/upvotes-button/upvotes-button-vertical.component';
@@ -58,6 +59,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
     FeedbackFormComponent,
     CategoryPipe,
     SortingFeedbacksPipe,
+    TruncatePipe,
     RoadmapComponent,
     UpvotesButtonHorizontalComponent,
     UpvotesButtonVerticalComponent,

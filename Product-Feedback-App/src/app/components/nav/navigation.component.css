@@ -1,0 +1,33 @@
+.background-shadow {
+    position: absolute;
+    margin-top: 76px;
+    top: 0;
+    right: 0;
+    height: calc(100vh - 76px);
+    width: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, .2);
+    transition: opacity .3s ease-out;
+}
+
+.background-shadow.active {
+    opacity: 1;
+}
+
+.menu {
+    position: absolute;
+    margin-top: 76px;
+    top: 0;
+    height: calc(100vh - 76px);
+    right: 0;
+    width: 75%;
+    max-width: 300px;
+    z-index: 10;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform .3s ease;
+}
+
+.menu.open {
+    transform: scaleX(1);
+}
