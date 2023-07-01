@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment.model';
-import { map, switchMap, Observable, zip, combineLatest, toArray } from 'rxjs';
+import { map, switchMap, Observable, zip, combineLatest, toArray, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
-// import { of } from 'rxjs/operators';
 
 interface IComment {
     id: string,
@@ -22,6 +21,9 @@ export class CommentComponent implements OnInit {
 
     @Input() commentsIds!: string[];
     commentsResultDetails$!: Observable<IComment[]>;
+    activeReplyComment$!: Observable<string | null>;
+    commentReplySub!: Subscription;
+
     constructor(private commentsService: CommentsService, 
         private authService: AuthService) { }
 
@@ -30,6 +32,7 @@ export class CommentComponent implements OnInit {
         const comments$ = this.commentsService.getCommentsByIDs(this.commentsIds).pipe(map(res => res.comments));
         const combined$ = combineLatest([commentAuthors$, comments$]);
         this.commentsResultDetails$ = this.getCommentsResult(combined$);
+        this.activeReplyComment$ = this.commentsService.getReplayComment$();
     }
 
     getCommentAuthorsDetails(commentIds: string[]) {
@@ -41,7 +44,7 @@ export class CommentComponent implements OnInit {
                     return this.authService.getUserById(authorId).pipe(
                         map(res => res.user)
                     );
-                  });
+                });
                 return combineLatest(userObs);
             })
         );

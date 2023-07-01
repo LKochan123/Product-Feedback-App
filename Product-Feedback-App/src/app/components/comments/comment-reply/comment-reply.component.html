@@ -1,16 +1,14 @@
 <form
-    *ngIf="true"
     #commentReply="ngForm" (submit)="onReplyComment(commentReply)"  
     class="flex flex-col mt-3 md:mt-5"
     >
     <textarea 
         placeholder="Type your comment reply..."
         required
-        ngModel
+        [(ngModel)]="author"
         name="reply"
         [maxLength]="250"
-        class="resize-y bg-body text-dark-blue
-        p-2 h-16 max-h-24 rounded-lg outline-blue">
+        class="resize-y bg-body text-dark-blue p-2 h-16 max-h-24 rounded-lg outline-blue">
     </textarea>
     <div class="text-white text-xs md:text-sm mt-2 flex justify-end">
         <button

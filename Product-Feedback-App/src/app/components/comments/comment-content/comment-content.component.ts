@@ -24,7 +24,6 @@ export class CommentContentComponent {
     }
 
     onReplyComment() {
-        const { id, author } = this.comment;
-        this.commentsService.setReplyComment(id, author);
+        this.commentsService.setReplyComment(this.comment.id);
     }
 }

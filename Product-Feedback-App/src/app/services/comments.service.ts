@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, map } from 'rxjs';
 import { ProductsService } from './products.service';
 import { Comment } from '../models/comment.model';
-import { Router } from '@angular/router';
 
 @Injectable({ 
     providedIn: 'root'
 })
 export class CommentsService {
 
-    private replyComment$ = new Subject<{id: string, username: string | null}>();
+    private replyComment$ = new Subject<string | null>();
     private url = 'http://localhost:3000/feedbacks/';
     private commentURL = 'http://localhost:3000/comment/';
 
@@ -18,12 +17,12 @@ export class CommentsService {
         private http: HttpClient, 
         private productsService: ProductsService) { }
 
-    getReplayComment$(): Observable<{id: string, username: string | null}> {
+    getReplayComment$(): Observable<string | null> {
         return this.replyComment$.asObservable();
     }
 
-    setReplyComment(id: string, username: string | null) {
-        this.replyComment$.next({id: id, username: username});
+    setReplyComment(id: string | null) {
+        this.replyComment$.next(id);
     }
 
     sendComment(feedbackID: string, text: string) {

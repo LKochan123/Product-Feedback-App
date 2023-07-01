@@ -81,7 +81,7 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
     CommentReplyComponent,
     CommentPhotoComponent,
     CommentContentComponent,
-    ErrorPageComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,

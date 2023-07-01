@@ -26,25 +26,21 @@ router.post('', checkAuth, async (req, res, next) => {
 
 router.post('/:id/comments', checkAuth, async (req, res, next) => {
     try {
-        // Pobierz id feedbacku z parametrów żądania
         const feedbackId = req.params.id;
     
-        // Sprawdź, czy feedback istnieje
         const feedback = await Feedback.findById(feedbackId);
         if (!feedback) {
           return res.status(404).json({ message: 'Feedback not found' });
         }
     
-        // Utwórz nowy obiekt Comment na podstawie danych z żądania
         const comment = new Comment({
           author: req.userData.id,
-          text: req.body.text
+          text: req.body.text,
+          subcomments: []
         });
     
-        // Zapisz komentarz do bazy danych
         await comment.save();
     
-        // Dodaj komentarz do listy komentarzy w feedbacku
         feedback.comments.push(comment._id);
         await feedback.save();
     
@@ -53,7 +49,6 @@ router.post('/:id/comments', checkAuth, async (req, res, next) => {
           comment: comment
         });
       } catch (error) {
-        console.log(error);
         res.status(500).json({ message: 'An error occurred' });
       }
 })

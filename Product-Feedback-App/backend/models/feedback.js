@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Comment = require('./comment');
 
 const feedbackSchema = mongoose.Schema({
     author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },

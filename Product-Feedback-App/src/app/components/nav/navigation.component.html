@@ -1,15 +1,20 @@
 <!-- Mobile -->
-<nav class="relative md:hidden flex justify-between p-4 bg-gradient-to-r from-violet-500 to-fuchsia-500">
-    <div class="text-white ">
-        <h1 class="text-md">Feecback Board</h1>
-        <p class="text-sm">Frontend Mentor</p>
+<nav
+    class="sticky top-0 w-full md:hidden p-4 z-20 
+    bg-gradient-to-r from-violet-500 to-fuchsia-500"
+    >
+    <div class="flex justify-between items-center">
+        <div class="text-white ">
+            <h1 class="text-md">Feecback Board</h1>
+            <p class="text-sm">Frontend Mentor</p>
+        </div>
+    
+        <button type="button" (click)="onToggleNav()">
+            <img [src]="isOpened ? closeIcon : hamburgerIcon">
+        </button>
     </div>
 
-    <button type="button" (click)="onToggleNav()">
-        <img [src]="isOpened ? closeIcon : hamburgerIcon">
-    </button>
-
-    <div class="background-shadow" [ngClass]="isOpened ? 'active' : ''"></div>
+    <div *ngIf="isOpened" class="background-shadow" [ngClass]="isOpened ? 'active' : ''"></div>
     <aside class="menu bg-body p-6" [ngClass]="isOpened ? 'open' : ''">
         <div class="mb-6">
             <app-tags></app-tags>
@@ -21,8 +26,8 @@
 <!-- Tablet / Desktop -->
 <nav 
     class=" 
-    hidden p-4
-    lg:flex lg:flex-col lg:p-0 lg:space-y-5 lg:mr-5
+    hidden lg:sticky lg:top-16
+    lg:flex lg:flex-col lg:p-0 lg:space-y-5 lg:mr-5 p-4
     md:grid grid-cols-3 gap-x-3"
     >
     <div 

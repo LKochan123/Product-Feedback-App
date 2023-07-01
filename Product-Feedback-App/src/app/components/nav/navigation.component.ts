@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Renderer2, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +13,11 @@ export class NavigationComponent {
 
   constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    this.onCloseMenu(event);
+  }
+
   onToggleNav() {
     this.isOpened = !this.isOpened;
     this.toggleBodyScrolling();
@@ -24,6 +29,18 @@ export class NavigationComponent {
       this.renderer.addClass(body, 'overflow-hidden');
     } else {
       this.renderer.removeClass(body, 'overflow-hidden');
+    }
+  }
+
+  onCloseMenu(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const backgroundShadow = this.elementRef.nativeElement.querySelector('.background-shadow');
+    const menu = this.elementRef.nativeElement.querySelector('.menu');
+
+    // Chceck clicking outside the nav and menu
+    if (backgroundShadow && backgroundShadow.contains(target) && !menu.contains(target)) {
+      this.isOpened = false;
+      this.toggleBodyScrolling();
     }
   }
 }

@@ -1,11 +1,7 @@
 <div class="lg:grid lg:grid-cols-4 lg:mt-16 lg:px-5 max-w-screen-xlg mx-auto">
     <app-navigation class="lg:col-span-1"></app-navigation>
     <div class="lg:col-span-3">
-
-        <app-header
-            [actualPage]="'Suggestions'">
-        </app-header>
-
+        <app-header [actualPage]="'Suggestions'"></app-header>
         <ng-container 
             *ngIf="(feedbackSuggestions | categoryFilter:category) as filteredSuggestions">
             <main class="px-4 lg:px-0 py-5">
