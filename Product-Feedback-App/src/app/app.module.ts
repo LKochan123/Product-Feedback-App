@@ -44,6 +44,7 @@ import { CommentReplyComponent } from './components/comments/comment-reply/comme
 import { CommentPhotoComponent } from './components/comments/comment-photo/comment-photo.component';
 import { CommentContentComponent } from './components/comments/comment-content/comment-content.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { ErrorPageComponent } from './pages/error-page/error-page.component';
     CommentReplyComponent,
     CommentPhotoComponent,
     CommentContentComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

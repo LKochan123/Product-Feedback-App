@@ -10,6 +10,7 @@ import { authorizationGuard } from './guards/authorization.guard';
 import { FeedbackIdComponent } from './pages/feedback-id/feedback-id.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { AdminComponent } from './pages/admin/admin.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -26,6 +27,11 @@ const appRoutes: Routes = [
             (snapshot: ActivatedRouteSnapshot) => authorizationGuard(snapshot)
         ]
     }, 
+    { 
+        path: 'admin', 
+        component: AdminComponent, 
+        canActivate: [authenticationGuard]
+    },
     { path: 'feedback/:id', component: FeedbackIdComponent },
     { path: 'roadmap', component: RoadmapComponent },
     { path: 'signup', component: SignUpComponent },

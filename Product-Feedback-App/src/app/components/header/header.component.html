@@ -5,7 +5,6 @@
     md:mx-5 p-4 md:rounded-lg 
     flex justify-between items-center"
     >
-
     <div 
         *ngIf="actualPage === 'Suggestions'" 
         class="hidden md:flex md:items-center"
@@ -41,6 +40,17 @@
             </p>
         </a>
         <h2 class="text-base md:text-lg">Roadmap</h2>
+    </div>
+
+    <div *ngIf="actualPage === 'Admin'">
+        <a routerLink="/" class="inline-flex">
+            <i class="text-xs fa-solid fa-arrow-left"></i>
+            <p
+                class="text-xs md:text-sm ml-2 md:ml-3">
+                Go Back
+            </p>
+        </a>
+        <h2 class="text-base md:text-lg">Admin panel</h2>
     </div>
 
     <app-dropdown-menu *ngIf="isAuthenticated"></app-dropdown-menu>

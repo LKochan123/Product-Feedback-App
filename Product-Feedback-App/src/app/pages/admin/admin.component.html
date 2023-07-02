@@ -1,0 +1,61 @@
+<div class="md:py-10 lg:py-16 lg:px-5 max-w-screen-xlg mx-auto">
+    <app-header [actualPage]="'Admin'"></app-header>
+
+    <div class="my-8 px-3 md:mx-3">
+        <ng-container *ngIf="(users$ | async) as users">
+            <div class="sm:flex sm:flex-row-reverse sm:justify-between sm:items-center font-medium text-lg ">
+                <div class="text-dark-blue mb-3 sm:mb-0">
+                    <ul class="flex flex-row gap-4 text-sm">
+                        <li>
+                            <a class="cursor-pointer hover:text-blue transition-colors">
+                                Active users
+                            </a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer hover:text-blue transition-colors">
+                                Banned users
+                            </a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer hover:text-blue transition-colors">
+                                Admins
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-row items-center">
+                    <h3 class="pr-2">All users: </h3>
+                    <p>({{ users.occurance }})</p>
+                </div>
+            </div>
+
+            <div class="py-3 text-sm">
+                <div class="inline-flex flex-col text-dark-blue">
+                    <label for="user" class="mb-1">Search user:</label>
+                    <input 
+                        type="text"
+                        id="user"
+                        placeholder="Search user..." 
+                        class="px-4 py-2 rounded-md outline-blue">
+                </div>
+            </div>
+
+            <div 
+                *ngFor="let user of users.users"
+                class="bg-white text-dark-blue p-3 my-3 text-sm rounded-lg">
+                <div class="sm:flex sm:flex-row sm:justify-between sm:items-center">
+                    <div class="mb-2 sm:mb-0">
+                        <p>{{ user.username }}</p>
+                        <p>{{ user.email }}</p>
+                        <p>{{ user._id }}</p>
+                    </div>
+                    <button 
+                        type="button" 
+                        class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-400 transition-colors">
+                        Ban user
+                    </button>
+                </div>
+            </div>  
+        </ng-container>
+    </div>
+</div>

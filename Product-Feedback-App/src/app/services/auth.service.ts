@@ -34,10 +34,6 @@ export class AuthService {
         return this.currentUserID;
     }
 
-    getUserDetailsByID() {
-        return;
-    }
-
     getUserById(id: string) {
         return this.http.get<{message: string, user: User}>(this.url + id);
     }
@@ -45,6 +41,10 @@ export class AuthService {
     getUserByIDs(ids: string[]) {
         const query = `?ids=${ids.join(',')}`;
         return this.http.get<{message: string, users: User[]}>(this.url + 'multiple' + query);
+    }
+
+    getAllUsers() {
+        return this.http.get<{message: string, users: User[], occurance: number}>(this.url);
     }
 
     signUp(username: string, email: string, password: string) {
