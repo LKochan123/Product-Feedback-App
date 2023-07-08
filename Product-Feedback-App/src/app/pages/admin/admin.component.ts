@@ -13,8 +13,6 @@ export class AdminComponent implements OnInit {
     constructor(private authService: AuthService) { }
 
     ngOnInit() {
-        this.users$ = this.authService.getAllUsers().pipe(
-            map(res => ({ users: res.users, occurance: res.occurance }))
-        );
+        
     }
 }

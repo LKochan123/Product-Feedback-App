@@ -29,12 +29,20 @@ router.post("/signup", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
     try {
         const user = await User.findOne({ username: req.body.username });
+        const matched = await bcrypt.compare(req.body.password, user.password);
+        
         if (!user) {
             return res.status(401).json({
                 message: 'User not found'
             });
         }
-        const matched = await bcrypt.compare(req.body.password, user.password);
+
+        if (user.status === 'BANNED') {
+            return res.status(401).json({
+                message: 'Your account is banned!'
+            });
+        }
+
         if (!matched) {
             return res.status(401).json({
                 message: 'Invalid password'
@@ -59,14 +67,62 @@ router.post("/login", async (req, res, next) => {
     }
 })
 
+router.patch('/status/:id', async (req, res, next) => {
+    try {
+        const user = await User.findById({ _id: req.params.id });
+        console.log(user);
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        user.status = req.body.status;
+        await user.save();
+        res.status(200).json({
+            message: 'User status changed!'
+        })
+    } catch(error) {
+        res.status(500).json({
+            error: error.message,
+            message: 'An error occured'
+        })
+    }
+})
+
+router.patch('/role/:id', async (req, res, next) => {
+    try {
+        const user = await User.findById({ _id: req.params.id });
+        if (!user) {
+            return res.status(404).json({
+                message: 'User not found'
+            });
+        }
+        user.role = req.body.role;
+        await user.save();
+        res.status(200).json({
+            message: 'User status changed!'
+        })
+    } catch(error) {
+        res.status(500).json({
+            error: error,
+            message: 'An error occured'
+        })
+    }
+})
+
 router.get('', async (req, res, next) => {
     try {
-        const users = await User.find().select('-password');
-        const countUsers = await User.countDocuments();
+        const status = req.query.status;
+        if (!status) {
+            return res.status(404).json({
+                message: 'Some error with status'
+            })
+        }
+        const users = await User.find({ status: status }).select('-password');
         res.status(200).json({
-            message: 'All users fetched!',
+            message: `${status.toLowerCase()} users fetched`,
             users: users,
-            occurance: countUsers
+            occurance: users.length
         })
     } catch(error) {
         res.status(500).json({

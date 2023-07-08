@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Observable, map, tap } from 'rxjs'
+import { Subject, Observable, map } from 'rxjs'
 import { User } from '../models/user.model';
+import { UserRoleEnum } from '../models/enums/user-role';
+import { UserStatusEnum } from '../models/enums/user-status';
 
 @Injectable({ 
     providedIn: 'root'
@@ -34,6 +36,12 @@ export class AuthService {
         return this.currentUserID;
     }
 
+    getCurrentUserRole() {
+        return this.getUserById(this.currentUserID!).pipe(
+            map(res => res.user.role)
+        );
+    }
+
     getUserById(id: string) {
         return this.http.get<{message: string, user: User}>(this.url + id);
     }
@@ -43,8 +51,9 @@ export class AuthService {
         return this.http.get<{message: string, users: User[]}>(this.url + 'multiple' + query);
     }
 
-    getAllUsers() {
-        return this.http.get<{message: string, users: User[], occurance: number}>(this.url);
+    getUsersByStatus(status: UserStatusEnum) {
+        const query = `?status=${status}`;
+        return this.http.get<{message: string, users: User[], occurance: number}>(this.url + query);
     }
 
     signUp(username: string, email: string, password: string) {
@@ -90,6 +99,16 @@ export class AuthService {
         this.currentUser$.next(null);
         this.clearLocalStorage();
         clearTimeout(this.tokenTimer);
+    }
+
+    banUser(id: string) {
+        const status = { status: UserStatusEnum.BANNED }
+        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe();
+    }
+
+    unbanUser(id: string) {
+        const status = { status: UserStatusEnum.ACTIVE }
+        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe();
     }
 
     autoAuthenticaiton() {

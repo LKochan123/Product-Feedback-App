@@ -1,0 +1,29 @@
+<div class="text-dark-blue mb-3 sm:mb-0">
+    <ul class="flex flex-row gap-4 text-sm">
+        <li>
+            <a 
+                routerLink="/admin/active-users"
+                routerLinkActive="text-green-600" 
+                class="cursor-pointer hover:text-blue transition-colors">
+                Active users
+            </a>
+        </li>
+        <li>
+            <a 
+                routerLink="/admin/banned-users"
+                routerLinkActive="text-green-600" 
+                class="cursor-pointer hover:text-blue transition-colors">
+                Banned users
+            </a>
+        </li>
+        <li>
+            <a
+                *ngIf="isAdmin" 
+                routerLink="/admin/moderators"
+                routerLinkActive="text-green-600" 
+                class="cursor-pointer hover:text-blue transition-colors">
+                Moderators
+            </a>
+        </li>
+    </ul>
+</div>
