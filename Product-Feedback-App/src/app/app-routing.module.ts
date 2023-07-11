@@ -12,9 +12,10 @@ import { FeedbackIdComponent } from './pages/feedback-id/feedback-id.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { AdminComponent } from './pages/admin/admin.component';
-import { AdminSectionComponent } from './components/admin/admin-section/admin-section.component';
+import { AdminStatusComponent } from './components/admin/admin-status/admin-status.component';
 import { UserStatusEnum } from './models/enums/user-status';
 import { UserRoleEnum } from './models/enums/user-role';
+import { AdminRolesComponent } from './components/admin/admin-roles/admin-roles.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
@@ -26,28 +27,17 @@ const appRoutes: Routes = [
     { 
         path: 'edit-feedback/:id', 
         component: CreateFeedbackComponent, 
-        canActivate: [
-            authenticationGuard, 
-            (snapshot: ActivatedRouteSnapshot) => authorizationGuard(snapshot)
-        ]
+        canActivate: [authenticationGuard, (snapshot: ActivatedRouteSnapshot) => authorizationGuard(snapshot)]
     }, 
     { 
         path: 'admin', 
         component: AdminComponent, 
-        canActivate: [
-            authenticationGuard, 
-            () => roleGuard(UserRoleEnum.MODERATOR, UserRoleEnum.ADMIN)
-        ],
+        canActivate: [authenticationGuard, () => roleGuard(UserRoleEnum.MODERATOR, UserRoleEnum.ADMIN)],
         children: [
             { path: '', redirectTo: 'active-users', pathMatch: 'full' },
-            { path: 'active-users', component: AdminSectionComponent, data: { section: UserStatusEnum.ACTIVE }},
-            { path: 'banned-users', component: AdminSectionComponent, data: { section: UserStatusEnum.BANNED }},
-            { 
-                path: 'moderators',
-                component: AdminSectionComponent,
-                canActivate: [() => roleGuard(UserRoleEnum.ADMIN)],
-                data: { section: 'moderators' } 
-            }
+            { path: 'active-users', component: AdminStatusComponent, data: { section: UserStatusEnum.ACTIVE }},
+            { path: 'banned-users', component: AdminStatusComponent, data: { section: UserStatusEnum.BANNED }},
+            { path: 'roles', component: AdminRolesComponent, canActivate: [() => roleGuard(UserRoleEnum.ADMIN)]}
         ]
     },
     { path: 'feedback/:id', component: FeedbackIdComponent },

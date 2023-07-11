@@ -4,27 +4,27 @@ import { User } from "src/app/models/user.model";
 import { Observable, map } from "rxjs";
 import { ActivatedRoute, Data, ParamMap, Params, Router } from "@angular/router";
 import { UserStatusEnum } from "src/app/models/enums/user-status";
+import { UserRoleEnum } from "src/app/models/enums/user-role";
 
 @Component({
-    selector: 'app-admin-section',
-    templateUrl: 'admin-section.component.html'
+    selector: 'app-admin-status',
+    templateUrl: 'admin-status.component.html'
 })
-export class AdminSectionComponent implements OnInit {
+export class AdminStatusComponent implements OnInit {
 
     users$!: Observable<{users: User[], occurance: number}>;
     section!: UserStatusEnum;
+    searchData = '';
 
     constructor(
         private authService: AuthService,
-        private route: ActivatedRoute,
-        private router: Router) { }
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.route.firstChild?.data.subscribe((data: Data) => {
+        console.log(this.searchData);
+        this.route.data.subscribe((data: Data) => {
             const section = data['section'];
-            if (section === 'moderators') {
-                this.loadModerators();
-            } else {
+            if (section) {
                 this.section = section;
                 this.loadUsersByStatus(this.section)
             }
@@ -32,20 +32,10 @@ export class AdminSectionComponent implements OnInit {
     }
 
     loadUsersByStatus(status: UserStatusEnum) {
-        this.users$ = this.authService.getUsersByStatus(status).pipe(
-            map(res => ({ users: res.users, occurance: res.occurance }))
-        );
+        this.users$ = this.authService.getUsersByStatus(status, UserRoleEnum.USER);
     }
 
-    loadModerators() {
-
-    }
-
-    onBanUser(id: string) {
-        this.authService.banUser(id);
-    }
-
-    onUnbanUser(id: string) {
-        this.authService.unbanUser(id);
+    onChangeStatus(id: string, currStatus: UserStatusEnum) {
+        this.authService.changeUserStatus(id, currStatus);
     }
 }

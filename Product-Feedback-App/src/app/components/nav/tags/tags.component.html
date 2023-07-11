@@ -2,9 +2,8 @@
     <div class="flex flex-row flex-wrap">
         <button
             class="
-            text-blue bg-light-blue
-            m-1 px-3 py-2 text-xs md:text-sm font-medium
-            rounded-lg cursor-pointer"
+            text-blue bg-light-blue hover:text-indigo-400 hover:transition-colors
+            m-1 px-3 py-2 text-xs md:text-sm font-medium rounded-lg cursor-pointer"
             [ngClass]="{'tag-background': (currentTag$ | async) === tag.value}"
             (click)="onFilterCategory(tag.key)"
             *ngFor="let tag of categoryTags | keyvalue">

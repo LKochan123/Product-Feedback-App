@@ -51,9 +51,11 @@ export class AuthService {
         return this.http.get<{message: string, users: User[]}>(this.url + 'multiple' + query);
     }
 
-    getUsersByStatus(status: UserStatusEnum) {
-        const query = `?status=${status}`;
-        return this.http.get<{message: string, users: User[], occurance: number}>(this.url + query);
+    getUsersByStatus(status: UserStatusEnum, role: UserRoleEnum) {
+        const query = `?status=${status}&role=${role}`;
+        return this.http.get<{message: string, users: User[], occurance: number}>(this.url + query).pipe(
+            map(res => ({ users: res.users, occurance: res.occurance }))
+        );
     }
 
     signUp(username: string, email: string, password: string) {
@@ -101,14 +103,11 @@ export class AuthService {
         clearTimeout(this.tokenTimer);
     }
 
-    banUser(id: string) {
-        const status = { status: UserStatusEnum.BANNED }
-        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe();
-    }
-
-    unbanUser(id: string) {
-        const status = { status: UserStatusEnum.ACTIVE }
-        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe();
+    changeUserStatus(id: string, currStatus: UserStatusEnum) {
+        const status = { status: currStatus === UserStatusEnum.ACTIVE ? UserStatusEnum.BANNED : UserStatusEnum.ACTIVE };
+        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe(res => {
+            window.location.reload();
+        });
     }
 
     autoAuthenticaiton() {

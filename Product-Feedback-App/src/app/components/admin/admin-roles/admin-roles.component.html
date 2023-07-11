@@ -1,0 +1,41 @@
+<div class="flex flex-row gap-x-8 pt-3 md:pt-0">
+    <div class="flex items-center">
+        <label for="users" class="text-sm pr-2">Users:</label>
+        <input 
+            type="radio" 
+            id="users"
+            value="users" 
+            [(ngModel)]="selectedOption"
+            (ngModelChange)="onCurrRadioVal()">
+    </div>
+
+    <div class="flex items-center">
+        <label for="moderators" class="text-sm pr-2">Moderators:</label>
+        <input 
+            type="radio" 
+            id="moderators" 
+            value="mods"
+            [(ngModel)]="selectedOption"
+            (ngModelChange)="onCurrRadioVal()">
+    </div>
+</div>
+<ng-container *ngIf="(currUsers$ | async) as users; else loading">
+    <div *ngFor="let user of users" class="bg-white text-dark-blue p-3 my-3 text-sm rounded-lg">
+        <div class="sm:flex sm:flex-row sm:justify-between sm:items-center">
+            <div class="mb-2 sm:mb-0">
+                <p>{{ user.username }}</p>
+                <p>{{ user.email }}</p>
+                <p>{{ user._id }}</p>
+            </div>
+            <button
+                (click)="onChangeRole(user.role)" 
+                class="text-white px-4 py-2 rounded-lg transition-colors"
+                [ngClass]="user.role === 'USER' ? 'bg-orange-500 hover:bg-orange-400' : 'bg-pink-500 hover:bg-pink-400'">
+                {{ user.role === 'USER' ? 'User' : 'Moderator'}}
+            </button>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
+</ng-template>

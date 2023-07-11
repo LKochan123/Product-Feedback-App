@@ -70,7 +70,6 @@ router.post("/login", async (req, res, next) => {
 router.patch('/status/:id', async (req, res, next) => {
     try {
         const user = await User.findById({ _id: req.params.id });
-        console.log(user);
         if (!user) {
             return res.status(404).json({
                 message: 'User not found'
@@ -113,12 +112,13 @@ router.patch('/role/:id', async (req, res, next) => {
 router.get('', async (req, res, next) => {
     try {
         const status = req.query.status;
+        const role = req.query.role;
         if (!status) {
             return res.status(404).json({
                 message: 'Some error with status'
             })
         }
-        const users = await User.find({ status: status }).select('-password');
+        const users = await User.find({ status: status, role: role }).select('-password');
         res.status(200).json({
             message: `${status.toLowerCase()} users fetched`,
             users: users,

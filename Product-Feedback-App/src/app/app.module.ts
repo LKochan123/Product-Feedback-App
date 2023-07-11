@@ -46,7 +46,9 @@ import { CommentContentComponent } from './components/comments/comment-content/c
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.component';
-import { AdminSectionComponent } from './components/admin/admin-section/admin-section.component';
+import { AdminStatusComponent } from './components/admin/admin-status/admin-status.component';
+import { AdminRolesComponent } from './components/admin/admin-roles/admin-roles.component';
+import { SearchUserPipe } from './pipes/search-user.pipe';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { AdminSectionComponent } from './components/admin/admin-section/admin-se
     CategoryPipe,
     SortingFeedbacksPipe,
     TruncatePipe,
+    SearchUserPipe,
     RoadmapComponent,
     UpvotesButtonHorizontalComponent,
     UpvotesButtonVerticalComponent,
@@ -87,7 +90,8 @@ import { AdminSectionComponent } from './components/admin/admin-section/admin-se
     ErrorPageComponent,
     AdminComponent,
     AdminNavComponent,
-    AdminSectionComponent
+    AdminStatusComponent,
+    AdminRolesComponent,
   ],
   imports: [
     BrowserModule,
