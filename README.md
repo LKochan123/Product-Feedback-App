@@ -4,14 +4,14 @@ Product-feedback-app is a full stack application which is similiar to the some k
 
 Design and logic of this app is inspired by [Frontend Mentor challenge](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6) but I added a lot of own features. Some asspects can be different because my goal wasn't to built in the same style but generally design is very simliar.
 
-### Used technologies:
+### Used technologies: ⚙️
 - Angular v15 (with RxJs library to state management)
 - Express.js
 - Node.js
 - MongoDB
 - Tailwind CSS
 
-### Features:
+### Features: ⭐
 #### For all web users:
 - registration/logging in
 - adding & editing suggestions
@@ -25,5 +25,5 @@ Design and logic of this app is inspired by [Frontend Mentor challenge](https://
 - ban user accoucnts (both)
 - change users roles (only admin)
 
-### Screenshots:
+### Screenshots: 📓
 // TO ADD (soon)
