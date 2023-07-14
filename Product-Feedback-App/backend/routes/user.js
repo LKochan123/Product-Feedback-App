@@ -8,12 +8,24 @@ const router = express.Router();
 
 router.post("/signup", async (req, res, next) => {
     try {
-        const hashPassword = await bcrypt.hash(req.body.password, 10);
-        const user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashPassword
-        });
+        const { username, email, password } = req.body;
+        const isUsernameTaken = await User.findOne({ username });
+        const isEmailTaken = await User.findOne({ email });
+
+        if (isUsernameTaken) {
+            return res.status(400).json({
+                message: "This username is already taken."
+            })
+        }
+
+        if (isEmailTaken) {
+            return res.status(400).json({
+                message: "This email is already taken."
+            })
+        }
+
+        const hashPassword = await bcrypt.hash(password, 10);
+        const user = new User({ username: username, email: email, password: hashPassword });
         const result = await user.save();
         res.status(201).json({
             message: 'Your account has been created!',
@@ -21,31 +33,33 @@ router.post("/signup", async (req, res, next) => {
         });
     } catch(err) {
         res.status(500).json({
-            error: err
+            message: 'Signup failed, something went wrong!'
         });
     }
 })
 
 router.post("/login", async (req, res, next) => {
     try {
-        const user = await User.findOne({ username: req.body.username });
-        const matched = await bcrypt.compare(req.body.password, user.password);
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
         
         if (!user) {
             return res.status(401).json({
-                message: 'User not found'
+                message: 'Invalid credentials.'
+            });
+        }
+
+        const matched = await bcrypt.compare(password, user.password);
+
+        if (!matched) {
+            return res.status(401).json({
+                message: 'Invalid password.'
             });
         }
 
         if (user.status === 'BANNED') {
             return res.status(401).json({
-                message: 'Your account is banned!'
-            });
-        }
-
-        if (!matched) {
-            return res.status(401).json({
-                message: 'Invalid password'
+                message: 'Your account is banned!!!'
             });
         }
     
@@ -62,7 +76,7 @@ router.post("/login", async (req, res, next) => {
         });
     } catch(error) {
         res.status(500).json({
-            error: error
+            message: 'Login failed, something went wrong!'
         });
     }
 })
@@ -82,8 +96,7 @@ router.patch('/status/:id', async (req, res, next) => {
         })
     } catch(error) {
         res.status(500).json({
-            error: error.message,
-            message: 'An error occured'
+            message: "Couldn't change user status!"
         })
     }
 })
@@ -103,8 +116,7 @@ router.patch('/role/:id', async (req, res, next) => {
         })
     } catch(error) {
         res.status(500).json({
-            error: error,
-            message: 'An error occured'
+            message: "Couldn't change user role, only admin can do that!"
         })
     }
 })
@@ -126,8 +138,7 @@ router.get('', async (req, res, next) => {
         })
     } catch(error) {
         res.status(500).json({
-            error: error,
-            message: 'Error occured :?'
+            message: "Couldn't get user."
         })
     }
 })
@@ -142,8 +153,7 @@ router.get('/multiple', async (req, res, next) => {
         });
     } catch(error) {
         res.status(500).json({
-            error: error,
-            message: 'An error occurred'
+            message: "Couldn't get multiple users"
         });
     }
 })
@@ -160,8 +170,7 @@ router.get('/:id', async (req, res, next) => {
         });
     } catch(error) {
         res.status(500).json({
-            error: error,
-            message: 'An error occurred'
+            message: "Couldn't get user, something went wrong."
         })
     }
 })

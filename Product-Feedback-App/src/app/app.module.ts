@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -49,6 +50,9 @@ import { AdminNavComponent } from './components/admin/admin-nav/admin-nav.compon
 import { AdminStatusComponent } from './components/admin/admin-status/admin-status.component';
 import { AdminRolesComponent } from './components/admin/admin-roles/admin-roles.component';
 import { SearchUserPipe } from './pipes/search-user.pipe';
+import { ErrorInterceptor } from './interceptors/error-interceptor';
+import { ErrorDialogComponent } from './components/errors/error-dialog/error-dialog.component';
+import { ErrorInfoComponent } from './components/errors/error-info/error-info.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +96,8 @@ import { SearchUserPipe } from './pipes/search-user.pipe';
     AdminNavComponent,
     AdminStatusComponent,
     AdminRolesComponent,
+    ErrorDialogComponent,
+    ErrorInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,10 +107,12 @@ import { SearchUserPipe } from './pipes/search-user.pipe';
     FormsModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -6,7 +6,7 @@
                 <a 
                     (click)="onStatusChange('Planned')"
                     [ngClass]="{'active planned': currentStatus === 'Planned'}">
-                    Planned ({{ countPlanned ?? '..' }})
+                    Planned ({{ countPlanned ?? 'x' }})
                 </a>
             </li>
             <li>
@@ -87,6 +87,7 @@
                 </app-feedback-info-roadmap>
             </div>
         </div>
-        <mat-spinner *ngIf="isLoading" color="accent" class="mx-auto py-16"></mat-spinner>
+        <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
+        <app-error-info *ngIf="connectionError && !isLoading"></app-error-info>
     </section>
 </div>

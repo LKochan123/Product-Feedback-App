@@ -6,22 +6,25 @@ const Comment = require('../models/comment');
 const router = express.Router();
 
 router.post('', checkAuth, async (req, res, next) => {
-    
-    const feedback = new Feedback({
-        author: req.userData.id,
-        title: req.body.title,
-        category: req.body.category,
-        upvotes: [],
-        status: req.body.status,
-        description: req.body.description,
-        comments: []
-    });
-
-    await feedback.save();
-
-    res.status(201).json({
-        message: 'Post added successfuly!',
-    });
+    try {
+        const feedback = new Feedback({
+            author: req.userData.id,
+            title: req.body.title,
+            category: req.body.category,
+            upvotes: [],
+            status: req.body.status,
+            description: req.body.description,
+            comments: []
+        });
+        await feedback.save();    
+        res.status(201).json({
+            message: 'Post added successfuly!',
+        });
+    } catch(error) {
+        res.status(500).json({
+            message: "Couldn't create feedback."
+        })
+    }
 })
 
 router.post('/:id/comments', checkAuth, async (req, res, next) => {
@@ -49,20 +52,27 @@ router.post('/:id/comments', checkAuth, async (req, res, next) => {
           comment: comment
         });
       } catch (error) {
-        res.status(500).json({ message: 'An error occurred' });
+        res.status(500).json({ 
+            message: "Couldn't post comment to this feedback!" 
+        });
       }
 })
 
 router.delete('/:id', checkAuth, async (req, res, next) => {
-    
     try {
-        await Feedback.deleteOne({ _id: req.params.id, author: req.userData.id });
-        res.status(200).json({
-            message: 'Post deleted!'
-        });
+        const isDeleted = await Feedback.deleteOne({ _id: req.params.id, author: req.userData.id });
+        if (isDeleted) {
+            res.status(200).json({
+                message: 'Post deleted.'
+            });
+        } else {
+            res.status(401).json({
+                message: 'Not authorizied!'
+            })
+        }
     } catch {
-        res.status(401).json({
-            message: 'Wrong author of the feedback!'
+        res.status(500).json({
+            message: "Couldn't delete feedback."
         })
     }
 })
@@ -88,7 +98,7 @@ router.patch('/:id', checkAuth, async (req, res, next) => {
         }
     } catch {
         res.status(500).json({
-            message: 'An error occurred!'
+            message: "Couldn't patch feedback"
         });
     }
 })
@@ -113,7 +123,7 @@ router.patch('/upvotes/:id', checkAuth, async (req, res, next) => {
 
     } catch {
         res.status(500).json({
-            message: 'En error occured!'
+            message: "Couldn't upvote/downvote on the feedback!"
         })
     }
 })
@@ -122,14 +132,21 @@ router.get('', async (req, res, next) => {
     try {
         const feedbacks = await Feedback.find();
         const countAll = await Feedback.countDocuments();
-        res.status(200).json({
-            message: 'All feedbacks fetched!',
-            feedbacks: feedbacks,
-            occurance: countAll
-        })
+
+        if (feedbacks && countAll) {
+            res.status(200).json({
+                message: 'All feedbacks fetched!',
+                feedbacks: feedbacks,
+                occurance: countAll
+            })
+        } else {
+            res.status(404).json({
+                message: 'Feedbacks not found!'
+            })
+        }
     } catch {
-        res.status(404).json({
-            message: 'Feedbacks not found!'
+        res.status(500).json({
+            message: "Couldn't fetched feedbacks."
         })
     }
 });
@@ -146,8 +163,7 @@ router.get('/status', async (req, res, next) => {
         })
     } catch(error) {
         res.status(500).json({
-            message: "ERROR OCCURED!",
-            error: error
+            message: "Couldn't fetched feedback with some status.",
         });
     }
 })
@@ -155,13 +171,19 @@ router.get('/status', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try {
         const feedback = await Feedback.findById({ _id: req.params.id });
-        res.status(200).json({
-            message: 'Feedback fetched!',
-            feedback: feedback
-        })
+        if (feedback) {
+            res.status(200).json({
+                message: 'Feedback fetched!',
+                feedback: feedback
+            })
+        } else {
+            res.status(404).json({
+                message: "Feedback not found!"
+            }) 
+        }
     } catch {
-        res.status(404).json({
-            message: "Feedback not found!"
+        res.status(500).json({
+            message: "Couldn't fetched this feedback."
         })
     }
 })

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { ProductsService } from 'src/app/services/products.service';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map, tap, catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class FeedbackIdComponent implements OnInit {
     currentUserID!: string | null;
     feedbackID!: string | null;
     isLoading = true;
+    connectionError = false;
 
     constructor(
         private productsService: ProductsService, 
@@ -27,9 +28,16 @@ export class FeedbackIdComponent implements OnInit {
                 this.feedbackID = paramMap.get('id');
                 this.feedback$ = this.productsService.getPostById$(this.feedbackID!).pipe(
                     map(response => response.feedback),
+                    catchError(() => this.handleError()),
                     tap(() => this.isLoading = false)
                 );
             } 
         })
+    }
+
+    handleError() {
+        this.isLoading = false;
+        this.connectionError = true;
+        return throwError(() => "Error!")
     }
 }

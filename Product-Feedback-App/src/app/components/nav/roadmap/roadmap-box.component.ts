@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { forkJoin, map, Subscription } from 'rxjs';
+import { catchError, forkJoin, map, Subscription, of } from 'rxjs';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -8,11 +8,12 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class RoadmapBoxComponent implements OnInit, OnDestroy {
 
-  countPlanned!: number;
-  countInProgress!: number;
-  countLive!: number;
+  countPlanned!: number | string;
+  countInProgress!: number | string;
+  countLive!: number | string;
   forkSub!: Subscription;
   isLoading = true;
+  
 
   constructor(private productsService: ProductsService) { }
 
@@ -31,7 +32,8 @@ export class RoadmapBoxComponent implements OnInit, OnDestroy {
 
   countStatusOccurance$(status: string) {
     return this.productsService.getPostsByStatus$(status).pipe(
-      map(response => response.occurance)
+      map(response => response.occurance),
+      catchError(() => of('x'))
     );
   }
 

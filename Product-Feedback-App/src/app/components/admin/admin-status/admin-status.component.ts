@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/user.model";
-import { Observable, map } from "rxjs";
-import { ActivatedRoute, Data, ParamMap, Params, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { ActivatedRoute, Data } from "@angular/router";
 import { UserStatusEnum } from "src/app/models/enums/user-status";
 import { UserRoleEnum } from "src/app/models/enums/user-role";
 

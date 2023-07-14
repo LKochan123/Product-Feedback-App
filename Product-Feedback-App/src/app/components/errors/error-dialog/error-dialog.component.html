@@ -1,0 +1,13 @@
+<div class="flex flex-col justify-center items-center p-5 rounded-lg">
+    <h3 mat-dialog-title class="text-sm">An error occured!</h3>
+    <div mat-dialog-content class="mt-2">
+        <p class="text-rose-600 text-lg">{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button 
+            mat-dialog-close 
+            class="bg-rose-400 hover:bg-rose-300 text-white transition-colors px-4 py-2 rounded-md">
+            Cancel
+        </button>
+    </div>
+</div>

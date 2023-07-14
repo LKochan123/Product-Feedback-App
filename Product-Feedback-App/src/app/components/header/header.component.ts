@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SuggestionsCountService } from 'src/app/services/suggestions-count.service';
-import { Observable } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, finalize, startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { SortingFeedbackEnum } from 'src/app/models/enums/sorting-feedback';
 import { CategoryTagService } from 'src/app/services/category-tag.service';
@@ -14,10 +14,12 @@ export class HeaderComponent implements OnInit {
 
   @Input() actualPage!: string;
   username!: string | null;
-  isAuthenticated = false;
-  showDropdown = false;
   countSuggestions$!: Observable<number|string>;
   sortingFeedbackEnum = SortingFeedbackEnum;
+  isLoading = true;
+  isAuthenticated = false;
+  showDropdown = false;
+  connectionError = false;
 
   constructor(
     private suggestionCountService: SuggestionsCountService, 
@@ -28,7 +30,8 @@ export class HeaderComponent implements OnInit {
     this.isAuthenticated = this.authService.getIsAuthenticated();
     this.suggestionCountService.setCountDisplayedSuggestions();
     this.countSuggestions$ = this.suggestionCountService.getCountDisplayedSuggestions$().pipe(
-      startWith('..')
+      startWith('..'),
+      catchError(() => this.handleError())
     );
   }
 
@@ -43,6 +46,12 @@ export class HeaderComponent implements OnInit {
   onSortingMethod(actualMethod: string) {
     const enumMenthod = this.sortingFeedbackEnum[actualMethod as keyof typeof SortingFeedbackEnum];
     this.cateogryTagService.setCurrentSortingMethod(enumMenthod);
+  }
+
+  handleError() {
+    this.connectionError = true;
+    this.isLoading = false
+    return throwError(() => "Error with counting status!")
   }
 
 }

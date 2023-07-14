@@ -15,8 +15,7 @@ router.get('', async (req, res, next) => {
       });
     } catch (error) {
       res.status(500).json({
-        error: error, 
-        message: 'An error occurred' 
+        message: "Couldn't fetched comments." 
       });
     }
 })
@@ -31,8 +30,7 @@ router.get('/multiple', async (req, res, next) => {
     });
   } catch(error) {
     res.status(500).json({
-      error: error,
-      message: 'An error occurred'
+      message: "Couldn't fetched multiple comments."
     });
   }
 })
@@ -48,8 +46,9 @@ router.get('/:id', async (req, res, next) => {
             comment: comment
         });
       } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'An error occurred' });
+        res.status(500).json({ 
+          message: "Couldn't fetched comment" 
+        });
       }
 })
 

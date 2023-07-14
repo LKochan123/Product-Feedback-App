@@ -20,10 +20,7 @@ export class ProductsService {
     }
 
     getPosts() {
-        this.http.get<{message: string, feedbacks: Post[], occurance: number}>(this.url)
-        .subscribe(response => {
-            this.feedbacks$.next([...response.feedbacks]);
-        })
+        return this.http.get<{message: string, feedbacks: Post[], occurance: number}>(this.url);
     }
 
     getPostsByStatus$(status: string) {
@@ -62,7 +59,7 @@ export class ProductsService {
             description: detail
         };
 
-        this.http.patch<{message: string}>(this.url + id, feedback).subscribe(res => {
+        this.http.patch<{message: string}>(this.url + id, feedback).subscribe(() => {
             this.navigateByStatus(status);
         })
     }

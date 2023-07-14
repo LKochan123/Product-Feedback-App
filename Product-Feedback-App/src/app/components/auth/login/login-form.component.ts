@@ -27,18 +27,6 @@ export class LoginFormComponent {
 
     onLogin(form: NgForm) {
         const { username, password } = form.value;
-
-        if (form.invalid) {
-            return;
-        }
-
-        this.authService.logIn$(username, password).pipe(
-            catchError((error: HttpErrorResponse) => {
-                this.errorText = error.error.message;
-                throw "Logging error!";
-            })
-        ).subscribe(res => {
-            this.router.navigate(['/']);
-        });
+        form.invalid || this.authService.logIn$(username, password);
     }
 }

@@ -12,10 +12,10 @@
         <div *ngIf="feedback.comments.length">
             <app-comment [commentsIds]="feedback.comments"></app-comment>
         </div>
-        <app-add-comment [feedbackID]="feedbackID!"></app-add-comment>  
     </ng-container>
 
-    <mat-spinner 
-        *ngIf="isLoading" color="accent" class="mx-auto">
-    </mat-spinner>
+    <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
+    <app-error-info *ngIf="!isLoading && connectionError"></app-error-info>
+
+    <app-add-comment [feedbackID]="feedbackID!"></app-add-comment>  
 </div>

@@ -19,8 +19,12 @@
             </main>
         </ng-container>
 
-        <section *ngIf="isLoadingData">
+        <div *ngIf="isLoadingData && !connectionsError">
             <mat-spinner color="accent" class="mx-auto"></mat-spinner>
-        </section>
+        </div>
+
+        <div class="md:mx-5 lg:mx-0" *ngIf="!isLoadingData && connectionsError">
+            <app-error-info></app-error-info>
+        </div>
     </div>
 </div>

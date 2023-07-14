@@ -1,5 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlOptions, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -17,11 +20,11 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignUpFormComponent implements OnInit {
 
     signUpForm!: FormGroup;
-    isSubmitted = false;
-    errorText = '';
+    errorText = "";
+    isSubmitted = false
     showPassword = false;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
     ngOnInit() {
         this.createSignUpForm();
@@ -48,24 +51,36 @@ export class SignUpFormComponent implements OnInit {
     }
 
     onCreateUser() {
-        if (this.signUpForm.invalid) {
-            const { username, email, password } = this.signUpForm.controls;
-            if (username.errors?.['maxlength']) {
-                this.errorText = 'Username should be less then 20 characters';
-            } else if (email.errors?.['email']) {
-                this.errorText = 'Wrong email';
-            } else if (password.errors?.['minlength']) {
-                this.errorText = 'Password should have min. 4 characters';
-            } else if (username.errors?.['pattern'] || password.errors?.['pattern']) {
-                this.errorText = 'Spaces are not allowed :)';
-            } else {
-                this.errorText = 'Cant be empty';
-            }
-        } else {
-            const { username, email, password } = this.signUpForm.value;
-            this.authService.signUp(username, email, password);
-        }
+        this.signUpForm.invalid ? this.handleFormValidation() : this.checkIsCredentialsTaken();
         this.isSubmitted = true;
+    }
+
+    handleFormValidation() {
+        const { username, email, password } = this.signUpForm.controls;
+        const errorMessages = {
+            usernameMaxlength: 'Username should be less than 20 characters',
+            invalidEmail: 'Wrong email',
+            passwordMinlength: 'Password should have min. 4 characters',
+            invalidCharacters: 'Spaces are not allowed :)',
+            emptyField: 'Field(s) cannot be empty'
+        };
+
+        if (username.errors?.['maxlength']) {
+            this.errorText = errorMessages.usernameMaxlength;
+        } else if (email.errors?.['email']) {
+            this.errorText = errorMessages.invalidEmail;
+        } else if (password.errors?.['minlength']) {
+            this.errorText = errorMessages.passwordMinlength;
+        } else if (username.errors?.['pattern'] || password.errors?.['pattern']) {
+            this.errorText = errorMessages.invalidCharacters;
+        } else {
+            this.errorText = errorMessages.emptyField;
+        }
+    }
+
+    checkIsCredentialsTaken() {
+        const { username, email, password } = this.signUpForm.value;
+        this.authService.signUp(username, email, password);
     }
 
     onShowPassword() {

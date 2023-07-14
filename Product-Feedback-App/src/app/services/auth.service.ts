@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Observable, map } from 'rxjs'
+import { Subject, Observable, map, catchError, throwError } from 'rxjs'
 import { User } from '../models/user.model';
 import { UserRoleEnum } from '../models/enums/user-role';
 import { UserStatusEnum } from '../models/enums/user-status';
@@ -59,24 +59,16 @@ export class AuthService {
     }
 
     signUp(username: string, email: string, password: string) {
-        const user = {
-            username: username,
-            email: email,
-            password: password
-        };
-
-        this.http.post(this.url + 'signup', user).subscribe(response => {
+        const user = { username, email, password };
+        this.http.post(this.url + 'signup', user).subscribe(() => {
             this.router.navigate(['/login']);
         });
     }
 
     logIn$(username: string, password: string) {
-        const user = {
-            username: username,
-            password: password
-        };
+        const user = { username, password };
 
-        return this.http.post<{id: string, token: string, expiresIn: number}>(this.url + 'login', user).pipe(
+        this.http.post<{id: string, token: string, expiresIn: number}>(this.url + 'login', user).pipe(
             map(response => {
                 this.token = response.token;
                 if (this.token) {
@@ -92,7 +84,7 @@ export class AuthService {
                     this.saveDataInLocalStorage(this.token, expirationDate, username, this.currentUserID);
                 }
             })
-        )
+        ).subscribe(() => this.router.navigate(['/']));
     }
 
     logOut() {
