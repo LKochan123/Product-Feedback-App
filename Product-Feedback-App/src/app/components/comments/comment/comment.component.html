@@ -9,7 +9,7 @@
                 class="text-xs md:text-sm my-3 px-1 md:my-5"
                 >
                 <div class="flex">
-                    <app-comment-photo></app-comment-photo>
+                    <app-comment-photo [author]="comment.author"></app-comment-photo>
                     <div class="w-full">
                         <app-comment-content [comment]="comment"></app-comment-content>
                         <app-comment-reply 
@@ -26,7 +26,7 @@
                         </div> -->
                     </div>
                 </div>
-                <hr *ngIf="!last" class="text-gray mt-3 md:mt-5">
+                <hr *ngIf="!last" class="text-gray bg-slate-400 mt-3 md:mt-5">
             </div>
         </ng-container>
 

@@ -15,6 +15,7 @@ export class FeedbackIdComponent implements OnInit {
     feedbackID!: string | null;
     isLoading = true;
     connectionError = false;
+    isAuthenticated = false;
 
     constructor(
         private productsService: ProductsService, 
@@ -22,6 +23,7 @@ export class FeedbackIdComponent implements OnInit {
         private authService: AuthService) { }
 
     ngOnInit() {
+        this.isAuthenticated = this.authService.getIsAuthenticated();
         this.currentUserID = this.authService.getCurrentUserID();
         this.route.paramMap.subscribe((paramMap: ParamMap) => {
             if (paramMap.has('id')) {

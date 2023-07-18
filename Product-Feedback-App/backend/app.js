@@ -5,14 +5,13 @@ const bodyParser = require('body-parser');
 const feedbackRoutes = require('./routes/feedbacks');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comments');
-const DB_URL = require('./db');
 
 const app = express();
 
 async function connectToMongoDB() {
-    url = DB_URL;
+    DB_URL = `mongodb+srv://lukaszek2302:${process.env.MONGO_ATLAS_PASSWORD}@pfa-cluster.phq9gtd.mongodb.net/node-angular`;
     try {
-        await mongoose.connect(url);
+        await mongoose.connect(DB_URL);
         console.log('Connected to DB!');
     } catch {
         console.log('Error!');

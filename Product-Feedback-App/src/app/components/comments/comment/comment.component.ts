@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
 import { Comment } from 'src/app/models/comment.model';
-import { map, switchMap, Observable, zip, combineLatest, toArray, Subscription } from 'rxjs';
+import { map, switchMap, Observable, zip, combineLatest, toArray, Subscription, defaultIfEmpty } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 
@@ -14,8 +14,7 @@ interface IComment {
 
 @Component({
     selector: 'app-comment',
-    templateUrl: 'comment.component.html',
-    styleUrls: ['comment.component.css']
+    templateUrl: 'comment.component.html'
 })
 export class CommentComponent implements OnInit {
 
@@ -62,7 +61,8 @@ export class CommentComponent implements OnInit {
               }))
             )
           ),
-          toArray()
+          toArray(),
+          defaultIfEmpty([])
         );
     }
 }

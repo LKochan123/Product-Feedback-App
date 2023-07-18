@@ -44,5 +44,4 @@ Thumbs.db
 
 *.txt
 .env
-db.js
-secret-key.js
+nodemon.json

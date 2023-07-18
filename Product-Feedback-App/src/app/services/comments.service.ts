@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject, Observable, map } from 'rxjs';
 import { ProductsService } from './products.service';
 import { Comment } from '../models/comment.model';
+import { environemnt } from 'src/environments/environment';
 
 @Injectable({ 
     providedIn: 'root'
@@ -10,8 +11,8 @@ import { Comment } from '../models/comment.model';
 export class CommentsService {
 
     private replyComment$ = new Subject<string | null>();
-    private url = 'http://localhost:3000/feedbacks/';
-    private commentURL = 'http://localhost:3000/comment/';
+    private url = environemnt.apiUrl + 'feedbacks/';
+    private commentURL = environemnt.apiUrl + 'comment/';
 
     constructor(
         private http: HttpClient, 

@@ -9,23 +9,28 @@
             class="text-dark-blue text-sm mt-2 px-2 py-1 outline-blue"
             [(ngModel)]="searchData">
     </div>
-    <div 
-        *ngFor="let user of users.users | searchUser:searchData"
-        class="bg-white text-dark-blue p-3 my-3 text-sm rounded-lg">
-        <div class="sm:flex sm:flex-row sm:justify-between sm:items-center">
-            <div class="mb-2 sm:mb-0">
-                <p>{{ user.username }}</p>
-                <p>{{ user.email }}</p>
-                <p>{{ user._id }}</p>
+    <ng-container *ngIf="(users.users | searchUser:searchData) as filteredUsers">
+        <div
+            *ngFor="let user of filteredUsers"
+            class="bg-white text-dark-blue p-3 my-3 text-sm rounded-lg">
+            <div class="sm:flex sm:flex-row sm:justify-between sm:items-center">
+                <div class="mb-2 sm:mb-0">
+                    <p>{{ user.username }}</p>
+                    <p>{{ user.email }}</p>
+                    <p>{{ user._id }}</p>
+                </div>
+                <button
+                    (click)="onChangeStatus(user._id, user.status)" 
+                    class="text-white px-4 py-2 rounded-lg transition-colors"
+                    [ngClass]="user.status === 'ACTIVE' ? 'bg-green-500 hover:bg-green-400' : 'bg-red-500 hover:bg-red-400'">
+                    {{ user.status === 'ACTIVE' ? 'Ban user' : 'Unban user' }}
+                </button>
             </div>
-            <button
-                (click)="onChangeStatus(user._id, user.status)" 
-                class="text-white px-4 py-2 rounded-lg transition-colors"
-                [ngClass]="user.status === 'ACTIVE' ? 'bg-green-500 hover:bg-green-400' : 'bg-red-500 hover:bg-red-400'">
-                {{ user.status === 'ACTIVE' ? 'Ban user' : 'Unban user' }}
-            </button>
         </div>
-    </div>  
+        <div *ngIf="!filteredUsers.length" class="p-2 my-4 bg-white rounded-md">
+            <p class="text-sm">No mached users found! :/</p>
+        </div>
+    </ng-container>
 </ng-container>
 <ng-template #loading>
     <mat-spinner></mat-spinner>

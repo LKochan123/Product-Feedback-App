@@ -14,13 +14,12 @@
         <button
             (click)="onCancel()"
             type="button" 
-            class="bg-red-500 p-2 sm:px-4 mr-2 rounded-md cursor-pointer
-            hover:opacity-80 transition-opacity duration-300">
+            class="bg-red-500 p-2 sm:px-4 mr-2 rounded-md cursor-pointer hover:opacity-80 transition-opacity duration-300">
             Anuluj
         </button>
         <button 
-            class="bg-purple p-2 sm:px-4 rounded-md cursor-pointer
-            hover:opacity-80 transition-opacity duration-300">
+            (click)="onReplyComment(commentReply)"
+            class="bg-purple p-2 sm:px-4 rounded-md cursor-pointer hover:opacity-80 transition-opacity duration-300">
             Post reply
         </button>
     </div>

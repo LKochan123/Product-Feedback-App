@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Observable, map, catchError, throwError } from 'rxjs'
+import { Subject, Observable, map } from 'rxjs'
 import { User } from '../models/user.model';
 import { UserRoleEnum } from '../models/enums/user-role';
 import { UserStatusEnum } from '../models/enums/user-status';
+import { environemnt } from 'src/environments/environment';
 
 @Injectable({ 
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthService {
     private currentUserID!: string | null;
     private token!: string;
     private tokenTimer!: any;
-    private url = 'http://localhost:3000/user/';
+    private url = environemnt.apiUrl + 'user/';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -97,7 +98,14 @@ export class AuthService {
 
     changeUserStatus(id: string, currStatus: UserStatusEnum) {
         const status = { status: currStatus === UserStatusEnum.ACTIVE ? UserStatusEnum.BANNED : UserStatusEnum.ACTIVE };
-        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe(res => {
+        this.http.patch<{message: string}>(this.url + 'status/' + id, status).subscribe(() => {
+            window.location.reload();
+        });
+    }
+
+    changeUserRole(id: string, currRole: UserRoleEnum) {
+        const role = { role: currRole === UserRoleEnum.USER ? UserRoleEnum.MODERATOR : UserRoleEnum.USER };
+        this.http.patch<{message: string}>(this.url + 'role/' + id, role).subscribe(() => {
             window.location.reload();
         });
     }

@@ -4,6 +4,7 @@ import { Post } from '../models/post.model';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CategoryTagEnum } from '../models/enums/category-tag';
+import { environemnt } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +12,7 @@ import { CategoryTagEnum } from '../models/enums/category-tag';
 export class ProductsService {
 
     feedbacks$ = new Subject<Post[]>();
-    private url = 'http://localhost:3000/feedbacks/';
+    private url = environemnt.apiUrl + 'feedbacks/';
 
     constructor(private http: HttpClient, private router: Router) { }
 
@@ -65,12 +66,10 @@ export class ProductsService {
     }
 
     upvotesOnPost(id: string, upvote: boolean) {
-
         const isUpvoted = {
             upvote: upvote,
             downvote: !upvote
         }
-
         this.http.patch<{message: string}>(this.url + 'upvotes/' + id, isUpvoted).subscribe();
     }
 
