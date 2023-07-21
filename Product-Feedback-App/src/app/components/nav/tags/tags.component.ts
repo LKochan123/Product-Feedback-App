@@ -50,5 +50,5 @@ export class TagsComponent implements OnInit {
     this.router.navigate([''], { 
       queryParams: (category === 'ALL') ? null : { category: enumCategoryTag.toLowerCase() }
     })
-  };
+  }
 }

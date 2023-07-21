@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { SharedModule } from './shared.module';
 // import { AdminModule } from './pages/admin/admin.module';
@@ -12,7 +10,6 @@ import { SortingFeedbacksPipe } from './pipes/sorting.pipe';
 import { TruncatePipe } from './pipes/trancute.pipe';
 import { SearchUserPipe } from './pipes/search-user.pipe';
 
-import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback.component';
 import { FeedbackInformationComponent } from './components/feedback-information/feedback-information.component';
 import { EmptyFeedbackComponent } from './components/empty-feedback/empty-feedback.component';
 import { FeedbackFormComponent } from './components/feedback-form/feedback-form.component';
@@ -60,7 +57,6 @@ import { TagsComponent } from './components/nav/tags/tags.component';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { RoleDialogComponent } from './components/admin/role-dialog/role-dialog.component';
 import { NoCommentComponent } from './components/comments/no-comment/no-comment.component';
-// import { SignupModule } from './pages/signup/signup.module';
 
 @NgModule({
   declarations: [
@@ -70,7 +66,6 @@ import { NoCommentComponent } from './components/comments/no-comment/no-comment.
     SortingFeedbacksPipe,
     TruncatePipe,
     SearchUserPipe,
-    CreateFeedbackComponent,
     FeedbackInformationComponent,
     EmptyFeedbackComponent,
     FeedbackFormComponent,
@@ -113,7 +108,6 @@ import { NoCommentComponent } from './components/comments/no-comment/no-comment.
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    // SignupModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

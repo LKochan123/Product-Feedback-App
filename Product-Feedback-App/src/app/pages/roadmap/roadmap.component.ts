@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { Post } from 'src/app/models/post.model';
-import { catchError, combineLatest, map, of, throwError } from 'rxjs';
+import { catchError, combineLatest, throwError } from 'rxjs';
 
 @Component({
     templateUrl: './roadmap.component.html',

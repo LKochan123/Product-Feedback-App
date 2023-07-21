@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentsService } from 'src/app/services/comments.service';
 
@@ -6,7 +6,7 @@ import { CommentsService } from 'src/app/services/comments.service';
     selector: 'app-comment-content',
     templateUrl: './comment-content.component.html'
 })
-export class CommentContentComponent {
+export class CommentContentComponent implements OnInit {
 
     isAuthenticated = false;
     @Input() comment!: {

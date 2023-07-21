@@ -28,7 +28,7 @@ export class CommentsService {
 
     sendComment(feedbackID: string, text: string) {
         const request = { text: text };
-        this.http.post<{message: string}>(this.url + feedbackID + '/comments', request).subscribe(res => {
+        this.http.post<{message: string}>(this.url + feedbackID + '/comments', request).subscribe(() => {
             window.location.reload();
         })
     }

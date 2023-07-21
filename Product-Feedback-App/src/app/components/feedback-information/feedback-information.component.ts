@@ -7,9 +7,4 @@ import { Post } from 'src/app/models/post.model';
 })
 export class FeedbackInformationComponent {
   @Input() feedback!: Post;
-
-  ngOnInit() {
-    
-  }
-
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 import { tap } from 'rxjs/operators';
 import { CategoryTagEnum } from 'src/app/models/enums/category-tag';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-feedback-form',
@@ -20,24 +21,25 @@ import { CategoryTagEnum } from 'src/app/models/enums/category-tag';
 })
 export class FeedbackFormComponent implements OnInit {
 
+    statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live'];
     categoryOptions = CategoryTagEnum;
-    statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live']
-    @Input() fMode!: { isEditingPost: boolean, id: string | null };
     feedbackForm!: FormGroup;
     headingName!: string;
-    isLoading!: boolean;
     isSubmitted = false;
     errorTitleText = '';
     errorDetailText = '';
   
-    constructor(private productsServcie: ProductsService, private router: Router) { }
+    constructor(@Inject(MAT_DIALOG_DATA) public data: {
+      isEditingPost: boolean, id: string | null
+    },
+    private productsServcie: ProductsService,
+    private router: Router) { }
   
     ngOnInit() {
       this.createFeedbackForm();
       
-      if (this.fMode.id) {
-        this.isLoading = true;
-        this.productsServcie.getPostById$(this.fMode.id).subscribe(res => {
+      if (this.data.id) {
+        this.productsServcie.getPostById$(this.data.id).subscribe(res => {
           const { title, category, status, description } = res.feedback;
           this.headingName = `Editing "${title}"`;
           this.feedbackForm.setValue({
@@ -46,7 +48,6 @@ export class FeedbackFormComponent implements OnInit {
             'status': status,
             'detail': description
           });
-          this.isLoading = false;
         })
       }
     }
@@ -71,8 +72,8 @@ export class FeedbackFormComponent implements OnInit {
       const enumCategory = CategoryTagEnum[category as keyof typeof CategoryTagEnum];
 
       if (this.feedbackForm.valid) {
-        if (this.fMode.id) {
-          this.productsServcie.updatePost(this.fMode.id, title?.trim(), enumCategory, status, detail?.trim());
+        if (this.data.id) {
+          this.productsServcie.updatePost(this.data.id, title?.trim(), enumCategory, status, detail?.trim());
         } else {
           this.productsServcie.addPost(title, enumCategory, detail);
         }

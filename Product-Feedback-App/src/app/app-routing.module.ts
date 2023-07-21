@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { CreateFeedbackComponent } from './pages/create-feedback/create-feedback.component';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { SignUpComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authenticationGuard } from './guards/authentication.guard';
-import { authorizationGuard } from './guards/authorization.guard';
 import { roleGuard } from './guards/role.guard';
 import { FeedbackIdComponent } from './pages/feedback-id/feedback-id.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminStatusComponent } from './components/admin/admin-status/admin-status.component';
 import { UserStatusEnum } from './models/enums/user-status';
@@ -19,16 +16,6 @@ import { AdminRolesComponent } from './components/admin/admin-roles/admin-roles.
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
-    { 
-        path: 'create-feedback', 
-        component: CreateFeedbackComponent, 
-        canActivate: [authenticationGuard] 
-    },
-    { 
-        path: 'edit-feedback/:id', 
-        component: CreateFeedbackComponent, 
-        canActivate: [authenticationGuard, (snapshot: ActivatedRouteSnapshot) => authorizationGuard(snapshot)]
-    }, 
     { 
         path: 'admin', 
         component: AdminComponent, 

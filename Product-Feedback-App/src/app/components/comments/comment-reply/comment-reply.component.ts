@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { CommentsService } from 'src/app/services/comments.service';
 
 @Component({
@@ -17,9 +16,5 @@ export class CommentReplyComponent implements OnInit {
 
     onCancel() {
         this.commentsService.setReplyComment(null);
-    }
-
-    onReplyComment(form: NgForm) {
-
     }
 }

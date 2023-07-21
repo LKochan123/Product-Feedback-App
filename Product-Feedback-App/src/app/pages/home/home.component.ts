@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoryTagService } from 'src/app/services/category-tag.service';
-import { Subscription, combineLatest, of, throwError } from 'rxjs';
+import { Subscription, combineLatest, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SortingFeedbackEnum } from 'src/app/models/enums/sorting-feedback';
 import { CategoryTagEnum } from 'src/app/models/enums/category-tag';

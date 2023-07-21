@@ -43,7 +43,7 @@ export class ProductsService {
             description: description
         };
 
-        this.http.post<{message: string}>(this.url, feedback).subscribe(res => {
+        this.http.post<{message: string}>(this.url, feedback).subscribe(() => {
             this.router.navigate(['/']);
         });
     }

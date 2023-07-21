@@ -8,10 +8,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ReturnHomeButtonComponent } from './components/buttons/return-home-button/return-home-button';
 
 @NgModule({
-    // declarations: [ReturnHomeButtonComponent],
     exports: [
         BrowserModule,
         CommonModule,
@@ -22,7 +20,6 @@ import { ReturnHomeButtonComponent } from './components/buttons/return-home-butt
         MatProgressSpinnerModule,
         BrowserAnimationsModule,
         MatDialogModule,
-        // ReturnHomeButtonComponent
     ]
 })
 export class SharedModule { }

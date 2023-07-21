@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { UserRoleEnum } from "src/app/models/enums/user-role";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { AuthService } from "src/app/services/auth.service";
-import { User } from "src/app/models/user.model";
 
 @Component({
     selector: 'app-role-dialog',

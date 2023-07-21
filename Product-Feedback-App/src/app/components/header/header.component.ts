@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SuggestionsCountService } from 'src/app/services/suggestions-count.service';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize, startWith } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, startWith } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { SortingFeedbackEnum } from 'src/app/models/enums/sorting-feedback';
 import { CategoryTagService } from 'src/app/services/category-tag.service';

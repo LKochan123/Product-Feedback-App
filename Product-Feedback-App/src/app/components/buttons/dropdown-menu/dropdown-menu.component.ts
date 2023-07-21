@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserRoleEnum } from 'src/app/models/enums/user-role';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackFormComponent } from '../../feedback-form/feedback-form.component';
 
 @Component({
     selector: 'app-dropdown-menu',
@@ -14,7 +16,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
     isModerator = false;
     showDropdown = false;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private dialog: MatDialog) { }
 
     ngOnInit() {
         this.username = localStorage.getItem('username')!;
@@ -31,7 +33,17 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
         this.authService.logOut();
     }
 
-    ngOnDestroy(): void {
+    onAddFeedback() {
+        this.dialog.open(FeedbackFormComponent, {
+            minWidth: '300px',
+            data: { 
+                isEditingPost: false,
+                id: null
+            }
+        });
+    }
+
+    ngOnDestroy() {
         this.isModeratorSub.unsubscribe();
     }
 }

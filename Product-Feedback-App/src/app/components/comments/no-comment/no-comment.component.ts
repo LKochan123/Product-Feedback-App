@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/services/auth.service";
 
 @Component({
@@ -17,7 +17,7 @@ import { AuthService } from "src/app/services/auth.service";
     </div>
     `
 })
-export class NoCommentComponent { 
+export class NoCommentComponent implements OnInit { 
     isAuthenticated = false;
 
     constructor(private authService: AuthService) { }

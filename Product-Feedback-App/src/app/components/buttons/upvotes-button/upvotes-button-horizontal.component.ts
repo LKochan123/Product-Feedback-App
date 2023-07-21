@@ -9,8 +9,7 @@ import { map } from 'rxjs';
     <div 
     (click)="onUpvotesButton()"
     [ngClass]="isClicked ? 'bg-blue' : 'bg-light-blue'" 
-    class="upvotes-button flex flex-row items-center 
-    px-3 py-2 text-xs rounded-lg">
+    class="upvotes-button flex flex-row items-center px-3 py-2 text-xs rounded-lg">
         <i 
             [ngClass]="isClicked ? 'text-white' : 'text-blue'" 
             class="fa-solid fa-arrow-up">
