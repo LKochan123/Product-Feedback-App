@@ -8,10 +8,9 @@ import { SortingFeedbackEnum } from 'src/app/models/enums/sorting-feedback';
 import { CategoryTagEnum } from 'src/app/models/enums/category-tag';
 
 @Component({
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-
   feedbackSuggestions!: Post[];
   category!: CategoryTagEnum;
   sortingMethod!: SortingFeedbackEnum;
@@ -20,37 +19,40 @@ export class HomeComponent implements OnInit {
   isLoadingData = true;
   connectionsError = false;
 
-  constructor(private productService: ProductsService, 
-    private categoryTagService: CategoryTagService) { }
+  constructor(private productService: ProductsService, private categoryTagService: CategoryTagService) {}
 
   ngOnInit() {
     const sorting$ = this.categoryTagService.getCurrentSortingMethod$();
     const category$ = this.categoryTagService.getCurrentTag$();
-    const suggestions$ = this.productService.getPostsUpdate$().pipe(
-      map(feedbacks => feedbacks.filter(feedback => feedback.status === 'Suggestion'))
-    )
+    const suggestions$ = this.productService
+      .getPostsUpdate$()
+      .pipe(map((feedbacks) => feedbacks.filter((feedback) => feedback.status === 'Suggestion')));
 
+    // Nie chcemy zadnych komentarzy w kodzie, chyba, ze jest to absolutnie niezbedne.
     // IMPORTANT!
-    this.productService.getPosts().pipe(
-      catchError(error => {
-        this.isLoadingData = false;
-        this.connectionsError = true;
-        return throwError(() => error);
-      })
-    ).subscribe(res => {
-      this.productService.feedbacks$.next([...res.feedbacks]);
-    })
+    this.productService
+      .getPosts()
+      .pipe(
+        catchError((error) => {
+          this.isLoadingData = false;
+          this.connectionsError = true;
+          return throwError(() => error);
+        })
+      )
+      .subscribe((res) => {
+        this.productService.feedbacks$.next([...res.feedbacks]);
+      });
 
     combineLatest([category$, suggestions$, sorting$]).subscribe(([category, suggestions, sorting]) => {
       this.category = category;
       this.feedbackSuggestions = suggestions;
       this.sortingMethod = sorting;
-      this.isLoadingData = false
+      this.isLoadingData = false;
     });
   }
 
+  // trackBySuggestionId?
   trackBySuggestion(index: number, suggestion: Post) {
     return suggestion._id;
   }
-
 }
