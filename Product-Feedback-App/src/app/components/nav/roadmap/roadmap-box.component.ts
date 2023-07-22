@@ -4,30 +4,28 @@ import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-roadmap-box',
-  templateUrl: './roadmap-box.component.html'
+  templateUrl: './roadmap-box.component.html',
 })
 export class RoadmapBoxComponent implements OnInit, OnDestroy {
-
   countPlanned!: number | string;
   countInProgress!: number | string;
   countLive!: number | string;
   forkSub!: Subscription;
   isLoading = true;
-  
 
-  constructor(private productsService: ProductsService) { }
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
     this.forkSub = forkJoin([
       this.countStatusOccurance$('Planned'),
       this.countStatusOccurance$('In-Progress'),
-      this.countStatusOccurance$('Live')
+      this.countStatusOccurance$('Live'),
     ]).subscribe(([plannedCounter, progressCounter, liveCounter]) => {
       this.countPlanned = plannedCounter;
       this.countInProgress = progressCounter;
       this.countLive = liveCounter;
       this.isLoading = false;
-    })
+    });
   }
 
   countStatusOccurance$(status: string) {

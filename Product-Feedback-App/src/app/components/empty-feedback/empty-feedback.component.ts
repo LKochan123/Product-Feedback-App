@@ -2,17 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-empty-feedback',
-    templateUrl: './empty-feedback.component.html'
+  selector: 'app-empty-feedback',
+  templateUrl: './empty-feedback.component.html',
 })
 export class EmptyFeedbackComponent implements OnInit {
+  isAuthenticated = false;
 
-    isAuthenticated = false;
+  constructor(private authService: AuthService) {}
 
-    constructor(private authService: AuthService) { }
-
-    ngOnInit() {
-        this.isAuthenticated = this.authService.getIsAuthenticated();
-    }
-    
+  ngOnInit() {
+    this.isAuthenticated = this.authService.getIsAuthenticated();
+  }
 }

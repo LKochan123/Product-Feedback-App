@@ -104,15 +104,11 @@ import { NoCommentComponent } from './components/comments/no-comment/no-comment.
     EditButtonComponent,
     RoleDialogComponent,
   ],
-  imports: [
-    AppRoutingModule,
-    HttpClientModule,
-    SharedModule,
-  ],
+  imports: [AppRoutingModule, HttpClientModule, SharedModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

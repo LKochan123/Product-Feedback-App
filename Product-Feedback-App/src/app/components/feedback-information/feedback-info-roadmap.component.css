@@ -1,36 +1,33 @@
 article {
-    position: relative;
+  position: relative;
 }
 
 article::after {
-    position: absolute;
-    content: '';
-    left: 0;
-    top: 0;
-    height: 5px;
-    width: 100%;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+  position: absolute;
+  content: '';
+  left: 0;
+  top: 0;
+  height: 5px;
+  width: 100%;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 }
 
 article.empty::after {
-    background-color: rgb(176, 34, 34);
+  background-color: rgb(176, 34, 34);
 }
-
 
 article.planned::after,
 .planned-circle {
-    background-color: orange;
+  background-color: orange;
 }
-
 
 article.in-progress::after,
 .in-progress-circle {
-    background-color: rgb(188, 23, 188);
+  background-color: rgb(188, 23, 188);
 }
-
 
 article.live::after,
 .live-circle {
-    background-color: rgb(89, 229, 229);
+  background-color: rgb(89, 229, 229);
 }

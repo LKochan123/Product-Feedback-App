@@ -4,27 +4,29 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-login-form',
-    templateUrl: './login-form.component.html'
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
 })
 export class LoginFormComponent {
+  showPassword = false;
+  errorText = '';
 
-    showPassword = false;
-    errorText = "";
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-    constructor(private authService: AuthService, private router: Router) { }
+  onClear(form: NgForm) {
+    this.errorText = '';
+    form.resetForm();
+  }
 
-    onClear(form: NgForm) {
-        this.errorText = '';
-        form.resetForm();
-    }
+  onShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
 
-    onShowPassword() {
-        this.showPassword = !this.showPassword;
-    }
-
-    onLogin(form: NgForm) {
-        const { username, password } = form.value;
-        form.invalid || this.authService.logIn$(username, password);
-    }
+  onLogin(form: NgForm) {
+    const { username, password } = form.value;
+    form.invalid || this.authService.logIn$(username, password);
+  }
 }

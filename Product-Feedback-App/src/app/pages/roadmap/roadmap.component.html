@@ -1,93 +1,79 @@
 <div class="md:py-10 lg:py-16 lg:px-5 max-w-screen-xlg mx-auto">
-    <app-header [actualPage]="'Roadmap'"></app-header>
-    <div class="px-5 py-4 md:hidden">
-        <ul class="flex flex-row justify-between items-center text-sm">
-            <li>
-                <a 
-                    (click)="onStatusChange('Planned')"
-                    [ngClass]="{'active planned': currentStatus === 'Planned'}">
-                    Planned ({{ countPlanned ?? 'x' }})
-                </a>
-            </li>
-            <li>
-                <a 
-                    (click)="onStatusChange('In-Progress')"
-                    [ngClass]="{'active in-progress': currentStatus === 'In-Progress'}">
-                    In-Progress ({{ countInProgress ?? '..' }})
-                </a>
-            </li>
-            <li>
-                <a 
-                    (click)="onStatusChange('Live')" 
-                    [ngClass]="{'active live': currentStatus === 'Live'}">
-                    Live ({{ countLive ?? '..' }})
-                </a>
-            </li>
-        </ul>
+  <app-header [actualPage]="'Roadmap'"></app-header>
+  <div class="px-5 py-4 md:hidden">
+    <ul class="flex flex-row justify-between items-center text-sm">
+      <li>
+        <a
+          (click)="onStatusChange('Planned')"
+          [ngClass]="{ 'active planned': currentStatus === 'Planned' }">
+          Planned ({{ countPlanned ?? 'x' }})
+        </a>
+      </li>
+      <li>
+        <a
+          (click)="onStatusChange('In-Progress')"
+          [ngClass]="{ 'active in-progress': currentStatus === 'In-Progress' }">
+          In-Progress ({{ countInProgress ?? '..' }})
+        </a>
+      </li>
+      <li>
+        <a (click)="onStatusChange('Live')" [ngClass]="{ 'active live': currentStatus === 'Live' }">
+          Live ({{ countLive ?? '..' }})
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="md:hidden text-gray" />
+
+  <section class="px-5 py-6 lg:px-0">
+    <div *ngIf="!isLoading" [ngSwitch]="currentStatus" class="md:hidden">
+      <div *ngSwitchCase="'Planned'">
+        <h3 class="text-base">Planned ({{ countPlanned ?? '..' }})</h3>
+        <p class="text-sm mb-1">Ideas prioritized for research</p>
+
+        <app-feedback-info-roadmap [feedbackArr]="plannedFeedbacks"> </app-feedback-info-roadmap>
+      </div>
+
+      <div *ngSwitchCase="'In-Progress'">
+        <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
+        <p class="text-sm mb-1">Features currently being developed</p>
+
+        <app-feedback-info-roadmap [feedbackArr]="inProgressFeedbacks"> </app-feedback-info-roadmap>
+      </div>
+
+      <div *ngSwitchCase="'Live'">
+        <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
+        <p class="text-sm mb-1">Released features</p>
+
+        <app-feedback-info-roadmap [feedbackArr]="liveFeedbacks"> </app-feedback-info-roadmap>
+      </div>
     </div>
 
-    <hr class="md:hidden text-gray">
+    <!-- > 768px -->
+    <div class="hidden md:flex md:flex-row md:gap-2 lg:gap-4">
+      <div class="w-full lg:w-1/3">
+        <h3 class="text-base">Planned ({{ countPlanned ?? '..' }})</h3>
+        <p class="text-sm">Ideas prioritized for research</p>
 
-    <section class="px-5 py-6 lg:px-0">
-        <div *ngIf="!isLoading" [ngSwitch]="currentStatus" class="md:hidden">
-            <div *ngSwitchCase="'Planned'">
-                <h3 class="text-base">Planned ({{ countPlanned ?? '..' }})</h3>
-                <p class="text-sm mb-1">Ideas prioritized for research</p>
+        <app-feedback-info-roadmap [feedbackArr]="plannedFeedbacks"> </app-feedback-info-roadmap>
+      </div>
 
-                <app-feedback-info-roadmap
-                    [feedbackArr]="plannedFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
+      <div class="w-full lg:w-1/3">
+        <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
+        <p class="text-sm">Features currently being developed</p>
 
-            <div *ngSwitchCase="'In-Progress'">
-                <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
-                <p class="text-sm mb-1">Features currently being developed</p>
+        <app-feedback-info-roadmap [feedbackArr]="inProgressFeedbacks"> </app-feedback-info-roadmap>
+      </div>
 
-                <app-feedback-info-roadmap 
-                    [feedbackArr]="inProgressFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
+      <div class="w-full lg:w-1/3">
+        <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
+        <p class="text-sm">Released features</p>
 
-            <div *ngSwitchCase="'Live'">
-                <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
-                <p class="text-sm mb-1">Released features</p>
-
-                <app-feedback-info-roadmap 
-                    [feedbackArr]="liveFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
-        </div>
-
-        <!-- > 768px -->
-        <div class="hidden md:flex md:flex-row md:gap-2 lg:gap-4">
-            <div class="w-full lg:w-1/3">
-                <h3 class="text-base">Planned ({{ countPlanned ?? '..'  }})</h3>
-                <p class="text-sm">Ideas prioritized for research</p>
-
-                <app-feedback-info-roadmap 
-                    [feedbackArr]="plannedFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
-
-            <div class="w-full lg:w-1/3">
-                <h3 class="text-base">In Progress ({{ countInProgress ?? '..' }})</h3>
-                <p class="text-sm">Features currently being developed</p>
-
-                <app-feedback-info-roadmap 
-                    [feedbackArr]="inProgressFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
-
-            <div class="w-full lg:w-1/3">
-                <h3 class="text-base">Live ({{ countLive ?? '..' }})</h3>
-                <p class="text-sm">Released features</p>
-
-                <app-feedback-info-roadmap 
-                    [feedbackArr]="liveFeedbacks">
-                </app-feedback-info-roadmap>
-            </div>
-        </div>
-        <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
-        <app-error-info *ngIf="connectionError && !isLoading"></app-error-info>
-    </section>
+        <app-feedback-info-roadmap [feedbackArr]="liveFeedbacks"> </app-feedback-info-roadmap>
+      </div>
+    </div>
+    <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
+    <app-error-info *ngIf="connectionError && !isLoading"></app-error-info>
+  </section>
 </div>

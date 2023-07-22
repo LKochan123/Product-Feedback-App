@@ -1,21 +1,23 @@
 <div class="flex flex-col justify-center items-center p-5 rounded-lg">
-    <h3 mat-dialog-title class="text-dark-blue">Change role?</h3>
-    <div mat-dialog-content>
-        <p class="text-base">Are you sure you want to change
-            <span class="font-medium">{{ data.username }}</span> role to 
-            <span class="font-medium">{{ futureRole.toLocaleLowerCase() }}</span>?
-        </p>
-    </div>
-    <div mat-dialog-actions class="text-sm">
-        <button 
-            mat-dialog-close
-            class="bg-rose-500 hover:bg-rose-400 w-full text-white transition-colors px-4 py-2 rounded-md">
-            Cancel
-        </button>
-        <button
-            class="bg-green-500 hover:bg-green-400 w-full mt-2 text-white transition-colors px-4 py-2 rounded-md"
-            (click)="onChangeRole(data.id, data.currentRole)">
-            Yes, I'm sure about that!
-        </button>
-    </div>
+  <h3 mat-dialog-title class="text-dark-blue">Change role?</h3>
+  <div mat-dialog-content>
+    <p class="text-base">
+      Are you sure you want to change
+      <span class="font-medium">{{ data.username }}</span> role to
+      <span class="font-medium">{{ futureRole.toLocaleLowerCase() }}</span
+      >?
+    </p>
+  </div>
+  <div mat-dialog-actions class="text-sm">
+    <button
+      mat-dialog-close
+      class="bg-rose-500 hover:bg-rose-400 w-full text-white transition-colors px-4 py-2 rounded-md">
+      Cancel
+    </button>
+    <button
+      class="bg-green-500 hover:bg-green-400 w-full mt-2 text-white transition-colors px-4 py-2 rounded-md"
+      (click)="onChangeRole(data.id, data.currentRole)">
+      Yes, I'm sure about that!
+    </button>
+  </div>
 </div>

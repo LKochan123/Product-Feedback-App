@@ -1,59 +1,43 @@
-<header 
-    class="
-    bg-header text-white
-    max-w-screen-xlg lg:mx-auto
-    md:mx-5 p-4 md:rounded-lg 
-    flex justify-between items-center"
-    >
-    <div 
-        *ngIf="actualPage === 'Suggestions'" 
-        class="hidden md:flex md:items-center"
-        >
-        <i class="fa-regular fa-lightbulb mr-2"></i>
-        <p class="tesxt-sm md:text-base">{{ countSuggestions$ | async }} Suggestions</p>
-    </div>
+<header
+  class="bg-header text-white max-w-screen-xlg lg:mx-auto md:mx-5 p-4 md:rounded-lg flex justify-between items-center">
+  <div *ngIf="actualPage === 'Suggestions'" class="hidden md:flex md:items-center">
+    <i class="fa-regular fa-lightbulb mr-2"></i>
+    <p class="tesxt-sm md:text-base">{{ countSuggestions$ | async }} Suggestions</p>
+  </div>
 
-    <div *ngIf="actualPage === 'Suggestions'" class="text-sm md:text-base">
-        <label for="posts" class="mr-1">Sort by:</label>
-        <select
-            #method
-            (change)="onSortingMethod(method.value)"
-            class="bg-transparent outline-0" 
-            name="Sorting posts" 
-            id="posts"
-            >
-            <option
-                class="text-blue"
-                *ngFor="let method of sortingFeedbackEnum | keyvalue"
-                [value]="method.key">
-                {{ method.value }}
-            </option>
-        </select>
-    </div>
+  <div *ngIf="actualPage === 'Suggestions'" class="text-sm md:text-base">
+    <label for="posts" class="mr-1">Sort by:</label>
+    <select
+      #method
+      (change)="onSortingMethod(method.value)"
+      class="bg-transparent outline-0"
+      name="Sorting posts"
+      id="posts">
+      <option
+        class="text-blue"
+        *ngFor="let method of sortingFeedbackEnum | keyvalue"
+        [value]="method.key">
+        {{ method.value }}
+      </option>
+    </select>
+  </div>
 
-    <div *ngIf="actualPage === 'Roadmap'">
-        <a routerLink="/" class="inline-flex">
-            <i class="text-xs fa-solid fa-arrow-left"></i>
-            <p
-                class="text-xs md:text-sm ml-2 md:ml-3">
-                Go Back
-            </p>
-        </a>
-        <h2 class="text-base md:text-lg">Roadmap</h2>
-    </div>
+  <div *ngIf="actualPage === 'Roadmap'">
+    <a routerLink="/" class="inline-flex">
+      <i class="text-xs fa-solid fa-arrow-left"></i>
+      <p class="text-xs md:text-sm ml-2 md:ml-3">Go Back</p>
+    </a>
+    <h2 class="text-base md:text-lg">Roadmap</h2>
+  </div>
 
-    <div *ngIf="actualPage === 'Admin'">
-        <a routerLink="/" class="inline-flex">
-            <i class="text-xs fa-solid fa-arrow-left"></i>
-            <p
-                class="text-xs md:text-sm ml-2 md:ml-3">
-                Go Back
-            </p>
-        </a>
-        <h2 class="text-base md:text-lg">Admin panel</h2>
-    </div>
+  <div *ngIf="actualPage === 'Admin'">
+    <a routerLink="/" class="inline-flex">
+      <i class="text-xs fa-solid fa-arrow-left"></i>
+      <p class="text-xs md:text-sm ml-2 md:ml-3">Go Back</p>
+    </a>
+    <h2 class="text-base md:text-lg">Admin panel</h2>
+  </div>
 
-    <app-dropdown-menu *ngIf="isAuthenticated"></app-dropdown-menu>
-    <app-login-button *ngIf="!isAuthenticated"></app-login-button>
-
+  <app-dropdown-menu *ngIf="isAuthenticated"></app-dropdown-menu>
+  <app-login-button *ngIf="!isAuthenticated"></app-login-button>
 </header>

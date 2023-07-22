@@ -10,16 +10,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    exports: [
-        BrowserModule,
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
-        RouterModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-    ]
+  exports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,25 +1,25 @@
 .active {
-    position: relative;
+  position: relative;
 }
 
 .active.planned::after {
-    background-color: orange;
-  }
-  
-.active.in-progress::after {
-    background-color: rgb(188, 23, 188);
+  background-color: orange;
 }
-  
+
+.active.in-progress::after {
+  background-color: rgb(188, 23, 188);
+}
+
 .active.live::after {
-    background-color: rgb(89, 229, 229);
+  background-color: rgb(89, 229, 229);
 }
 
 .active::after {
-    position: absolute;
-    content: '';
-    display: block;
-    width: 120%;
-    height: 4px;
-    bottom: -20px;
-    left: -10%;
+  position: absolute;
+  content: '';
+  display: block;
+  width: 120%;
+  height: 4px;
+  bottom: -20px;
+  left: -10%;
 }

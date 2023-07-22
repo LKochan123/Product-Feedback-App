@@ -15,29 +15,39 @@ import { UserRoleEnum } from './models/enums/user-role';
 import { AdminRolesComponent } from './components/admin/admin-roles/admin-roles.component';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { 
-        path: 'admin', 
-        component: AdminComponent, 
-        canActivate: [authenticationGuard, () => roleGuard(UserRoleEnum.MODERATOR, UserRoleEnum.ADMIN)],
-        children: [
-            { path: '', redirectTo: 'active-users', pathMatch: 'full' },
-            { path: 'active-users', component: AdminStatusComponent, data: { section: UserStatusEnum.ACTIVE }},
-            { path: 'banned-users', component: AdminStatusComponent, data: { section: UserStatusEnum.BANNED }},
-            { path: 'roles', component: AdminRolesComponent, canActivate: [() => roleGuard(UserRoleEnum.ADMIN)]}
-        ]
-    },
-    { path: 'feedback/:id', component: FeedbackIdComponent },
-    { path: 'roadmap', component: RoadmapComponent },
-    { path: 'signup', component: SignUpComponent },
-    { path: 'login', component: LoginComponent },
-    { path: '**', component: ErrorPageComponent }
-]
+  { path: '', component: HomeComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [authenticationGuard, () => roleGuard(UserRoleEnum.MODERATOR, UserRoleEnum.ADMIN)],
+    children: [
+      { path: '', redirectTo: 'active-users', pathMatch: 'full' },
+      {
+        path: 'active-users',
+        component: AdminStatusComponent,
+        data: { section: UserStatusEnum.ACTIVE },
+      },
+      {
+        path: 'banned-users',
+        component: AdminStatusComponent,
+        data: { section: UserStatusEnum.BANNED },
+      },
+      {
+        path: 'roles',
+        component: AdminRolesComponent,
+        canActivate: [() => roleGuard(UserRoleEnum.ADMIN)],
+      },
+    ],
+  },
+  { path: 'feedback/:id', component: FeedbackIdComponent },
+  { path: 'roadmap', component: RoadmapComponent },
+  { path: 'signup', component: SignUpComponent },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: ErrorPageComponent },
+];
 
 @NgModule({
-    imports: [RouterModule.forRoot(appRoutes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}

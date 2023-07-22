@@ -1,40 +1,37 @@
 <div *ngIf="feedbackArr.length">
-    <article
-        *ngFor="let feedback of feedbackArr" 
-        class="bg-white p-5 my-4 rounded-xl"
-        [ngClass]="feedback.status.toLowerCase()"
-        >
-        <div class="flex flex-row items-center mb-3">
-            <div 
-                [ngClass]="feedback.status.toLowerCase().concat('-circle')" 
-                class="w-2 h-2 mr-2 rounded-full">
-            </div>
-            <p class="text-xs">{{ feedback.status }}</p>
-        </div>
+  <article
+    *ngFor="let feedback of feedbackArr"
+    class="bg-white p-5 my-4 rounded-xl"
+    [ngClass]="feedback.status.toLowerCase()">
+    <div class="flex flex-row items-center mb-3">
+      <div
+        [ngClass]="feedback.status.toLowerCase().concat('-circle')"
+        class="w-2 h-2 mr-2 rounded-full"></div>
+      <p class="text-xs">{{ feedback.status }}</p>
+    </div>
 
-        <app-feedback-details
-            [feedbackDetails]="
-            {
-                _id: feedback._id, 
-                title: feedback.title, 
-                description: feedback.description, 
-                category: feedback.category 
-            }">
-        </app-feedback-details>
+    <app-feedback-details
+      [feedbackDetails]="{
+        _id: feedback._id,
+        title: feedback.title,
+        description: feedback.description,
+        category: feedback.category
+      }">
+    </app-feedback-details>
 
-        <div class="flex justify-between items-center text-sm mt-4">
-            <app-upvotes-button-horizontal 
-                [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes}">
-            </app-upvotes-button-horizontal>
-            <app-comment-icon [comments]="feedback.comments.length"></app-comment-icon>
-        </div>
-    </article>
+    <div class="flex justify-between items-center text-sm mt-4">
+      <app-upvotes-button-horizontal
+        [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes }">
+      </app-upvotes-button-horizontal>
+      <app-comment-icon [comments]="feedback.comments.length"></app-comment-icon>
+    </div>
+  </article>
 </div>
 
-<article 
-    *ngIf="!feedbackArr.length" 
-    class="empty bg-white flex justify-center items-center p-5 my-4 h-52 rounded-md">
-    <p class="text-center text-sm lg:text-base">
-        There is no <span class="font-medium text-rose-600">feedbacks</span> yet 😶
-    </p>
+<article
+  *ngIf="!feedbackArr.length"
+  class="empty bg-white flex justify-center items-center p-5 my-4 h-52 rounded-md">
+  <p class="text-center text-sm lg:text-base">
+    There is no <span class="font-medium text-rose-600">feedbacks</span> yet 😶
+  </p>
 </article>

@@ -1,16 +1,12 @@
 <div>
-    <div class="xs:flex xs:justify-between xs:items-center">
-        <div class="text-dark-blue">
-            <p class="font-medium">{{ comment.author }}</p>
-            <p>{{ comment.email }}</p>
-        </div>
-        <button 
-            *ngIf="isAuthenticated" 
-            (click)="onReplyComment()"
-            type="button" 
-            class="text-blue">
-            Reply
-        </button>
+  <div class="xs:flex xs:justify-between xs:items-center">
+    <div class="text-dark-blue">
+      <p class="font-medium">{{ comment.author }}</p>
+      <p>{{ comment.email }}</p>
     </div>
-    <p class="mt-2 md:mt-3">{{ comment.text }}</p>
+    <button *ngIf="isAuthenticated" (click)="onReplyComment()" type="button" class="text-blue">
+      Reply
+    </button>
+  </div>
+  <p class="mt-2 md:mt-3">{{ comment.text }}</p>
 </div>

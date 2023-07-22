@@ -1,17 +1,18 @@
 <div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
+  <ng-container *ngIf="feedback$ | async as feedback">
+    <div class="flex justify-between items-center mb-4">
+      <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
+      <app-edit-button
+        *ngIf="feedback.author === currentUserID"
+        [feedbackID]="feedbackID"></app-edit-button>
+    </div>
+    <app-feedback-information [feedback]="feedback"></app-feedback-information>
+    <app-comment *ngIf="feedback.comments.length" [commentsIds]="feedback.comments"></app-comment>
+    <app-no-comment *ngIf="!feedback.comments.length"></app-no-comment>
+  </ng-container>
 
-    <ng-container *ngIf="(feedback$ | async) as feedback">
-        <div class="flex justify-between items-center mb-4">
-            <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
-            <app-edit-button *ngIf="feedback.author === currentUserID" [feedbackID]="feedbackID"></app-edit-button>
-        </div>
-        <app-feedback-information [feedback]="feedback"></app-feedback-information>
-        <app-comment *ngIf="feedback.comments.length" [commentsIds]="feedback.comments"></app-comment>
-        <app-no-comment *ngIf="!feedback.comments.length"></app-no-comment>
-    </ng-container>
+  <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
+  <app-error-info *ngIf="!isLoading && connectionError"></app-error-info>
 
-    <mat-spinner *ngIf="isLoading && !connectionError" color="accent" class="mx-auto"></mat-spinner>
-    <app-error-info *ngIf="!isLoading && connectionError"></app-error-info>
-
-    <app-add-comment *ngIf="isAuthenticated" [feedbackID]="feedbackID!"></app-add-comment>  
+  <app-add-comment *ngIf="isAuthenticated" [feedbackID]="feedbackID!"></app-add-comment>
 </div>

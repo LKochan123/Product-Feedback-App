@@ -1,30 +1,24 @@
-<form 
-    #commentForm="ngForm" 
-    (submit)="onSubmit(commentForm)" 
-    class="bg-white p-5 rounded-xl"
-    >
-    <h3 class="text-dark-blue font-medium text-sm md:text-base">Add Comment</h3>
-    <textarea 
-        required
-        [maxlength]="250"
-        pattern="^(?=.*\S).*$"
-        [(ngModel)]="comment"
-        name="comment"
-        placeholder="Type your comment here..."
-        class="resize-y bg-body text-dark-blue w-full text-xs md:text-sm my-2 md:my-4 p-2 
-        min-h-[40px] h-16 max-h-40 rounded-lg outline-blue">
-    </textarea>
-    <div class="flex justify-between items-center">
-        <p class="text-dark-blue text-xs md:text-sm">
-            <span>{{ 250 - comment.length }}</span> 
-            Characters left
-        </p>
-        <button
-            [disabled]="commentForm.invalid" 
-            class="bg-purple text-white text-xs md:text-sm p-2 md:px-4 
-            rounded-md hover:opacity-80 transition-opacity duration-300 disabled:opacity-50"
-            [ngClass]="{'cursor-pointer': commentForm.valid}">
-            Post Comment
-        </button>
-    </div>
+<form #commentForm="ngForm" (submit)="onSubmit(commentForm)" class="bg-white p-5 rounded-xl">
+  <h3 class="text-dark-blue font-medium text-sm md:text-base">Add Comment</h3>
+  <textarea
+    required
+    [maxlength]="250"
+    pattern="^(?=.*\S).*$"
+    [(ngModel)]="comment"
+    name="comment"
+    placeholder="Type your comment here..."
+    class="resize-y bg-body text-dark-blue w-full text-xs md:text-sm my-2 md:my-4 p-2 min-h-[40px] h-16 max-h-40 rounded-lg outline-blue">
+  </textarea>
+  <div class="flex justify-between items-center">
+    <p class="text-dark-blue text-xs md:text-sm">
+      <span>{{ 250 - comment.length }}</span>
+      Characters left
+    </p>
+    <button
+      [disabled]="commentForm.invalid"
+      class="bg-purple text-white text-xs md:text-sm p-2 md:px-4 rounded-md hover:opacity-80 transition-opacity duration-300 disabled:opacity-50"
+      [ngClass]="{ 'cursor-pointer': commentForm.valid }">
+      Post Comment
+    </button>
+  </div>
 </form>

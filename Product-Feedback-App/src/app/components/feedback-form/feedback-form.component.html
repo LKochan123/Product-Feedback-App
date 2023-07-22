@@ -1,90 +1,90 @@
 <form
-    [formGroup]="feedbackForm" 
-    (submit)="onSubmit()"
-    class="flex flex-col py-4 md:py-8 rounded-3xl">
-    <h2 class="text-dark-blue pl-6 text-base md:text-lg font-semibold">
-        {{ !data.isEditingPost ? 'Create New Feedback' : headingName }}
-    </h2>
+  [formGroup]="feedbackForm"
+  (submit)="onSubmit()"
+  class="flex flex-col py-4 md:py-8 rounded-3xl">
+  <h2 class="text-dark-blue pl-6 text-base md:text-lg font-semibold">
+    {{ !data.isEditingPost ? 'Create New Feedback' : headingName }}
+  </h2>
 
-    <div mat-dialog-content>
-        <div class="pt-1">
-            <h3 class="text-dark-blue text-sm font-medium">Feedback Title</h3>
-            <label for="title" class="text-gray text-xs">Add a short, descriptive headline</label>
-            <input
-                formControlName="title" 
-                type="text" 
-                id="title" 
-                class="bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
-                [ngClass]="{'error': feedbackForm.get('title')?.invalid && isSubmitted }">
-            <p class="text-red-500 text-xs mt-1" [ngClass]="errorTitleText ? 'opacity-1' : 'opacity-0'">
-                {{ errorTitleText || 'Transparent text' }}
-            </p>
-        </div>
-    
-        <div class="py-2">
-            <h3 class="text-dark-blue text-sm font-medium">Category</h3>
-            <label for="category" class="text-gray text-xs">Choose a category, for your feedback</label>
-            <select 
-                formControlName="category"
-                id="category" 
-                class="select-arrow
-                bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
-                >
-                <option *ngFor="let category of categoryOptions | keyvalue" [value]="category.key">
-                    {{ category.value }}
-                </option>
-            </select>
-        </div>
-    
-        <div *ngIf="data.isEditingPost" class="py-2">
-            <h3 class="text-dark-blue text-sm font-medium">Update Status</h3>
-            <label for="status" class="text-gray text-xs">Change Feature State</label>
-            <select
-                formControlName="status" 
-                id="status"
-                class="select-arrow bg-body text-sm w-full p-3 mt-3 rounded-lg outline-blue"
-                >
-                <option *ngFor="let status of statusOptions" [value]="status">
-                    {{ status }}
-                </option>
-            </select>
-        </div>
-    
-        <div class="py-2">
-            <h3 class="text-dark-blue text-sm font-medium">Feedback Detail</h3>
-            <label for="detail" class="text-gray text-xs">
-                Include any specific comments on what 
-                should be improved, added, etc.
-            </label>
-            <textarea
-                formControlName="detail" 
-                id="detail" 
-                class="bg-body w-full text-sm p-3 mt-3 rounded-lg min-h-[96px] h-24 max-h-24 outline-blue"
-                [ngClass]="{'error': feedbackForm.get('detail')?.invalid && isSubmitted }">
-            </textarea>
-            <p class="text-red-500 text-xs" [ngClass]="errorDetailText ? 'opacity-1' : 'opacity-0'">
-                {{ errorDetailText || 'Transparent text' }}
-            </p>
-        </div>
+  <div mat-dialog-content>
+    <div class="pt-1">
+      <h3 class="text-dark-blue text-sm font-medium">Feedback Title</h3>
+      <label for="title" class="text-gray text-xs">Add a short, descriptive headline</label>
+      <input
+        formControlName="title"
+        type="text"
+        id="title"
+        class="bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
+        [ngClass]="{
+          error: feedbackForm.get('title')?.invalid && isSubmitted
+        }" />
+      <p class="text-red-500 text-xs mt-1" [ngClass]="errorTitleText ? 'opacity-1' : 'opacity-0'">
+        {{ errorTitleText || 'Transparent text' }}
+      </p>
     </div>
 
-    <div class="sm:relative flex flex-col sm:flex-row-reverse sm:justify-start ml-6 mr-10">
-        <button
-            type="submit" 
-            class="bg-purple text-white w-full sm:w-auto text-sm p-3 sm:px-6 rounded-xl hover:opacity-90 transition-opacity duration-300">
-            {{ !data.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
-        </button>
-        <button
-            mat-dialog-close 
-            class="bg-dark-blue text-white w-full sm:w-auto text-sm p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
-            Cancel
-        </button>
-        <button
-            mat-dialog-close
-            *ngIf="data.isEditingPost"
-            (click)="onDelete(data.id)"
-            class="bg-red-500 text-white w-full sm:w-auto text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl hover:opacity-90 transition-opacity duration-300">
-            Delete
-        </button>
+    <div class="py-2">
+      <h3 class="text-dark-blue text-sm font-medium">Category</h3>
+      <label for="category" class="text-gray text-xs"> Choose a category, for your feedback </label>
+      <select
+        formControlName="category"
+        id="category"
+        class="select-arrow bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue">
+        <option *ngFor="let category of categoryOptions | keyvalue" [value]="category.key">
+          {{ category.value }}
+        </option>
+      </select>
     </div>
+
+    <div *ngIf="data.isEditingPost" class="py-2">
+      <h3 class="text-dark-blue text-sm font-medium">Update Status</h3>
+      <label for="status" class="text-gray text-xs">Change Feature State</label>
+      <select
+        formControlName="status"
+        id="status"
+        class="select-arrow bg-body text-sm w-full p-3 mt-3 rounded-lg outline-blue">
+        <option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </option>
+      </select>
+    </div>
+
+    <div class="py-2">
+      <h3 class="text-dark-blue text-sm font-medium">Feedback Detail</h3>
+      <label for="detail" class="text-gray text-xs">
+        Include any specific comments on what should be improved, added, etc.
+      </label>
+      <textarea
+        formControlName="detail"
+        id="detail"
+        class="bg-body w-full text-sm p-3 mt-3 rounded-lg min-h-[96px] h-24 max-h-24 outline-blue"
+        [ngClass]="{
+          error: feedbackForm.get('detail')?.invalid && isSubmitted
+        }">
+      </textarea>
+      <p class="text-red-500 text-xs" [ngClass]="errorDetailText ? 'opacity-1' : 'opacity-0'">
+        {{ errorDetailText || 'Transparent text' }}
+      </p>
+    </div>
+  </div>
+
+  <div class="sm:relative flex flex-col sm:flex-row-reverse sm:justify-start ml-6 mr-10">
+    <button
+      type="submit"
+      class="bg-purple text-white w-full sm:w-auto text-sm p-3 sm:px-6 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      {{ !data.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
+    </button>
+    <button
+      mat-dialog-close
+      class="bg-dark-blue text-white w-full sm:w-auto text-sm p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      Cancel
+    </button>
+    <button
+      mat-dialog-close
+      *ngIf="data.isEditingPost"
+      (click)="onDelete(data.id)"
+      class="bg-red-500 text-white w-full sm:w-auto text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      Delete
+    </button>
+  </div>
 </form>

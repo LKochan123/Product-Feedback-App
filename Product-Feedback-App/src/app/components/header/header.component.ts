@@ -8,13 +8,12 @@ import { CategoryTagService } from 'src/app/services/category-tag.service';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-
   @Input() actualPage!: string;
   username!: string | null;
-  countSuggestions$!: Observable<number|string>;
+  countSuggestions$!: Observable<number | string>;
   sortingFeedbackEnum = SortingFeedbackEnum;
   isLoading = true;
   isAuthenticated = false;
@@ -22,9 +21,10 @@ export class HeaderComponent implements OnInit {
   connectionError = false;
 
   constructor(
-    private suggestionCountService: SuggestionsCountService, 
+    private suggestionCountService: SuggestionsCountService,
     private authService: AuthService,
-    private cateogryTagService: CategoryTagService) { }
+    private cateogryTagService: CategoryTagService
+  ) {}
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuthenticated();
@@ -50,8 +50,7 @@ export class HeaderComponent implements OnInit {
 
   handleError() {
     this.connectionError = true;
-    this.isLoading = false
-    return throwError(() => "Error with counting status!")
+    this.isLoading = false;
+    return throwError(() => 'Error with counting status!');
   }
-
 }
