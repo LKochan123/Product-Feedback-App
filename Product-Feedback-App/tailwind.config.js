@@ -1,22 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
       colors: {
-        'purple': '#B11FEA',
-        'white': '#fff',
-        'body': '#F2F4FF',
-        'header': '#3a4373',
-        'gray': '#647196',
+        purple: '#B11FEA',
+        white: '#fff',
+        body: '#F2F4FF',
+        header: '#3a4373',
+        gray: '#647196',
         'light-blue': 'rgb(241, 243, 254)',
-        'blue': '#4761E6',
+        blue: '#4761E6',
         'dark-blue': 'rgb(55, 63, 104)',
         'planned-status': 'orange',
         'progress-status': 'rgb(188, 23, 188)',
-        'live-status': 'rgb(89, 229, 229)'
+        'live-status': 'rgb(89, 229, 229)',
       },
     },
     screens: {
@@ -29,4 +27,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

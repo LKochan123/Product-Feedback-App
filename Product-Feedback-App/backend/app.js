@@ -9,35 +9,34 @@ const commentRoutes = require('./routes/comments');
 const app = express();
 
 async function connectToMongoDB() {
-    DB_URL = `mongodb+srv://lukaszek2302:${process.env.MONGO_ATLAS_PASSWORD}@pfa-cluster.phq9gtd.mongodb.net/node-angular`;
-    try {
-        await mongoose.connect(DB_URL);
-        console.log('Connected to DB!');
-    } catch {
-        console.log('Error!');
-    }
+  DB_URL = `mongodb+srv://lukaszek2302:${process.env.MONGO_ATLAS_PASSWORD}@pfa-cluster.phq9gtd.mongodb.net/node-angular`;
+  try {
+    await mongoose.connect(DB_URL);
+    console.log('Connected to DB!');
+  } catch {
+    console.log('Error!');
+  }
 }
 
 connectToMongoDB();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 app.use(cors());
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Contetnt-Type, Accept, Authorization'
-    );
-    res.setHeader(
-        'Acces-Control-Allow-Methods', 
-        'GET, POST, DELETE, PUT, PATCH, OPTIONS'
-    );
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Contetnt-Type, Accept, Authorization'
+  );
+  res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, DELETE, PUT, PATCH, OPTIONS');
+  next();
 });
 
 app.use('/feedbacks', feedbackRoutes);

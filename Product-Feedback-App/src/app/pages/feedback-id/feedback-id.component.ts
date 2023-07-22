@@ -20,7 +20,7 @@ export class FeedbackIdComponent implements OnInit {
     private productsService: ProductsService,
     private route: ActivatedRoute,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.isAuthenticated = this.authService.getIsAuthenticated();

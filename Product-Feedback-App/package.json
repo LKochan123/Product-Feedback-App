@@ -9,7 +9,7 @@
     "test": "ng test",
     "start:server": "nodemon server.js",
     "lint": "ng lint",
-    "format": "prettier --write --config ./.prettierrc.json src/**/*{.ts,.js,.json,.css,.html}"
+    "format": "prettier --write --config ./.prettierrc.json **/*{.ts,.js,.json,.scss,.html}"
   },
   "private": true,
   "dependencies": {
