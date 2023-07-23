@@ -14,22 +14,14 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 
-interface IComment {
-  id: string;
-  author: string;
-  email: string;
-  text: string;
-}
-
 @Component({
   selector: 'app-comment',
   templateUrl: 'comment.component.html',
 })
 export class CommentComponent implements OnInit {
   @Input() commentsIds!: string[];
-  commentsResultDetails$!: Observable<IComment[]>;
+  commentsResultDetails$!: Observable<Comment[]>;
   activeReplyComment$!: Observable<string | null>;
-  commentReplySub!: Subscription;
 
   constructor(
     private commentsService: CommentsService,
@@ -37,7 +29,7 @@ export class CommentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const commentAuthors$ = this.getCommentAuthorsDetails(this.commentsIds);
+    const commentAuthors$ = this.getAutorDetails(this.commentsIds);
     const comments$ = this.commentsService
       .getCommentsByIDs(this.commentsIds)
       .pipe(map(res => res.comments));
@@ -46,7 +38,7 @@ export class CommentComponent implements OnInit {
     this.activeReplyComment$ = this.commentsService.getReplayComment$();
   }
 
-  getCommentAuthorsDetails(commentIds: string[]) {
+  private getAutorDetails(commentIds: string[]) {
     return this.commentsService.getCommentsByIDs(commentIds).pipe(
       map(res => res.comments),
       switchMap(commentsObs => {
@@ -59,12 +51,12 @@ export class CommentComponent implements OnInit {
     );
   }
 
-  getCommentsResult(combined$: Observable<[User[], Comment[]]>) {
+  private getCommentsResult(combined$: Observable<[User[], Comment[]]>) {
     return combined$.pipe(
       switchMap(([commentAuthors, comments]) =>
         zip(commentAuthors, comments).pipe(
           map(([commentAuthor, comment]) => ({
-            id: comment._id,
+            id: comment.id,
             author: commentAuthor.username,
             email: commentAuthor.email,
             text: comment.text,

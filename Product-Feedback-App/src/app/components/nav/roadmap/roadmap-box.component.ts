@@ -28,7 +28,7 @@ export class RoadmapBoxComponent implements OnInit, OnDestroy {
     });
   }
 
-  countStatusOccurance$(status: string) {
+  private countStatusOccurance$(status: string) {
     return this.productsService.getPostsByStatus$(status).pipe(
       map(response => response.occurance),
       catchError(() => of('x'))

@@ -8,10 +8,7 @@
           <app-empty-feedback *ngIf="!filteredSuggestions.length"> </app-empty-feedback>
 
           <app-feedback-information
-            *ngFor="
-              let suggestion of filteredSuggestions | sortFeedbacks: sortingMethod;
-              trackBy: trackBySuggestion
-            "
+            *ngFor="let suggestion of filteredSuggestions | sortFeedbacks: sortingMethod"
             [feedback]="suggestion">
           </app-feedback-information>
         </section>

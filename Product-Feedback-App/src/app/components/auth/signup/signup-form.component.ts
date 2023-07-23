@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -23,27 +22,10 @@ export class SignUpFormComponent implements OnInit {
   isSubmitted = false;
   showPassword = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.createSignUpForm();
-  }
-
-  createSignUpForm() {
-    this.signUpForm = new FormGroup({
-      username: new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(20), Validators.pattern(/^\S*$/)],
-      }),
-      email: new FormControl(null, {
-        validators: [Validators.required, Validators.email],
-      }),
-      password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\S*$/)],
-      }),
-    });
   }
 
   onClear() {
@@ -57,7 +39,16 @@ export class SignUpFormComponent implements OnInit {
     this.isSubmitted = true;
   }
 
-  handleFormValidation() {
+  onShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  private checkIsCredentialsTaken() {
+    const { username, email, password } = this.signUpForm.value;
+    this.authService.signUp(username, email, password);
+  }
+
+  private handleFormValidation() {
     const { username, email, password } = this.signUpForm.controls;
     const errorMessages = {
       usernameMaxlength: 'Username should be less than 20 characters',
@@ -80,12 +71,17 @@ export class SignUpFormComponent implements OnInit {
     }
   }
 
-  checkIsCredentialsTaken() {
-    const { username, email, password } = this.signUpForm.value;
-    this.authService.signUp(username, email, password);
-  }
-
-  onShowPassword() {
-    this.showPassword = !this.showPassword;
+  private createSignUpForm() {
+    this.signUpForm = new FormGroup({
+      username: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(20), Validators.pattern(/^\S*$/)],
+      }),
+      email: new FormControl(null, {
+        validators: [Validators.required, Validators.email],
+      }),
+      password: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\S*$/)],
+      }),
+    });
   }
 }

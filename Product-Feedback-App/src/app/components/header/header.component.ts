@@ -27,9 +27,9 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.getIsAuthenticated();
-    this.suggestionCountService.setCountDisplayedSuggestions();
-    this.countSuggestions$ = this.suggestionCountService.getCountDisplayedSuggestions$().pipe(
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.suggestionCountService.setDisplayedSuggestionCount$();
+    this.countSuggestions$ = this.suggestionCountService.getDisplayedSuggestionCount$().pipe(
       startWith('..'),
       catchError(() => this.handleError())
     );
@@ -45,10 +45,10 @@ export class HeaderComponent implements OnInit {
 
   onSortingMethod(actualMethod: string) {
     const enumMenthod = this.sortingFeedbackEnum[actualMethod as keyof typeof SortingFeedbackEnum];
-    this.cateogryTagService.setCurrentSortingMethod(enumMenthod);
+    this.cateogryTagService.setCurrentSortingType(enumMenthod);
   }
 
-  handleError() {
+  private handleError() {
     this.connectionError = true;
     this.isLoading = false;
     return throwError(() => 'Error with counting status!');

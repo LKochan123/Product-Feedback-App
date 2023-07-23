@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Data } from '@angular/router';
 import { UserStatusEnum } from 'src/app/models/enums/user-status';
 import { UserRoleEnum } from 'src/app/models/enums/user-role';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-admin-status',
@@ -16,12 +16,11 @@ export class AdminStatusComponent implements OnInit {
   searchData = '';
 
   constructor(
-    private authService: AuthService,
+    private adminService: AdminService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    console.log(this.searchData);
     this.route.data.subscribe((data: Data) => {
       const section = data['section'];
       if (section) {
@@ -31,11 +30,11 @@ export class AdminStatusComponent implements OnInit {
     });
   }
 
-  loadUsersByStatus(status: UserStatusEnum) {
-    this.users$ = this.authService.getUsersByStatus(status, UserRoleEnum.USER);
+  onChangeStatus(id: string, currStatus: UserStatusEnum) {
+    this.adminService.changeUserStatus(id, currStatus);
   }
 
-  onChangeStatus(id: string, currStatus: UserStatusEnum) {
-    this.authService.changeUserStatus(id, currStatus);
+  private loadUsersByStatus(status: UserStatusEnum) {
+    this.users$ = this.adminService.getUsersByStatus(status, UserRoleEnum.USER);
   }
 }

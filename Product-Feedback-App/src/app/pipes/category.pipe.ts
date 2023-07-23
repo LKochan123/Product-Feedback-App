@@ -7,9 +7,7 @@ import { CategoryTagEnum } from '../models/enums/category-tag';
 })
 export class CategoryPipe implements PipeTransform {
   transform(feedbacksArr: Post[], category: CategoryTagEnum) {
-    if (!feedbacksArr || category === CategoryTagEnum.ALL) {
-      return feedbacksArr;
-    }
+    if (!feedbacksArr || category === CategoryTagEnum.ALL) return feedbacksArr;
     return feedbacksArr.filter(feedback => feedback.category === category);
   }
 }

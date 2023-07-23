@@ -6,6 +6,7 @@ import { UserStatusEnum } from 'src/app/models/enums/user-status';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { RoleDialogComponent } from '../role-dialog/role-dialog.component';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-admin-roles',
@@ -16,7 +17,7 @@ export class AdminRolesComponent implements OnInit {
   selectedOption: 'users' | 'mods' = 'users';
 
   constructor(
-    private authService: AuthService,
+    private adminService: AdminService,
     private dialog: MatDialog
   ) {}
 
@@ -24,22 +25,22 @@ export class AdminRolesComponent implements OnInit {
     this.currUsers$ = this.onlyUsers(UserStatusEnum.ACTIVE, this.checkCurrentRole());
   }
 
-  onlyUsers(status: UserStatusEnum, role: UserRoleEnum) {
-    return this.authService.getUsersByStatus(status, role).pipe(map(res => res.users));
-  }
-
-  checkCurrentRole() {
-    return this.selectedOption === 'users' ? UserRoleEnum.USER : UserRoleEnum.MODERATOR;
-  }
-
   onCurrRadioVal() {
     this.currUsers$ = this.onlyUsers(UserStatusEnum.ACTIVE, this.checkCurrentRole());
   }
 
-  openDialog(username: string, currentRole: UserRoleEnum, id: string) {
+  onOpenDialog(username: string, currentRole: UserRoleEnum, id: string) {
     this.dialog.open(RoleDialogComponent, {
       width: '320px',
       data: { username, currentRole, id },
     });
+  }
+
+  private onlyUsers(status: UserStatusEnum, role: UserRoleEnum) {
+    return this.adminService.getUsersByStatus(status, role).pipe(map(res => res.users));
+  }
+
+  private checkCurrentRole() {
+    return this.selectedOption === 'users' ? UserRoleEnum.USER : UserRoleEnum.MODERATOR;
   }
 }

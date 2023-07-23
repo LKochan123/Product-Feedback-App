@@ -3,18 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject, Observable, map } from 'rxjs';
 import { User } from '../models/user.model';
-import { UserRoleEnum } from '../models/enums/user-role';
-import { UserStatusEnum } from '../models/enums/user-status';
 import { environemnt } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private isAuthenticated = false;
   private currentUser$ = new Subject<string | null>();
-  private currentUserID!: string | null;
-  private token!: string;
+  private _isAuthenticated = false;
+  private _currentUserID!: string | null;
+  private _token!: string;
   private tokenTimer!: any;
   private url = environemnt.apiUrl + 'user/';
 
@@ -23,20 +21,20 @@ export class AuthService {
     private router: Router
   ) {}
 
-  getToken() {
-    return this.token;
+  get token() {
+    return this._token;
   }
 
-  getIsAuthenticated() {
-    return this.isAuthenticated;
+  get isAuthenticated() {
+    return this._isAuthenticated;
+  }
+
+  get currentUserID() {
+    return this._currentUserID;
   }
 
   getCurrentUser$(): Observable<string | null> {
     return this.currentUser$.asObservable();
-  }
-
-  getCurrentUserID() {
-    return this.currentUserID;
   }
 
   getCurrentUserRole() {
@@ -50,13 +48,6 @@ export class AuthService {
   getUserByIDs(ids: string[]) {
     const query = `?ids=${ids.join(',')}`;
     return this.http.get<{ message: string; users: User[] }>(this.url + 'multiple' + query);
-  }
-
-  getUsersByStatus(status: UserStatusEnum, role: UserRoleEnum) {
-    const query = `?status=${status}&role=${role}`;
-    return this.http
-      .get<{ message: string; users: User[]; occurance: number }>(this.url + query)
-      .pipe(map(res => ({ users: res.users, occurance: res.occurance })));
   }
 
   signUp(username: string, email: string, password: string) {
@@ -73,7 +64,7 @@ export class AuthService {
       .post<{ id: string; token: string; expiresIn: number }>(this.url + 'login', user)
       .pipe(
         map(response => {
-          this.token = response.token;
+          this._token = response.token;
           if (this.token) {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
@@ -81,10 +72,10 @@ export class AuthService {
             const now = new Date();
             const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
 
-            this.isAuthenticated = true;
-            this.currentUserID = response.id;
+            this._isAuthenticated = true;
+            this._currentUserID = response.id;
             this.currentUser$.next(username);
-            this.saveDataInLocalStorage(this.token, expirationDate, username, this.currentUserID);
+            this.saveDataInLocalStorage(this.token, expirationDate, username, this._currentUserID);
           }
         })
       )
@@ -92,29 +83,11 @@ export class AuthService {
   }
 
   logOut() {
-    this.isAuthenticated = false;
-    this.currentUserID = null;
+    this._isAuthenticated = false;
+    this._currentUserID = null;
     this.currentUser$.next(null);
     this.clearLocalStorage();
     clearTimeout(this.tokenTimer);
-  }
-
-  changeUserStatus(id: string, currStatus: UserStatusEnum) {
-    const status = {
-      status: currStatus === UserStatusEnum.ACTIVE ? UserStatusEnum.BANNED : UserStatusEnum.ACTIVE,
-    };
-    this.http.patch<{ message: string }>(this.url + 'status/' + id, status).subscribe(() => {
-      window.location.reload();
-    });
-  }
-
-  changeUserRole(id: string, currRole: UserRoleEnum) {
-    const role = {
-      role: currRole === UserRoleEnum.USER ? UserRoleEnum.MODERATOR : UserRoleEnum.USER,
-    };
-    this.http.patch<{ message: string }>(this.url + 'role/' + id, role).subscribe(() => {
-      window.location.reload();
-    });
   }
 
   autoAuthenticaiton() {
@@ -126,9 +99,9 @@ export class AuthService {
     const expiresIn = authoDetails.expirationDate.getTime() - now.getTime();
 
     if (expiresIn > 0) {
-      this.isAuthenticated = true;
-      this.currentUserID = authoDetails.userID;
-      this.token = authoDetails!.token;
+      this._isAuthenticated = true;
+      this._currentUserID = authoDetails.userID;
+      this._token = authoDetails!.token;
       this.setAuthTimer(expiresIn / 1000);
       this.currentUser$.next(authoDetails.username);
     }

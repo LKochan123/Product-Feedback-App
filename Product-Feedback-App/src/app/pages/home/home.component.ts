@@ -25,13 +25,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const sorting$ = this.categoryTagService.getCurrentSortingMethod$();
+    const sorting$ = this.categoryTagService.getCurrentSortingType$();
     const category$ = this.categoryTagService.getCurrentTag$();
     const suggestions$ = this.productService
       .getPostsUpdate$()
       .pipe(map(feedbacks => feedbacks.filter(feedback => feedback.status === 'Suggestion')));
 
-    // IMPORTANT!
     this.productService
       .getPosts()
       .pipe(
@@ -53,9 +52,5 @@ export class HomeComponent implements OnInit {
         this.isLoadingData = false;
       }
     );
-  }
-
-  trackBySuggestion(index: number, suggestion: Post) {
-    return suggestion._id;
   }
 }

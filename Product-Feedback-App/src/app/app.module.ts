@@ -2,12 +2,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { SharedModule } from './shared.module';
-// import { AdminModule } from './pages/admin/admin.module';
-
 import { CategoryPipe } from './pipes/category.pipe';
 import { SortingFeedbacksPipe } from './pipes/sorting.pipe';
-import { TruncatePipe } from './pipes/trancute.pipe';
+import { TruncatePipe } from './pipes/truncate.pipe';
 import { SearchUserPipe } from './pipes/search-user.pipe';
 
 import { FeedbackInformationComponent } from './components/feedback-information/feedback-information.component';
@@ -57,6 +54,14 @@ import { TagsComponent } from './components/nav/tags/tags.component';
 import { RoadmapComponent } from './pages/roadmap/roadmap.component';
 import { RoleDialogComponent } from './components/admin/role-dialog/role-dialog.component';
 import { NoCommentComponent } from './components/comments/no-comment/no-comment.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -104,7 +109,19 @@ import { NoCommentComponent } from './components/comments/no-comment/no-comment.
     EditButtonComponent,
     RoleDialogComponent,
   ],
-  imports: [AppRoutingModule, HttpClientModule, SharedModule],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    AppRoutingModule,
+    HttpClientModule,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

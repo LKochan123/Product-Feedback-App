@@ -2,7 +2,7 @@ export enum CategoryTagEnum {
   ALL = 'All',
   UI = 'UI',
   UX = 'UX',
-  ENHANCMENT = 'Enhancment',
+  ENHANCEMENT = 'Enhancement',
   BUG = 'Bug',
   FEATURE = 'Feature',
 }

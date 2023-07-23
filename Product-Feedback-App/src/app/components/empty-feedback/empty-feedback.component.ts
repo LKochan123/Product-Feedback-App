@@ -11,6 +11,6 @@ export class EmptyFeedbackComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.getIsAuthenticated();
+    this.isAuthenticated = this.authService.isAuthenticated;
   }
 }

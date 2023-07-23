@@ -1,7 +1,11 @@
+<!-- <app-header></app-header> -->
 <div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
   <ng-container *ngIf="feedback$ | async as feedback">
     <div class="flex justify-between items-center mb-4">
-      <app-return-home-button [buttonText]="'Go back'"></app-return-home-button>
+      <a routerLink="/" class="inline-flex">
+        <i class="text-blue text-sm fa-solid fa-arrow-left"></i>
+        <p class="text-dark-blue text-sm ml-2 md:ml-3">Go back</p>
+      </a>
       <app-edit-button
         *ngIf="feedback.author === currentUserID"
         [feedbackID]="feedbackID"></app-edit-button>

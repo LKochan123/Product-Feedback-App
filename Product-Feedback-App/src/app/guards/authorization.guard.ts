@@ -9,7 +9,7 @@ export const authorizationGuard = (route: ActivatedRouteSnapshot) => {
   const productsService = inject(ProductsService);
   const router = inject(Router);
 
-  const currUserID = authService.getCurrentUserID();
+  const currUserID = authService.currentUserID;
   const feedbackID = route.paramMap.get('id');
 
   if (feedbackID) {

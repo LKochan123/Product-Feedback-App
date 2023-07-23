@@ -7,5 +7,4 @@ export interface User {
   role: UserRoleEnum;
   status: UserStatusEnum;
   email: string;
-  password?: string;
 }

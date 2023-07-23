@@ -82,7 +82,7 @@ export class ProductsService {
     this.http.patch<{ message: string }>(this.url + 'upvotes/' + id, isUpvoted).subscribe();
   }
 
-  navigateByStatus(status: string) {
+  private navigateByStatus(status: string) {
     this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
   }
 }

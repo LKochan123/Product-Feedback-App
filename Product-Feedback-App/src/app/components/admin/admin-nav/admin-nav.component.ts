@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminNavComponent implements OnInit, OnDestroy {
   isAdmin = false;
-  isAdminSub!: Subscription;
+  private isAdminSub!: Subscription;
 
   constructor(private authService: AuthService) {}
 

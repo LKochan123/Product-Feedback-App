@@ -7,25 +7,7 @@ import { CategoryTagService } from 'src/app/services/category-tag.service';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styles: [
-    `
-      a {
-        transition:
-          background-color 0.3s,
-          color 0.3s;
-      }
-
-      a:hover {
-        background-color: #818fd8;
-        color: rgb(255, 255, 255);
-      }
-
-      .tag-background {
-        background-color: #4761e6;
-        color: white;
-      }
-    `,
-  ],
+  styleUrls: ['./tags.component.css'],
 })
 export class TagsComponent implements OnInit {
   currentTag$!: Observable<CategoryTagEnum>;

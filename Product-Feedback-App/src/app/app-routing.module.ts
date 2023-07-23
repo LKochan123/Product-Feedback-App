@@ -41,8 +41,14 @@ const appRoutes: Routes = [
   },
   { path: 'feedback/:id', component: FeedbackIdComponent },
   { path: 'roadmap', component: RoadmapComponent },
-  { path: 'signup', component: SignUpComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'signup',
+    component: SignUpComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
   { path: '**', component: ErrorPageComponent },
 ];
 

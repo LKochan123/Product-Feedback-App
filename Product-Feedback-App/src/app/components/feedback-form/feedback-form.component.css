@@ -1,0 +1,7 @@
+.error {
+  border: 0.5px solid tomato;
+}
+
+.select-arrow {
+  border-right: 12px solid transparent;
+}

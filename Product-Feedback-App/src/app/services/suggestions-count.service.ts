@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Subject, Observable, combineLatest, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ProductsService } from './products.service';
 import { CategoryTagService } from './category-tag.service';
 import { Post } from '../models/post.model';
@@ -10,7 +10,7 @@ import { CategoryTagEnum } from '../models/enums/category-tag';
   providedIn: 'root',
 })
 export class SuggestionsCountService implements OnDestroy {
-  private countDisplayedSuggestions$ = new Subject<number>();
+  private displayedSuggestionCount$ = new Subject<number>();
   private sub!: Subscription;
 
   constructor(
@@ -18,28 +18,29 @@ export class SuggestionsCountService implements OnDestroy {
     private categoryTagService: CategoryTagService
   ) {}
 
-  getCountDisplayedSuggestions$(): Observable<number> {
-    return this.countDisplayedSuggestions$.asObservable();
+  getDisplayedSuggestionCount$(): Observable<number> {
+    return this.displayedSuggestionCount$.asObservable();
   }
 
-  setCountDisplayedSuggestions() {
+  setDisplayedSuggestionCount$() {
     const data$ = combineLatest([
       this.productService.getPostsByStatus$('Suggestion').pipe(map(response => response.feedbacks)),
       this.categoryTagService.getCurrentTag$(),
     ]);
 
-    this.sub = data$.subscribe(([suggestions, category]) => {
-      const count = this.countLikeCategoryPipe(suggestions, category);
-      this.countDisplayedSuggestions$.next(count);
-    });
+    this.sub = data$
+      .pipe(
+        tap(([suggestions, category]) => {
+          const count = this.getFeedbacksCountInGivenCategory(suggestions, category);
+          this.displayedSuggestionCount$.next(count);
+        })
+      )
+      .subscribe();
   }
 
-  countLikeCategoryPipe(feedbacks: Post[], category: CategoryTagEnum): number {
-    if (category === CategoryTagEnum.ALL) {
-      return feedbacks.length;
-    } else {
-      return feedbacks.filter(feedback => feedback.category === category).length;
-    }
+  private getFeedbacksCountInGivenCategory(feedbacks: Post[], category: CategoryTagEnum): number {
+    if (category === CategoryTagEnum.ALL) return feedbacks.length;
+    return feedbacks.filter(feedback => feedback.category === category).length;
   }
 
   ngOnDestroy() {

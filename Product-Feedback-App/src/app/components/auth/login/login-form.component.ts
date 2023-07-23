@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,15 +8,10 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginFormComponent {
   showPassword = false;
-  errorText = '';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) {}
 
   onClear(form: NgForm) {
-    this.errorText = '';
     form.resetForm();
   }
 

@@ -28,7 +28,7 @@
         <p>{{ user._id }}</p>
       </div>
       <button
-        (click)="openDialog(user.username, user.role, user._id)"
+        (click)="onOpenDialog(user.username, user.role, user._id)"
         class="text-white px-4 py-2 rounded-lg transition-colors"
         [ngClass]="
           user.role === 'USER'

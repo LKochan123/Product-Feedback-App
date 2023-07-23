@@ -30,7 +30,7 @@ export class UpvotesButtonVerticalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userID = this.authService.getCurrentUserID();
+    this.userID = this.authService.currentUserID;
 
     this.productsService
       .getPostById$(this.upvotesDetail._id)
@@ -44,7 +44,7 @@ export class UpvotesButtonVerticalComponent implements OnInit {
   }
 
   onUpvotesButton() {
-    if (this.authService.getIsAuthenticated()) {
+    if (this.authService.isAuthenticated) {
       if (this.isClicked) {
         this.upvotesDetail.upvotes.length -= 1;
         this.productsService.upvotesOnPost(this.upvotesDetail._id, false);

@@ -9,17 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-feedback-form',
   templateUrl: './feedback-form.component.html',
-  styles: [
-    `
-      .error {
-        border: 0.5px solid tomato;
-      }
-
-      .select-arrow {
-        border-right: 12px solid transparent;
-      }
-    `,
-  ],
+  styleUrls: ['./feedback-form.component.css'],
 })
 export class FeedbackFormComponent implements OnInit {
   statusOptions = ['Suggestion', 'Planned', 'In-Progress', 'Live'];
@@ -57,21 +47,6 @@ export class FeedbackFormComponent implements OnInit {
     }
   }
 
-  createFeedbackForm() {
-    this.feedbackForm = new FormGroup({
-      title: new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
-      }),
-      category: new FormControl('FEATURE', {
-        validators: [Validators.required],
-      }),
-      status: new FormControl('Suggestion'),
-      detail: new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
-      }),
-    });
-  }
-
   onSubmit() {
     const { title, category, status, detail } = this.feedbackForm.value;
     const enumCategory = CategoryTagEnum[category as keyof typeof CategoryTagEnum];
@@ -95,7 +70,21 @@ export class FeedbackFormComponent implements OnInit {
     this.isSubmitted = true;
   }
 
-  getErrorMessage(controlName: string) {
+  onDelete(id: string | null) {
+    if (id) {
+      this.productsServcie
+        .deletePost$(id)
+        .pipe(
+          tap(() => {
+            const { status } = this.feedbackForm.value;
+            this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  private getErrorMessage(controlName: string) {
     const control = this.feedbackForm.get(controlName);
     if (control) {
       const maxLength = `${control.errors?.['maxlength']?.requiredLength}`;
@@ -115,17 +104,18 @@ export class FeedbackFormComponent implements OnInit {
     return '';
   }
 
-  onDelete(id: string | null) {
-    if (id) {
-      this.productsServcie
-        .deletePost$(id)
-        .pipe(
-          tap(() => {
-            const { status } = this.feedbackForm.value;
-            this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
-          })
-        )
-        .subscribe();
-    }
+  private createFeedbackForm() {
+    this.feedbackForm = new FormGroup({
+      title: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
+      }),
+      category: new FormControl('FEATURE', {
+        validators: [Validators.required],
+      }),
+      status: new FormControl('Suggestion'),
+      detail: new FormControl(null, {
+        validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
+      }),
+    });
   }
 }

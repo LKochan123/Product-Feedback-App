@@ -23,8 +23,8 @@ export class FeedbackIdComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.isAuthenticated = this.authService.getIsAuthenticated();
-    this.currentUserID = this.authService.getCurrentUserID();
+    this.isAuthenticated = this.authService.isAuthenticated;
+    this.currentUserID = this.authService.currentUserID;
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('id')) {
         this.feedbackID = paramMap.get('id');
@@ -37,7 +37,7 @@ export class FeedbackIdComponent implements OnInit {
     });
   }
 
-  handleError() {
+  private handleError() {
     this.isLoading = false;
     this.connectionError = true;
     return throwError(() => 'Error!');

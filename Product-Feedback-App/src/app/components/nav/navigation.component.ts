@@ -25,7 +25,7 @@ export class NavigationComponent {
     this.toggleBodyScrolling();
   }
 
-  toggleBodyScrolling() {
+  private toggleBodyScrolling() {
     const body = this.elementRef.nativeElement.ownerDocument.body;
     if (this.isOpened) {
       this.renderer.addClass(body, 'overflow-hidden');
@@ -34,7 +34,7 @@ export class NavigationComponent {
     }
   }
 
-  onCloseMenu(event: MouseEvent) {
+  private onCloseMenu(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const backgroundShadow = this.elementRef.nativeElement.querySelector('.background-shadow');
     const menu = this.elementRef.nativeElement.querySelector('.menu');

@@ -8,7 +8,7 @@ import { CategoryTagEnum } from '../models/enums/category-tag';
 })
 export class CategoryTagService {
   private currentTag$ = new BehaviorSubject<CategoryTagEnum>(CategoryTagEnum.ALL);
-  private currentSortingMethod$ = new BehaviorSubject<SortingFeedbackEnum>(
+  private currentSortingType$ = new BehaviorSubject<SortingFeedbackEnum>(
     SortingFeedbackEnum.DEFAULT
   );
 
@@ -20,11 +20,11 @@ export class CategoryTagService {
     this.currentTag$.next(category);
   }
 
-  getCurrentSortingMethod$(): Observable<SortingFeedbackEnum> {
-    return this.currentSortingMethod$.asObservable();
+  getCurrentSortingType$(): Observable<SortingFeedbackEnum> {
+    return this.currentSortingType$.asObservable();
   }
 
-  setCurrentSortingMethod(method: SortingFeedbackEnum) {
-    this.currentSortingMethod$.next(method);
+  setCurrentSortingType(method: SortingFeedbackEnum) {
+    this.currentSortingType$.next(method);
   }
 }

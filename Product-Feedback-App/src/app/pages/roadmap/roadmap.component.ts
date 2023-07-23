@@ -42,14 +42,14 @@ export class RoadmapComponent implements OnInit {
       });
   }
 
-  handleError() {
+  onStatusChange(status: string) {
+    this.currentStatus = status;
+  }
+
+  private handleError() {
     (this.countPlanned = 'x'), (this.countLive = 'x'), (this.countInProgress = 'x');
     this.isLoading = false;
     this.connectionError = true;
     return throwError(() => 'Error');
-  }
-
-  onStatusChange(status: string) {
-    this.currentStatus = status;
   }
 }

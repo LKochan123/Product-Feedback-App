@@ -7,6 +7,7 @@ import { CommentsService } from 'src/app/services/comments.service';
 })
 export class CommentReplyComponent implements OnInit {
   @Input() author!: string;
+
   constructor(private commentsService: CommentsService) {}
 
   ngOnInit() {

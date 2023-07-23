@@ -20,7 +20,7 @@ export class CommentPhotoComponent implements OnInit {
     this.color = this.getBackgroundColor(this.letter);
   }
 
-  getBackgroundColor(letter: string) {
+  private getBackgroundColor(letter: string) {
     switch (true) {
       case letter <= 'e':
         return 'bg-indigo-500';
