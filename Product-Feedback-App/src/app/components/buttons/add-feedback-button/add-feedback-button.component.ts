@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FeedbackFormComponent } from '../../feedback-form/feedback-form.component';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-add-feedback-button',
@@ -14,15 +13,9 @@ import { FeedbackFormComponent } from '../../feedback-form/feedback-form.compone
   `,
 })
 export class AddFeedbackButtonComponent {
-  constructor(private dialog: MatDialog) {}
+  constructor(private productsService: ProductsService) {}
 
   onAddFeedback() {
-    this.dialog.open(FeedbackFormComponent, {
-      minWidth: '300px',
-      data: {
-        isEditingPost: false,
-        id: null,
-      },
-    });
+    this.productsService.openDialog(false, null);
   }
 }

@@ -5,16 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styles: [
-    `
-      .transparent-border {
-        border: 0.5px solid transparent;
-      }
-      .error {
-        border: 0.5px solid tomato;
-      }
-    `,
-  ],
+  styleUrls: ['./signup-form.component.css'],
 })
 export class SignUpFormComponent implements OnInit {
   signUpForm!: FormGroup;

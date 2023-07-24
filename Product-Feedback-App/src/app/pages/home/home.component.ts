@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/interfaces/post.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { CategoryTagService } from 'src/app/services/category-tag.service';
 import { Subscription, combineLatest, throwError } from 'rxjs';

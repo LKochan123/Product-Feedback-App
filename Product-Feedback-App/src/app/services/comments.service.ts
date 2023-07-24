@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable, map } from 'rxjs';
 import { ProductsService } from './products.service';
-import { Comment } from '../models/comment.model';
+import { Comment } from '../models/interfaces/comment.model';
 import { environemnt } from 'src/environments/environment';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class CommentsService {
     private productsService: ProductsService
   ) {}
 
-  getReplayComment$(): Observable<string | null> {
+  getReplyComment$(): Observable<string | null> {
     return this.replyComment$.asObservable();
   }
 

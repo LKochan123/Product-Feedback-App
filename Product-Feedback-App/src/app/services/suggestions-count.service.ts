@@ -3,7 +3,7 @@ import { Subject, Observable, combineLatest, Subscription } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProductsService } from './products.service';
 import { CategoryTagService } from './category-tag.service';
-import { Post } from '../models/post.model';
+import { Post } from '../models/interfaces/post.model';
 import { CategoryTagEnum } from '../models/enums/category-tag';
 
 @Injectable({

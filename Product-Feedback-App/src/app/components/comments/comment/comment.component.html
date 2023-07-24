@@ -10,7 +10,7 @@
           <div class="w-full">
             <app-comment-content [comment]="comment"></app-comment-content>
             <app-comment-reply
-              *ngIf="comment.id === (activeReplyComment$ | async)"
+              *ngIf="comment._id === (activeReplyComment$ | async)"
               [author]="comment.author">
             </app-comment-reply>
           </div>

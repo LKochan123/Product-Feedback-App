@@ -1,0 +1,7 @@
+.transparent-border {
+  border: 0.5px solid transparent;
+}
+
+.error {
+  border: 0.5px solid tomato;
+}

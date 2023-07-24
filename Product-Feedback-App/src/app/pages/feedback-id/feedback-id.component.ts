@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/interfaces/post.model';
 import { ProductsService } from 'src/app/services/products.service';
 import { Observable, map, tap, catchError, throwError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';

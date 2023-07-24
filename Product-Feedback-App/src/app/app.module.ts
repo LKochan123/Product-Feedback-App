@@ -62,6 +62,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CommentDialogComponent } from './components/comments/comment-dialog/comment-dialog.component';
+import { PopupComponent } from './components/popup/popup-informaiton.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReturnHomeButtonComponent,
     EditButtonComponent,
     RoleDialogComponent,
+    CommentDialogComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,

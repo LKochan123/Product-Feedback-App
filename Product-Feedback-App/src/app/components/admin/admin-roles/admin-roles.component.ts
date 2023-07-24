@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, map } from 'rxjs';
 import { UserRoleEnum } from 'src/app/models/enums/user-role';
 import { UserStatusEnum } from 'src/app/models/enums/user-status';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/interfaces/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { RoleDialogComponent } from '../role-dialog/role-dialog.component';
 import { AdminService } from 'src/app/services/admin.service';

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentsService } from 'src/app/services/comments.service';
-import { Comment } from 'src/app/models/comment.model';
+import { Comment } from 'src/app/models/interfaces/comment.model';
 
 @Component({
   selector: 'app-comment-content',
@@ -21,6 +21,6 @@ export class CommentContentComponent implements OnInit {
   }
 
   onReplyComment() {
-    this.commentsService.setReplyComment(this.comment.id);
+    this.commentsService.setReplyComment(this.comment._id);
   }
 }

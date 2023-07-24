@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Post } from '../models/post.model';
+import { Post } from '../models/interfaces/post.model';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { CategoryTagEnum } from '../models/enums/category-tag';
 import { environemnt } from 'src/environments/environment';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FeedbackFormComponent } from '../components/feedback-form/feedback-form.component';
+import { PopupComponent } from '../components/popup/popup-informaiton.component';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +15,13 @@ import { environemnt } from 'src/environments/environment';
 export class ProductsService {
   feedbacks$ = new Subject<Post[]>();
   private url = environemnt.apiUrl + 'feedbacks/';
+  private dialogRef: MatDialogRef<FeedbackFormComponent> | undefined;
+  private POPUP_DELAY_TIME = 800;
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   getPostsUpdate$(): Observable<Post[]> {
@@ -53,7 +59,9 @@ export class ProductsService {
     };
 
     this.http.post<{ message: string }>(this.url, feedback).subscribe(() => {
+      this.closeDialog();
       this.router.navigate(['/']);
+      setTimeout(() => this.openPopup('Feedback added!'), this.POPUP_DELAY_TIME);
     });
   }
 
@@ -61,25 +69,44 @@ export class ProductsService {
     return this.http.delete<{ message: string }>(this.url + id);
   }
 
-  updatePost(id: string, title: string, category: CategoryTagEnum, status: string, detail: string) {
-    const feedback = {
-      title: title,
-      category: category,
-      status: status,
-      description: detail,
-    };
-
+  updatePost(
+    id: string,
+    title: string,
+    category: CategoryTagEnum,
+    status: string,
+    description: string
+  ) {
+    const feedback = { title, category, status, description };
     this.http.patch<{ message: string }>(this.url + id, feedback).subscribe(() => {
+      this.closeDialog();
       this.navigateByStatus(status);
+      setTimeout(() => this.openPopup('Feedback updated!'), this.POPUP_DELAY_TIME);
     });
   }
 
-  upvotesOnPost(id: string, upvote: boolean) {
-    const isUpvoted = {
-      upvote: upvote,
-      downvote: !upvote,
-    };
-    this.http.patch<{ message: string }>(this.url + 'upvotes/' + id, isUpvoted).subscribe();
+  upvotesOnPost(id: string) {
+    this.http.patch<{ message: string }>(this.url + 'upvotes/' + id, null).subscribe();
+  }
+
+  openDialog(isEditingPost: boolean, id: string | null) {
+    this.dialogRef = this.dialog.open(FeedbackFormComponent, {
+      minWidth: '300px',
+      data: { isEditingPost, id },
+    });
+  }
+
+  openPopup(text: string) {
+    const popupRef = this.dialog.open(PopupComponent, {
+      data: { text },
+      position: { top: '1%' },
+      backdropClass: 'no-backdrop',
+      autoFocus: false,
+    });
+    setTimeout(() => popupRef.close(), 1500);
+  }
+
+  private closeDialog() {
+    this.dialogRef?.close();
   }
 
   private navigateByStatus(status: string) {

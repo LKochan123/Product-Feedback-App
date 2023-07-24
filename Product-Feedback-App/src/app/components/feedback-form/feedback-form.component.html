@@ -71,19 +71,19 @@
   <div class="sm:relative flex flex-col sm:flex-row-reverse sm:justify-start ml-6 mr-10 mt-5">
     <button
       type="submit"
-      class="bg-purple text-white w-full sm:w-auto text-sm p-3 sm:px-6 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      class="bg-purple text-white w-full sm:w-auto text-sm p-2 sm:py-3 sm:px-6 rounded-xl hover:opacity-90 transition-opacity duration-300">
       {{ !data.isEditingPost ? 'Add Feedback' : 'Save Changes' }}
     </button>
     <button
       mat-dialog-close
-      class="bg-dark-blue text-white w-full sm:w-auto text-sm p-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      class="bg-dark-blue text-white w-full sm:w-auto text-sm p-2 sm:py-3 sm:px-6 my-2 sm:my-0 sm:mr-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
       Cancel
     </button>
     <button
       mat-dialog-close
       *ngIf="data.isEditingPost"
       (click)="onDelete(data.id)"
-      class="bg-red-500 text-white w-full sm:w-auto text-sm p-3 sm:px-6 sm:absolute sm:left-0 rounded-xl hover:opacity-90 transition-opacity duration-300">
+      class="bg-red-500 text-white w-full sm:w-auto text-sm p-2 sm:py-3 sm:px-6 sm:absolute sm:left-0 rounded-xl hover:opacity-90 transition-opacity duration-300">
       Delete
     </button>
   </div>

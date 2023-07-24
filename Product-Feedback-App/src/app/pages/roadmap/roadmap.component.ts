@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from 'src/app/services/products.service';
-import { Post } from 'src/app/models/post.model';
+import { Post } from 'src/app/models/interfaces/post.model';
 import { catchError, combineLatest, throwError } from 'rxjs';
 
 @Component({

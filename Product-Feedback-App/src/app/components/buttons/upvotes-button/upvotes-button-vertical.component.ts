@@ -47,10 +47,10 @@ export class UpvotesButtonVerticalComponent implements OnInit {
     if (this.authService.isAuthenticated) {
       if (this.isClicked) {
         this.upvotesDetail.upvotes.length -= 1;
-        this.productsService.upvotesOnPost(this.upvotesDetail._id, false);
+        this.productsService.upvotesOnPost(this.upvotesDetail._id);
       } else {
         this.upvotesDetail.upvotes.length += 1;
-        this.productsService.upvotesOnPost(this.upvotesDetail._id, true);
+        this.productsService.upvotesOnPost(this.upvotesDetail._id);
       }
 
       this.isClicked = !this.isClicked;

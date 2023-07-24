@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/interfaces/user.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Data } from '@angular/router';
 import { UserStatusEnum } from 'src/app/models/enums/user-status';

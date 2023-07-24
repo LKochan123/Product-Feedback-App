@@ -39,7 +39,6 @@ export class NavigationComponent {
     const backgroundShadow = this.elementRef.nativeElement.querySelector('.background-shadow');
     const menu = this.elementRef.nativeElement.querySelector('.menu');
 
-    // Chceck clicking outside the nav and menu
     if (backgroundShadow && backgroundShadow.contains(target) && !menu.contains(target)) {
       this.isOpened = false;
       this.toggleBodyScrolling();

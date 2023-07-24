@@ -2,8 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserRoleEnum } from 'src/app/models/enums/user-role';
-import { MatDialog } from '@angular/material/dialog';
-import { FeedbackFormComponent } from '../../feedback-form/feedback-form.component';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-dropdown-menu',
@@ -17,7 +16,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private dialog: MatDialog
+    private productsService: ProductsService
   ) {}
 
   ngOnInit() {
@@ -36,13 +35,7 @@ export class DropdownMenuComponent implements OnInit, OnDestroy {
   }
 
   onAddFeedback() {
-    this.dialog.open(FeedbackFormComponent, {
-      minWidth: '300px',
-      data: {
-        isEditingPost: false,
-        id: null,
-      },
-    });
+    this.productsService.openDialog(false, null);
   }
 
   ngOnDestroy() {

@@ -38,6 +38,14 @@
     <h2 class="text-base md:text-lg">Admin panel</h2>
   </div>
 
+  <div *ngIf="actualPage === 'id'">
+    <a routerLink="/" class="inline-flex">
+      <i class="text-xs fa-solid fa-arrow-left"></i>
+      <p class="text-xs md:text-sm ml-2 md:ml-3">Go Back</p>
+    </a>
+    <h2 class="text-base md:text-lg">Feedback information</h2>
+  </div>
+
   <app-dropdown-menu *ngIf="isAuthenticated"></app-dropdown-menu>
   <app-login-button *ngIf="!isAuthenticated"></app-login-button>
 </header>

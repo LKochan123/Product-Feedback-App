@@ -1,18 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentsService } from 'src/app/services/comments.service';
-import { Comment } from 'src/app/models/comment.model';
-import {
-  map,
-  switchMap,
-  Observable,
-  zip,
-  combineLatest,
-  toArray,
-  Subscription,
-  defaultIfEmpty,
-} from 'rxjs';
+import { Comment } from 'src/app/models/interfaces/comment.model';
+import { map, switchMap, Observable, zip, combineLatest, toArray, defaultIfEmpty } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/models/interfaces/user.model';
 
 @Component({
   selector: 'app-comment',
@@ -35,7 +26,7 @@ export class CommentComponent implements OnInit {
       .pipe(map(res => res.comments));
     const combined$ = combineLatest([commentAuthors$, comments$]);
     this.commentsResultDetails$ = this.getCommentsResult(combined$);
-    this.activeReplyComment$ = this.commentsService.getReplayComment$();
+    this.activeReplyComment$ = this.commentsService.getReplyComment$();
   }
 
   private getAutorDetails(commentIds: string[]) {
@@ -56,7 +47,7 @@ export class CommentComponent implements OnInit {
       switchMap(([commentAuthors, comments]) =>
         zip(commentAuthors, comments).pipe(
           map(([commentAuthor, comment]) => ({
-            id: comment.id,
+            _id: comment._id,
             author: commentAuthor.username,
             email: commentAuthor.email,
             text: comment.text,

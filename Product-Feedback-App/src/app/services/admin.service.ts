@@ -4,7 +4,7 @@ import { environemnt } from 'src/environments/environment';
 import { UserStatusEnum } from '../models/enums/user-status';
 import { UserRoleEnum } from '../models/enums/user-role';
 import { map } from 'rxjs';
-import { User } from '../models/user.model';
+import { User } from '../models/interfaces/user.model';
 
 @Injectable({
   providedIn: 'root',

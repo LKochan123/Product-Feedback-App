@@ -1,14 +1,13 @@
-<!-- <app-header></app-header> -->
-<div class="px-4 py-8 md:py-10 lg:py-16 max-w-screen-md mx-auto">
+<div class="md:mt-16 mb-5 mx-auto lg:px-4 max-w-screen-lg">
+  <app-header [actualPage]="'id'"></app-header>
+</div>
+<div class="px-4 pb-8 md:pb-10 lg:pb-16 max-w-screen-lg mx-auto">
   <ng-container *ngIf="feedback$ | async as feedback">
-    <div class="flex justify-between items-center mb-4">
-      <a routerLink="/" class="inline-flex">
-        <i class="text-blue text-sm fa-solid fa-arrow-left"></i>
-        <p class="text-dark-blue text-sm ml-2 md:ml-3">Go back</p>
-      </a>
+    <div class="flex justify-end items-center mb-4">
       <app-edit-button
         *ngIf="feedback.author === currentUserID"
-        [feedbackID]="feedbackID"></app-edit-button>
+        [feedbackID]="feedbackID">
+      </app-edit-button>
     </div>
     <app-feedback-information [feedback]="feedback"></app-feedback-information>
     <app-comment *ngIf="feedback.comments.length" [commentsIds]="feedback.comments"></app-comment>

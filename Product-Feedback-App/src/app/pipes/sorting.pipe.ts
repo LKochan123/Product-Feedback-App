@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Post } from '../models/post.model';
+import { Post } from '../models/interfaces/post.model';
 import { SortingFeedbackEnum } from '../models/enums/sorting-feedback';
 
 @Pipe({

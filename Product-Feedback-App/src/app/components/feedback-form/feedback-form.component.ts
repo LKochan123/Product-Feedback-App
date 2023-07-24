@@ -5,6 +5,7 @@ import { ProductsService } from 'src/app/services/products.service';
 import { tap } from 'rxjs/operators';
 import { CategoryTagEnum } from 'src/app/models/enums/category-tag';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DropdownMenuComponent } from '../buttons/dropdown-menu/dropdown-menu.component';
 
 @Component({
   selector: 'app-feedback-form',
@@ -78,6 +79,7 @@ export class FeedbackFormComponent implements OnInit {
           tap(() => {
             const { status } = this.feedbackForm.value;
             this.router.navigate(status === 'Suggestion' ? ['/'] : ['/roadmap']);
+            this.productsServcie.openPopup('Feedback deleted!');
           })
         )
         .subscribe();
