@@ -4,6 +4,9 @@ import { Subject, Observable, map } from 'rxjs';
 import { ProductsService } from './products.service';
 import { Comment } from '../models/interfaces/comment.model';
 import { environemnt } from 'src/environments/environment';
+import { User } from '../models/interfaces/user.model';
+import { switchMap, combineLatest, zip, toArray, defaultIfEmpty } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +18,8 @@ export class CommentsService {
 
   constructor(
     private http: HttpClient,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private authService: AuthService
   ) {}
 
   getReplyComment$(): Observable<string | null> {
@@ -48,5 +52,39 @@ export class CommentsService {
 
   getCommentByID(id: string) {
     return this.http.get<{ message: string; comment: Comment }>(this.commentURL + id);
+  }
+
+  getCommentsResult(commentIDs: string[]): Observable<Comment[]> {
+    const commentAuthors$ = this.getAutorDetails(commentIDs);
+    const comments$ = this.getCommentsByIDs(commentIDs).pipe(map(res => res.comments));
+    const combined$ = combineLatest([commentAuthors$, comments$]);
+
+    return combined$.pipe(
+      switchMap(([commentAuthors, comments]) =>
+        zip(commentAuthors, comments).pipe(
+          map(([commentAuthor, comment]) => ({
+            _id: comment._id,
+            author: commentAuthor.username,
+            email: commentAuthor.email,
+            text: comment.text,
+          }))
+        )
+      ),
+      toArray(),
+      defaultIfEmpty([])
+    );
+  }
+
+  private getAutorDetails(commentIDs: string[]): Observable<User[]> {
+    return this.getCommentsByIDs(commentIDs).pipe(
+      map(res => res.comments),
+      switchMap(commentsObs => {
+        const authorIDs = commentsObs.map(comment => comment.author);
+        const userObs: Observable<User>[] = authorIDs.map(authorId => {
+          return this.authService.getUserById(authorId).pipe(map(res => res.user));
+        });
+        return combineLatest(userObs);
+      })
+    );
   }
 }

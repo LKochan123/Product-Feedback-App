@@ -1,4 +1,4 @@
-<div *ngIf="feedbackArr.length">
+<div *ngIf="feedbackArr?.length">
   <article
     *ngFor="let feedback of feedbackArr"
     class="bg-white p-5 my-4 rounded-xl"
@@ -29,7 +29,7 @@
 </div>
 
 <article
-  *ngIf="!feedbackArr.length"
+  *ngIf="!feedbackArr?.length"
   class="empty bg-white flex justify-center items-center p-5 my-4 h-52 rounded-md">
   <p class="text-center text-sm lg:text-base">
     There is no <span class="font-medium text-rose-600">feedbacks</span> yet 😶
