@@ -1,0 +1,38 @@
+<article class="bg-white p-5 mb-4 rounded-xl">
+  <div class="md:hidden">
+    <app-feedback-details
+      [feedbackDetails]="{
+        _id: feedback._id,
+        title: feedback.title,
+        description: feedback.description,
+        category: feedback.category
+      }">
+    </app-feedback-details>
+
+    <div class="flex justify-between items-center mt-4">
+      <app-upvotes-button-horizontal
+        [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes }">
+      </app-upvotes-button-horizontal>
+      <app-feedback-comment-icon
+        [commentsNumber]="feedback.comments.length"></app-feedback-comment-icon>
+    </div>
+  </div>
+
+  <div class="hidden md:flex gap-5 px-2">
+    <app-upvotes-button-vertical [upvotesDetail]="{ _id: feedback._id, upvotes: feedback.upvotes }">
+    </app-upvotes-button-vertical>
+    <div class="flex-grow flex flex-row items-center gap-5">
+      <app-feedback-details
+        class="flex-grow"
+        [feedbackDetails]="{
+          _id: feedback._id,
+          title: feedback.title,
+          description: feedback.description,
+          category: feedback.category
+        }">
+      </app-feedback-details>
+      <app-feedback-comment-icon
+        [commentsNumber]="feedback.comments.length"></app-feedback-comment-icon>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,27 @@
+<header
+  class="bg-header text-white max-w-screen-xlg lg:mx-auto md:mx-5 p-4 md:rounded-lg flex justify-between items-center">
+  <div class="hidden md:flex md:items-center">
+    <i class="fa-regular fa-lightbulb mr-2"></i>
+    <p class="tesxt-sm md:text-base">{{ suggestionsCount$ | async }} Suggestions</p>
+  </div>
+
+  <div class="text-sm md:text-base">
+    <label for="posts" class="mr-1">Sort by:</label>
+    <select
+      #method
+      (change)="onSortingMethod(method.value)"
+      class="bg-transparent outline-0"
+      name="Sorting posts"
+      id="posts">
+      <option
+        class="text-blue"
+        *ngFor="let method of sortingFeedbackEnum | keyvalue"
+        [value]="method.key">
+        {{ method.value }}
+      </option>
+    </select>
+  </div>
+
+  <app-dropdown-menu *ngIf="isUserAuthenticated"></app-dropdown-menu>
+  <app-login-button *ngIf="!isUserAuthenticated"></app-login-button>
+</header>

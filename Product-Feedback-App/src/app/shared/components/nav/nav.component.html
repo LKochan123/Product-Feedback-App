@@ -1,0 +1,33 @@
+<!-- Mobile -->
+<nav class="sticky top-0 w-full md:hidden p-4 z-20 bg-gradient-to-r from-violet-500 to-fuchsia-500">
+  <div class="flex justify-between items-center">
+    <div class="text-white">
+      <h1 class="text-md">Feecback Board</h1>
+      <p class="text-sm">Frontend Mentor</p>
+    </div>
+
+    <button type="button" (click)="onToggleNav()">
+      <img [src]="isOpened ? closeIcon : hamburgerIcon" />
+    </button>
+  </div>
+
+  <div *ngIf="isOpened" class="background-shadow" [ngClass]="isOpened ? 'active' : ''"></div>
+  <aside class="menu bg-body p-6" [ngClass]="isOpened ? 'open' : ''">
+    <div class="mb-6">
+      <app-nav-tags></app-nav-tags>
+    </div>
+    <app-nav-roadmap></app-nav-roadmap>
+  </aside>
+</nav>
+
+<!-- Tablet / Desktop -->
+<nav
+  class="hidden lg:sticky lg:top-16 lg:flex lg:flex-col lg:p-0 lg:space-y-5 lg:mr-5 p-4 md:grid grid-cols-3 gap-x-3">
+  <div
+    class="flex flex-col justify-end md:h-full bg-gradient-to-r from-violet-500 to-fuchsia-500 lg:h-[130px] text-white p-5 rounded-lg">
+    <h1 class="text-lg">Feedback Board</h1>
+    <p class="text-md">Frontend Mentor</p>
+  </div>
+  <app-nav-tags></app-nav-tags>
+  <app-nav-roadmap></app-nav-roadmap>
+</nav>

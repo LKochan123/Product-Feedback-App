@@ -1,0 +1,77 @@
+<div class="mt-16 max-w-screen-xs md:max-w-screen-sm px-5 xs:mx-auto md:mx-auto">
+  <app-return-home [text]="'Home page'"></app-return-home>
+  <div class="flex flex-col bg-white p-5 md:px-8 md:py-10 mt-10 rounded-2xl shadow-md md:shadow-lg">
+    <form [formGroup]="signUpForm" (submit)="onCreateUser()">
+      <h2 class="text-dark-blue text-center text-sm md:text-lg font-medium uppercase mb-5">
+        Sign up
+      </h2>
+
+      <div class="py-0.5">
+        <label for="username" class="text-dark-blue text-xs md:text-sm">Username:</label>
+        <input
+          formControlName="username"
+          type="text"
+          id="username"
+          placeholder="Your username..."
+          class="bg-body text-dark-blue w-full text-xs md:text-sm p-2 rounded-lg outline-blue transparent-border"
+          [ngClass]="{
+            error: signUpForm.get('username')?.invalid && isSubmitted
+          }" />
+      </div>
+
+      <div class="py-0.5">
+        <label for="email" class="text-dark-blue text-xs md:text-sm">Email:</label>
+        <input
+          formControlName="email"
+          type="email"
+          id="email"
+          placeholder="Your email..."
+          class="bg-body text-dark-blue w-full text-xs md:text-sm p-2 rounded-lg outline-blue transparent-border"
+          [ngClass]="{ error: signUpForm.get('email')?.invalid && isSubmitted }" />
+      </div>
+
+      <div class="py-0.5">
+        <label for="password" class="text-dark-blue text-xs md:text-sm">Password:</label>
+        <div
+          class="flex flex-row justify-between items-center w-full rounded-lg bg-body transparent-border"
+          [ngClass]="{ error: signUpForm.get('password')?.invalid && isSubmitted }">
+          <input
+            formControlName="password"
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            placeholder="Your password..."
+            class="bg-body text-dark-blue w-full text-xs md:text-sm p-2 outline-0 rounded-lg" />
+          <i
+            (click)="onShowPassword()"
+            [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+            class="bg-body mr-2 text-dark-blue cursor-pointer fa-regular">
+          </i>
+        </div>
+        <p class="text-red-500 text-xs" [ngClass]="errorText ? 'opacity-1' : 'opacity-0'">
+          {{ errorText || 'Transparent text' }}
+        </p>
+      </div>
+
+      <div class="text-white text-xs md:text-sm flex flex-col my-3">
+        <button
+          type="button"
+          class="bg-dark-blue p-2 mb-3 rounded-xl hover:opacity-90 transition-opacity duration-300"
+          (click)="onClear()">
+          Clear
+        </button>
+        <button
+          type="submit"
+          class="bg-purple p-2 rounded-xl hover:opacity-90 transition-opacity duration-300">
+          Sign Up
+        </button>
+      </div>
+
+      <div class="text-center text-xs md:text-sm">
+        <p class="text-dark-blue">
+          You already have an account?
+          <a routerLink="/auth/login" class="text-purple cursor-pointer">Login</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

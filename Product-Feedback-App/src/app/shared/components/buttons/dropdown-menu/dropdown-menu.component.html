@@ -1,0 +1,23 @@
+<div class="relative text-sm md:text-base">
+  <button
+    (click)="onShowDropdown()"
+    type="button"
+    class="flex flex-row justify-center items-center min-w-[90px] md:min-w-[110px] bg-purple py-2 px-3 md:px-4 rounded-md">
+    <p class="pr-2">{{ username | truncate: 15 : '...' }}</p>
+    <i class="fa-solid fa-caret-down"></i>
+  </button>
+  <ul
+    *ngIf="showDropdown"
+    class="absolute left-0 top-full w-full py-2 px-3 rounded-md shadow-md text-dark-blue bg-white text-sm"
+    [ngClass]="showDropdown ? 'opacity-1' : 'opacity-0'">
+    <li class="my-1" *ngIf="isModerator">
+      <a routerLink="/admin">Admin</a>
+    </li>
+    <li class="my-1 cursor-pointer">
+      <a (click)="onAddFeedback()">Add feedback</a>
+    </li>
+    <li class="my-1">
+      <a routerLink="/auth/login" (click)="onLogout()">Logout</a>
+    </li>
+  </ul>
+</div>
