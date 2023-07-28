@@ -15,6 +15,7 @@ export class CommentComponent implements OnInit {
   constructor(private commentService: CommentService) {}
 
   ngOnInit() {
+    //czemu to jest w onInit?
     this.commentsResultDetails$ = this.commentService.getCommentsResult(this.commentsIds);
     this.activeReplyComment$ = this.commentService.getReplyComment$();
   }

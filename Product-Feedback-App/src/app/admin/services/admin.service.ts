@@ -23,6 +23,7 @@ export class AdminService {
 
   changeUserStatus(id: string, currStatus: UserStatusEnum) {
     const status = this.getUserFutureStatus(currStatus);
+    //nie wrzucamy logiki w subscribe!
     this.http.patch<{ message: string }>(this.url + 'status/' + id, status).subscribe(() => {
       window.location.reload();
     });

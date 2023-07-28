@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Validators, NonNullableFormBuilder } from '@angular/forms';
+import { Validators, NonNullableFormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeedbackService } from '../../services/feedback.service';
 import { tap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { CategorySelectOption, CategoryTagEnum } from 'src/app/shared/models/enu
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StatusEnum, StatusSelectOption } from 'src/app/shared/models/enums/status';
 import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
+import { FeedbackForm } from './feedback-form.type';
 
 @Component({
   selector: 'app-feedback-form',
@@ -14,26 +15,23 @@ import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
   styleUrls: ['./feedback-form.component.css'],
 })
 export class FeedbackFormComponent implements OnInit {
-  feedbackForm = this.fb.group({
-    title: [
-      '',
-      {
-        validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
-      },
-    ],
-    category: [
-      CategoryTagEnum.FEATURE,
-      {
-        validators: [Validators.required],
-      },
-    ],
-    status: StatusEnum.SUGGESTION,
-    detail: [
-      '',
-      {
-        validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
-      },
-    ],
+  //Formularz nie byl otypowany. Stworzylem typ w folderze i dodalem tutaj.
+  //Poza tym dla latwosci czytania mozesz stworzyc metode prywatna createForm(), ktora zwraca nam formularz.
+  //Nastepnie przypisac ja do tego pola.
+  feedbackForm = new FormGroup<FeedbackForm>({
+    title: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
+      nonNullable: true,
+    }),
+    category: new FormControl(CategoryTagEnum.FEATURE, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    status: new FormControl(StatusEnum.SUGGESTION, { nonNullable: true }),
+    detail: new FormControl('', {
+      validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
+      nonNullable: true,
+    }),
   });
 
   statusOptions: StatusSelectOption<StatusEnum>[] = [
@@ -63,11 +61,12 @@ export class FeedbackFormComponent implements OnInit {
     },
     private feedbackServcie: FeedbackService,
     private router: Router,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder //polecam ustawic w lincie, zeby dawalo ci warning na nieuzywane pola prywatne
   ) {}
 
   ngOnInit() {
     if (this.data.id) {
+      //tak jak juz wczesniej rozmawialismy - nie trzymajmy logiki w subscribe - wszystko do tapow.
       this.feedbackServcie.getFeedbackById$(this.data.id).subscribe(res => {
         this.headingName = `Editing "${res.feedback.title}"`;
         this.setFeedbackFormValues(res.feedback);
@@ -75,6 +74,8 @@ export class FeedbackFormComponent implements OnInit {
     }
   }
 
+  // po dodaniu feedbacku nie refreszuje sie lista z feedbackami
+  // pojawia sie toast z napisale, ze sie udalo, a feedbacku nie ma :D
   onSubmit() {
     if (this.feedbackForm.valid) {
       if (this.data.id) {
@@ -114,6 +115,12 @@ export class FeedbackFormComponent implements OnInit {
     });
   }
 
+  // Powiem szczerze, ze ja nie jestem fanem takiego rozwiazania i chociaz nie jest glupie, czy jednoznacznie zle, to nie widzialem nigdy
+  // w komercyjnym kodzie, zeby byly obslugiwane bledy w ten sposob
+  // Zazwyczaj to hasError wrzuca sie w templatke po prostu. W powazniejszych projektach robi sie dyrketywe do obslugiwania bledow.
+  // Mozna tez sobie poradzic pipem pewnie.
+  // Zrefaktorowalem dla kontrolki title.
+  // Moj sposob ma na pewno taki plusik, ze nie potrzebujemy pola isSubmitted.
   private getErrorMessage(controlName: string) {
     const control = this.feedbackForm.get(controlName);
     if (control) {

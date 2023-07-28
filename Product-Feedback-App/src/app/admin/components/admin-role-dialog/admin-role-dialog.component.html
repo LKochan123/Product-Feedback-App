@@ -4,6 +4,9 @@
     <p class="text-base">
       Are you sure you want to change
       <span class="font-medium">{{ data.username }}</span> role to
+
+      <!-- To jest zła praktyka - staramy się za wszelką cenę nie wywoływać metod jako expressions. To moze rodzic BARDZO powazne problemy z performancem -->
+      <!-- Mamy wbudowany w angulara pipe, który moemy wykorzystać -->
       <span class="font-medium">{{ futureRole.toLocaleLowerCase() }}</span
       >?
     </p>

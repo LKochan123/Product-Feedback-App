@@ -16,7 +16,8 @@
     <div class="mb-6">
       <app-nav-tags></app-nav-tags>
     </div>
-    <app-nav-roadmap></app-nav-roadmap>
+    <!-- Jezeli component nie ma content projection, to mozemy zrobic z niego void element -->
+    <app-nav-roadmap />
   </aside>
 </nav>
 
@@ -29,5 +30,5 @@
     <p class="text-md">Frontend Mentor</p>
   </div>
   <app-nav-tags></app-nav-tags>
-  <app-nav-roadmap></app-nav-roadmap>
+  <app-nav-roadmap />
 </nav>

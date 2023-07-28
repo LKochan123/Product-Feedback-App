@@ -1,25 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { map } from 'rxjs';
 import { UserRoleEnum } from 'src/app/shared/models/enums/user-role';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
+//zrefaktorowalem ten komponent.
+//po pierwsze mozemy skorzystac z deklaratywnego kodu - mowimy, ze isAdmin$ to observable z booleanem
+//w templatce sie subskrybujemy na to
+//znacznie czysciej to wyglada imo
 @Component({
   selector: 'app-admin-nav',
   templateUrl: 'admin-nav.component.html',
 })
-export class AdminNavComponent implements OnInit, OnDestroy {
-  isAdmin = false;
-  private isAdminSub!: Subscription;
+export class AdminNavComponent {
+  isAdmin$ = this.authService.getCurrentUserRole().pipe(map(role => role === UserRoleEnum.ADMIN));
 
   constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.isAdminSub = this.authService.getCurrentUserRole().subscribe(role => {
-      this.isAdmin = role === UserRoleEnum.ADMIN;
-    });
-  }
-
-  ngOnDestroy() {
-    this.isAdminSub.unsubscribe();
-  }
 }

@@ -7,6 +7,8 @@ export enum CategoryTagEnum {
   FEATURE = 'Feature',
 }
 
+//Trzymajmy sie zasady: jeden plik - jeden zasob.
+//Wyniesmy ten interfejs do osobnego pliku.
 export interface CategorySelectOption<T> {
   label: string;
   value: T;

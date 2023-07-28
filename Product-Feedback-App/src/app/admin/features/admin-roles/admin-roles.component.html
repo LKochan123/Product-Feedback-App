@@ -4,7 +4,7 @@
     <input
       type="radio"
       id="users"
-      value="users"
+      [value]="UserRoleEnum.USER"
       [(ngModel)]="selectedOption"
       (ngModelChange)="onCurrRadioVal()" />
   </div>
@@ -14,7 +14,7 @@
     <input
       type="radio"
       id="moderators"
-      value="mods"
+      [value]="UserRoleEnum.MODERATOR"
       [(ngModel)]="selectedOption"
       (ngModelChange)="onCurrRadioVal()" />
   </div>

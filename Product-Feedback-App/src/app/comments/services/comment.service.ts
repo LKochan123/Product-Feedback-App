@@ -35,6 +35,7 @@ export class CommentService {
     this.http
       .post<{ message: string }>(this.url + feedbackID + '/comments', request)
       .subscribe(() => {
+        //subscribe zawsze pusty!
         window.location.reload();
       });
   }
@@ -77,6 +78,7 @@ export class CommentService {
     );
   }
 
+  //literowka - Author
   private getAutorDetails(commentIDs: string[]): Observable<User[]> {
     return this.getCommentsByIDs(commentIDs).pipe(
       map(res => res.comments),

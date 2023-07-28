@@ -17,6 +17,7 @@ export class CommentContentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // czemu to jest w onInit?
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 
