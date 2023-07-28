@@ -11,9 +11,6 @@ export const roleGuard = (...allowedRoles: UserRoleEnum[]) => {
 
   return currUserRole.pipe(
     map(role => allowedRoles.includes(role)),
-
-    //Tutaj jest bład logiczny
-    //
-    tap(isModerator => (isModerator ? true : null))
+    tap(isModerator => (isModerator ? true : router.navigate(['/'])))
   );
 };
