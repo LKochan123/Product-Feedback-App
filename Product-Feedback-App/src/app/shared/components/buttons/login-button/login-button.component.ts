@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login-button',
@@ -11,5 +12,7 @@ import { Component } from '@angular/core';
       <p class="pl-2">Login</p>
     </button>
   `,
+  standalone: true,
+  imports: [RouterModule],
 })
 export class LoginButtonComponent {}

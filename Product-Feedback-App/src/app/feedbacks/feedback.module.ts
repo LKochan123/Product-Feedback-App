@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginButtonModule } from '../shared/components/buttons/login-button/login-button.module';
+// import { LoginButtonModule } from '../shared/components/buttons/login-button/login-button.module';
 import { FeedbackEmptyComponent } from './components/feedback-empty/feedback-empty.component';
 import { FeedbackAddButtonComponent } from './components/feedback-buttons/feedback-add-button/feedback-add-button.component';
 import { FeedbackDetailsComponent } from './components/feedback-details/feedback-details.component';
@@ -11,7 +11,7 @@ import { AngularMaterialModule } from '../shared/angular-material.module';
 import { PopupModule } from '../shared/components/popup/popup.module';
 import { ErrorInfoModule } from '../shared/errors/error-info/error-info.module';
 import { HeaderModule } from '../shared/components/header/header.module';
-import { EditButtonModule } from '../shared/components/buttons/edit-button/edit-button.module';
+// import { EditButtonModule } from '../shared/components/buttons/edit-button/edit-button.module';
 
 import { CategoryPipe } from './pipes/category.pipe';
 import { SortingFeedbacksPipe } from './pipes/sorting.pipe';
@@ -27,6 +27,8 @@ import { FeedbackRoadmapComponent } from './features/feedback-roadmap/feedback-r
 import { FeedbackRoadmapInfoComponent } from './components/feedback-info/feedback-roadmap-info/feedback-roadmap-info.component';
 import { CommentModule } from '../comments/comment.module';
 import { FeedbackIdComponent } from './features/feedback-id/feedback-id.component';
+import { EditButtonComponent } from '../shared/components/buttons/edit-button/edit-button.component';
+import { LoginButtonComponent } from '../shared/components/buttons/login-button/login-button.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,7 @@ import { FeedbackIdComponent } from './features/feedback-id/feedback-id.componen
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    LoginButtonModule,
+    LoginButtonComponent,
     RouterModule,
     NavModule,
     HeaderModule,
@@ -56,7 +58,7 @@ import { FeedbackIdComponent } from './features/feedback-id/feedback-id.componen
     PopupModule,
     ErrorInfoModule,
     CommentModule,
-    EditButtonModule,
+    EditButtonComponent,
   ],
 })
 export class FeedbackModule {}

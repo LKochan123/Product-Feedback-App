@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-return-home',
@@ -10,6 +11,8 @@ import { Component, Input } from '@angular/core';
       </p>
     </a>
   `,
+  standalone: true,
+  imports: [RouterModule],
 })
 export class ReturnHomeComponent {
   @Input() text!: string;

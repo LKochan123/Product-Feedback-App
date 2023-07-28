@@ -11,6 +11,7 @@ import { FeedbackService } from 'src/app/feedbacks/services/feedback.service';
       Edit Feedback
     </button>
   `,
+  standalone: true,
 })
 export class EditButtonComponent {
   @Input() feedbackID!: string | null;

@@ -16,11 +16,18 @@
         id="title"
         class="bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
         [ngClass]="{
-          error: feedbackForm.get('title')?.invalid && isSubmitted
+          error: feedbackForm.controls.title.invalid && feedbackForm.controls.title.touched
         }" />
-      <p class="text-red-500 text-xs mt-1" [ngClass]="errorTitleText ? 'opacity-1' : 'opacity-0'">
-        {{ errorTitleText || 'Transparent text' }}
-      </p>
+      <ng-container
+        *ngIf="feedbackForm.controls.title.touched && feedbackForm.controls.title?.errors as error">
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['required']">Title is required</p>
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['maxlength']">
+          Title should not exceed 30 characters
+        </p>
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['pattern']">
+          Title should contain at least one non-space character.
+        </p>
+      </ng-container>
     </div>
 
     <div class="py-2">
@@ -59,12 +66,21 @@
         id="detail"
         class="bg-body w-full text-sm p-3 mt-3 rounded-lg min-h-[96px] h-24 max-h-24 outline-blue"
         [ngClass]="{
-          error: feedbackForm.get('detail')?.invalid && isSubmitted
+          error: feedbackForm.controls.detail.invalid && feedbackForm.controls.detail.touched
         }">
       </textarea>
-      <p class="text-red-500 text-xs" [ngClass]="errorDetailText ? 'opacity-1' : 'opacity-0'">
-        {{ errorDetailText || 'Transparent text' }}
-      </p>
+      <ng-container
+        *ngIf="
+          feedbackForm.controls.detail.touched && feedbackForm.controls.detail?.errors as error
+        ">
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['required']">Detail is required</p>
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['maxlength']">
+          Detail should not exceed 200 characters
+        </p>
+        <p class="text-red-500 text-xs mt-1" *ngIf="error['pattern']">
+          Detail should contain at least one non-space character.
+        </p>
+      </ng-container>
     </div>
   </div>
 

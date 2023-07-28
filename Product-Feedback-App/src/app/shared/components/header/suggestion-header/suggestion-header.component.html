@@ -13,11 +13,8 @@
       class="bg-transparent outline-0"
       name="Sorting posts"
       id="posts">
-      <option
-        class="text-blue"
-        *ngFor="let method of sortingFeedbackEnum | keyvalue"
-        [value]="method.key">
-        {{ method.value }}
+      <option class="text-blue" *ngFor="let method of sortingOptions" [value]="method.label">
+        {{ method.label }}
       </option>
     </select>
   </div>

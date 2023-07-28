@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable, map, tap } from 'rxjs';
 import { FeedbackService } from 'src/app/feedbacks/services/feedback.service';
-import { Comment } from 'src/app/shared/models/interfaces/comment.model';
+import { Comment } from 'src/app/shared/models/interfaces/comment';
 import { environemnt } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/interfaces/user.model';
 import { switchMap, combineLatest, zip, toArray, defaultIfEmpty } from 'rxjs';

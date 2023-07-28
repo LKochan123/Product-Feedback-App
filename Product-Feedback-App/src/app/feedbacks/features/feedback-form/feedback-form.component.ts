@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Validators, NonNullableFormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeedbackService } from '../../services/feedback.service';
 import { tap } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { CategoryTagEnum } from 'src/app/shared/models/enums/category-tag';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StatusEnum } from 'src/app/shared/models/enums/status';
 import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
-import { SelectOption } from 'src/app/shared/models/interfaces/select-option.model';
+import { SelectOption } from 'src/app/shared/models/interfaces/select-option';
 import { statusOptions, categoryOptions } from 'src/app/shared/selects/select-options';
 import { FeedbackForm } from 'src/app/shared/models/types/feedback-form.type';
 
@@ -20,11 +20,7 @@ export class FeedbackFormComponent implements OnInit {
   feedbackForm: FormGroup<FeedbackForm> = this.createFeedbackForm();
   statusOptions: SelectOption<StatusEnum>[] = statusOptions;
   categoryOptions: SelectOption<CategoryTagEnum>[] = categoryOptions;
-
   headingName!: string;
-  isSubmitted = false;
-  errorTitleText = '';
-  errorDetailText = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -56,11 +52,7 @@ export class FeedbackFormComponent implements OnInit {
       } else {
         this.feedbackServcie.addFeedback(this.feedbackForm);
       }
-    } else {
-      this.errorTitleText = this.getErrorMessage('title');
-      this.errorDetailText = this.getErrorMessage('detail');
     }
-    this.isSubmitted = true;
   }
 
   onDelete(id: string | null) {
@@ -86,26 +78,6 @@ export class FeedbackFormComponent implements OnInit {
       status: status,
       detail: description,
     });
-  }
-
-  private getErrorMessage(controlName: string) {
-    const control = this.feedbackForm.get(controlName);
-    if (control) {
-      const maxLength = `${control.errors?.['maxlength']?.requiredLength}`;
-      const capitalizedControlName =
-        controlName.substring(0, 1).toUpperCase() + controlName.substring(1);
-      switch (true) {
-        case control.hasError('required'):
-          return `${capitalizedControlName} is required.`;
-        case control.hasError('maxlength'):
-          return `${capitalizedControlName} should not exceed ${maxLength} characters.`;
-        case control.hasError('pattern'):
-          return `${capitalizedControlName} should contain at least one non-space character.`;
-        default:
-          return '';
-      }
-    }
-    return '';
   }
 
   private createFeedbackForm() {

@@ -8,13 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       <p class="text-green-500 font-medium text-sm">{{ data.text }}</p>
     </div>
   `,
-  styles: [
-    `
-      .no-backdrop {
-        opacity: 0;
-      }
-    `,
-  ],
+  styleUrls: ['./popup.component.css'],
 })
 export class PopupComponent {
   constructor(

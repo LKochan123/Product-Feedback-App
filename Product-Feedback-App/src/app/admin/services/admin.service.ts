@@ -11,7 +11,6 @@ import { UsersResponse } from 'src/app/shared/models/interfaces/users-response';
 })
 export class AdminService {
   private url = environemnt.apiUrl + 'user/';
-
   constructor(private http: HttpClient) {}
 
   getUsersByStatus(status: UserStatusEnum, role: UserRoleEnum) {

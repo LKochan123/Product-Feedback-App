@@ -3,10 +3,15 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserRoleEnum } from 'src/app/shared/models/enums/user-role';
 import { FeedbackService } from 'src/app/feedbacks/services/feedback.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TruncatePipe } from 'src/app/shared/pipes/truncate.pipe';
 
 @Component({
   selector: 'app-dropdown-menu',
   templateUrl: './dropdown-menu.component.html',
+  standalone: true,
+  imports: [CommonModule, RouterModule, TruncatePipe],
 })
 export class DropdownMenuComponent implements OnInit, OnDestroy {
   username!: string;

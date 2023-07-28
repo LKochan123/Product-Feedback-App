@@ -13,7 +13,7 @@
         <div class="w-2 h-2 rounded-full bg-planned-status mr-2"></div>
         <p>Planned</p>
       </div>
-      <span>{{ !isLoading ? countPlanned : '...' }}</span>
+      <span>{{ countPlanned$ | async }}</span>
     </div>
 
     <div class="flex justify-between items-center text-gray my-1">
@@ -21,7 +21,7 @@
         <div class="w-2 h-2 rounded-full bg-progress-status mr-2"></div>
         <p>In-Progress</p>
       </div>
-      <span>{{ !isLoading ? countInProgress : '...' }}</span>
+      <span>{{ countInProgress$ | async }}</span>
     </div>
 
     <div class="flex justify-between items-center text-gray">
@@ -29,7 +29,7 @@
         <div class="w-2 h-2 rounded-full bg-live-status mr-2"></div>
         <p>Live</p>
       </div>
-      <span>{{ !isLoading ? countLive : '...' }}</span>
+      <span>{{ countLive$ | async }}</span>
     </div>
   </div>
 </div>

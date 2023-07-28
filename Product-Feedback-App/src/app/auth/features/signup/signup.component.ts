@@ -27,7 +27,9 @@ export class SignupComponent implements OnInit {
   }
 
   onCreateUser() {
-    this.signUpForm.invalid ? this.handleFormValidation() : this.authService.signup(this.signUpForm);
+    this.signUpForm.invalid
+      ? this.handleFormValidation()
+      : this.authService.signup(this.signUpForm);
     this.isSubmitted = true;
   }
 
@@ -79,5 +81,4 @@ export class SignupComponent implements OnInit {
       this.errorText = errorMessages.emptyField;
     }
   }
-
 }
