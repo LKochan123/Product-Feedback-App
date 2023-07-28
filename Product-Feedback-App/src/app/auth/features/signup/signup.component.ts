@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
   }
 
   private createSignUpForm() {
+    //Formularz nie jest otypowany
     this.signUpForm = new FormGroup({
       username: new FormControl(null, {
         validators: [Validators.required, Validators.maxLength(20), Validators.pattern(/^\S*$/)],

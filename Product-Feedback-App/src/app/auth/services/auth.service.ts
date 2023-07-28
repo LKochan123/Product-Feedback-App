@@ -15,7 +15,11 @@ import { LoginResponse } from 'src/app/shared/models/interfaces/login-response';
 export class AuthService {
   private _token!: string;
   private _isAuthenticated = false;
+
+  // wydaje mi sie, ze tutaj jest jakis blad logiczny - czemu, nie inicjujesz pola z wartoscia null, skoro na poczatku to bedzie null?
   private _currentUserID!: string | null;
+
+  // tutaj lepiej behaviour sub i od razu dac mu nulla - jakos tak sie wydaje to bardziej sensowne
   private currentUser$ = new Subject<string | null>();
   private tokenTimer!: any;
   private url = environemnt.apiUrl + 'user/';

@@ -18,7 +18,7 @@
     </li>
     <li>
       <a
-        *ngIf="isAdmin"
+        *ngIf="isAdmin$ | async"
         routerLink="/admin/roles"
         routerLinkActive="text-green-600"
         class="cursor-pointer hover:text-blue transition-colors">

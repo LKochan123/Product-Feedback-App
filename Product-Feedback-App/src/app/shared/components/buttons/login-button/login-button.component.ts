@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+//Wydzielanie buttona w ten sposob mija sie z celem. Chyba, ze serio masz X miejsc, ktore potrzebuja tego kodu :D
 @Component({
   selector: 'app-login-button',
   template: `

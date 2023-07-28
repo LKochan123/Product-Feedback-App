@@ -21,6 +21,7 @@ export class AdminStatusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Czemu to jest w onInit?
     this.section = this.route.snapshot.data['section'];
     this.loadUsersByStatus(this.section);
   }

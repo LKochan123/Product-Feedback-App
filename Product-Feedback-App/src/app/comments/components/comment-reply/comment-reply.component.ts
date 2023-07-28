@@ -16,6 +16,8 @@ export class CommentReplyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Hehe, nawet nie przyszlo mi nigdy do glowy, zeby zrobic cos takiego :D
+    // Uzyj settera, jak nie chcesz, zeby to byl code smell :D
     this.author = '@' + this.author;
   }
 

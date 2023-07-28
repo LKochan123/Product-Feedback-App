@@ -20,6 +20,7 @@ export class CommentEmptyComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    //Czemu to jest w onInit?
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 }

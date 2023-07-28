@@ -13,7 +13,7 @@
         <div class="w-2 h-2 rounded-full bg-planned-status mr-2"></div>
         <p>Planned</p>
       </div>
-      <span>{{ !isLoading ? countPlanned : '...' }}</span>
+      <span *ngIf="countPlanned$ | async as count">{{ count }}</span>
     </div>
 
     <div class="flex justify-between items-center text-gray my-1">
@@ -33,3 +33,4 @@
     </div>
   </div>
 </div>
+asdsa
