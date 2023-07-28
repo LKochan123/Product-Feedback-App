@@ -36,7 +36,7 @@ export class SignupComponent implements OnInit {
 
   private createSignUpForm() {
     //Formularz nie jest otypowany
-    //zadne z tych pull nigdy nie jest nullem!
+    //zadne z tych pol nigdy nie jest nullem!
     this.signUpForm = new FormGroup({
       username: new FormControl(null, {
         validators: [Validators.required, Validators.maxLength(20), Validators.pattern(/^\S*$/)],
