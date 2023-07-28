@@ -14,16 +14,27 @@ Design and logic of this app is inspired by [Frontend Mentor challenge](https://
 ### Features: ⭐
 #### For all web users:
 - registration/logging in
-- adding & editing suggestions
-- moving suggestions to appropriate sections 
 - filtering by categories
 - sorting by (least, most) comments and upvotes
-- adding comments to other people suggestions
 - responsive design
+#### For authorized users:
+- adding & editing & deleting feedbacks
+- moving feedbacks to appropriate sections
+- adding comments to other people feedbacks
 #### For moderators & admin:
 - admin panel
 - ban user accoucnts (both)
 - change users roles (only admin)
 
 ### Screenshots: 📓
-// TO ADD (soon)
+Home page:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_home.png">
+Add/edit/delete feedback:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_add_feedback.png">
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_edit_feedback.png">
+Feedback information & comments:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_feedback_id.png">
+Admin panel to ban/change role for users:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_admin.png">
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_admin_role.png">
+
