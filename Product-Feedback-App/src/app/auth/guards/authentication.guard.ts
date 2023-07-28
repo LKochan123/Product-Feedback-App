@@ -5,5 +5,5 @@ import { AuthService } from '../services/auth.service';
 export const authenticationGuard = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  authService.isAuthenticated ? true : router.navigate(['/login']);
+  authService.isAuthenticated ? true : router.navigate(['/']);
 };

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environemnt } from 'src/environments/environment';
 import { FeedbackFormComponent } from '../features/feedback-form/feedback-form.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 import { FeedbacksResponse } from 'src/app/shared/models/interfaces/feedbacks-response';
-import { FeedbackForm } from 'src/app/shared/models/interfaces/feedback-form';
+import { FeedbackForm } from 'src/app/shared/models/types/feedback-form.type';
 import { StatusEnum } from 'src/app/shared/models/enums/status';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -43,8 +44,8 @@ export class FeedbackService {
     return this.http.get<{ message: string; feedback: Feedback }>(this.url + id);
   }
 
-  addFeedback(feedbackForm: Partial<FeedbackForm>) {
-    const { title, category, detail } = feedbackForm;
+  addFeedback(feedbackForm: FormGroup<FeedbackForm>) {
+    const { title, category, detail } = feedbackForm.value;
     const feedback = {
       title: title?.trim(),
       category: category,
@@ -53,30 +54,41 @@ export class FeedbackService {
       description: detail?.trim(),
     };
 
-    this.http.post<{ message: string }>(this.url, feedback).subscribe(() => {
-      this.closeDialog();
-      this.router.navigate(['/']);
-      setTimeout(() => this.openPopup('Feedback added!'), this.POPUP_DELAY_TIME);
-    });
+    this.http
+      .post<{ message: string }>(this.url, feedback)
+      .pipe(
+        tap(() => {
+          this.closeDialog();
+          this.router.url === '/' ? window.location.reload() : this.router.navigate(['/']);
+          setTimeout(() => this.openPopup('Feedback added!'), this.POPUP_DELAY_TIME);
+        })
+      )
+      .subscribe();
   }
 
   deleteFeedback$(id: string) {
     return this.http.delete<{ message: string }>(this.url + id);
   }
 
-  updateFeedback(id: string, feedbackForm: Partial<FeedbackForm>) {
-    const { title, category, status, detail } = feedbackForm;
+  updateFeedback(id: string, feedbackForm: FormGroup<FeedbackForm>) {
+    const { title, category, status, detail } = feedbackForm.value;
     const feedback = {
       title: title?.trim(),
       category: category,
       status: status,
       description: detail?.trim(),
     };
-    this.http.patch<{ message: string }>(this.url + id, feedback).subscribe(() => {
-      this.closeDialog();
-      this.navigateByStatus(status!);
-      setTimeout(() => this.openPopup('Feedback updated!'), this.POPUP_DELAY_TIME);
-    });
+
+    this.http
+      .patch<{ message: string }>(this.url + id, feedback)
+      .pipe(
+        tap(() => {
+          this.closeDialog();
+          this.navigateByStatus(status!);
+          setTimeout(() => this.openPopup('Feedback updated!'), this.POPUP_DELAY_TIME);
+        })
+      )
+      .subscribe();
   }
 
   upvotesOnFeedback(id: string) {

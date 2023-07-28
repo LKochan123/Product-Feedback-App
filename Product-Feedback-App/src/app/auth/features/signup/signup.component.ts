@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { signupForm } from 'src/app/shared/models/types/signup-form.type';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  signUpForm!: FormGroup;
+  signUpForm: FormGroup<signupForm> = this.createSignUpForm();
   errorText = '';
   isSubmitted = false;
   showPassword = false;
@@ -26,7 +27,7 @@ export class SignupComponent implements OnInit {
   }
 
   onCreateUser() {
-    this.signUpForm.invalid ? this.handleFormValidation() : this.checkIsCredentialsTaken();
+    this.signUpForm.invalid ? this.handleFormValidation() : this.authService.signup(this.signUpForm);
     this.isSubmitted = true;
   }
 
@@ -35,15 +36,23 @@ export class SignupComponent implements OnInit {
   }
 
   private createSignUpForm() {
-    this.signUpForm = new FormGroup({
-      username: new FormControl(null, {
-        validators: [Validators.required, Validators.maxLength(20), Validators.pattern(/^\S*$/)],
+    return new FormGroup<signupForm>({
+      username: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+          Validators.pattern(/^\S*$/),
+        ],
+        nonNullable: true,
       }),
-      email: new FormControl(null, {
+      email: new FormControl('', {
         validators: [Validators.required, Validators.email],
+        nonNullable: true,
       }),
-      password: new FormControl(null, {
+      password: new FormControl('', {
         validators: [Validators.required, Validators.minLength(4), Validators.pattern(/^\S*$/)],
+        nonNullable: true,
       }),
     });
   }
@@ -71,8 +80,4 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  private checkIsCredentialsTaken() {
-    const { username, email, password } = this.signUpForm.value;
-    this.authService.signup(username, email, password);
-  }
 }

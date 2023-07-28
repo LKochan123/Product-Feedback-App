@@ -6,7 +6,7 @@
       id="users"
       value="users"
       [(ngModel)]="selectedOption"
-      (ngModelChange)="onCurrRadioVal()" />
+      (ngModelChange)="onHandleRadioValChange()" />
   </div>
 
   <div class="flex items-center">
@@ -16,7 +16,7 @@
       id="moderators"
       value="mods"
       [(ngModel)]="selectedOption"
-      (ngModelChange)="onCurrRadioVal()" />
+      (ngModelChange)="onHandleRadioValChange()" />
   </div>
 </div>
 <ng-container *ngIf="currUsers$ | async as users; else loading">

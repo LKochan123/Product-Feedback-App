@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subject, Observable, map } from 'rxjs';
+import { Observable, map, tap, BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/shared/models/interfaces/user.model';
 import { UserRoleEnum } from 'src/app/shared/models/enums/user-role';
 import { UserStatusEnum } from 'src/app/shared/models/enums/user-status';
 import { environemnt } from 'src/environments/environment';
 import { UsersResponse } from 'src/app/shared/models/interfaces/users-response';
 import { LoginResponse } from 'src/app/shared/models/interfaces/login-response';
+import { FormGroup } from '@angular/forms';
+import { signupForm } from 'src/app/shared/models/types/signup-form.type';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +17,8 @@ import { LoginResponse } from 'src/app/shared/models/interfaces/login-response';
 export class AuthService {
   private _token!: string;
   private _isAuthenticated = false;
-  private _currentUserID!: string | null;
-  private currentUser$ = new Subject<string | null>();
+  private _currentUserID: string | null = null;
+  private currentUser$ = new BehaviorSubject<string | null>(null);
   private tokenTimer!: any;
   private url = environemnt.apiUrl + 'user/';
 
@@ -61,16 +63,15 @@ export class AuthService {
       .pipe(map(res => ({ users: res.users, occurance: res.occurance })));
   }
 
-  signup(username: string, email: string, password: string) {
-    const user = { username, email, password };
-    this.http.post(this.url + 'signup', user).subscribe(() => {
-      this.router.navigate(['/login']);
-    });
+  signup(signupForm: FormGroup<signupForm>) {
+    const user = signupForm.value;
+    this.http
+      .post(this.url + 'signup', user)
+      .pipe(tap(() => this.router.navigate(['/auth/login'])))
+      .subscribe();
   }
 
-  login$(username: string, password: string) {
-    const user = { username, password };
-
+  login$(user: { username: string; password: string }) {
     this.http
       .post<LoginResponse>(this.url + 'login', user)
       .pipe(
@@ -85,12 +86,18 @@ export class AuthService {
 
             this._isAuthenticated = true;
             this._currentUserID = response.id;
-            this.currentUser$.next(username);
-            this.saveDataInLocalStorage(this.token, expirationDate, username, this._currentUserID);
+            this.currentUser$.next(user.username);
+            this.saveDataInLocalStorage(
+              this.token,
+              expirationDate,
+              user.username,
+              this._currentUserID
+            );
           }
-        })
+        }),
+        tap(() => this.router.navigate(['/']))
       )
-      .subscribe(() => this.router.navigate(['/']));
+      .subscribe();
   }
 
   logOut() {

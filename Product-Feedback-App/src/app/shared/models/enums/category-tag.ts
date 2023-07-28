@@ -6,8 +6,3 @@ export enum CategoryTagEnum {
   BUG = 'Bug',
   FEATURE = 'Feature',
 }
-
-export interface CategorySelectOption<T> {
-  label: string;
-  value: T;
-}

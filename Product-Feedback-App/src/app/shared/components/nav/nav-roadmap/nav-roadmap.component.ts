@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { catchError, forkJoin, map, Subscription, of } from 'rxjs';
+import { catchError, forkJoin, map, Subscription, of, EMPTY } from 'rxjs';
 import { FeedbackService } from 'src/app/feedbacks/services/feedback.service';
 import { StatusEnum } from 'src/app/shared/models/enums/status';
 
@@ -32,7 +32,7 @@ export class NavRoadmapComponent implements OnInit, OnDestroy {
   private countStatusOccurance$(status: StatusEnum) {
     return this.feedbackService.getFeedbacksByStatus$(status).pipe(
       map(response => response.occurance),
-      catchError(() => of('x'))
+      catchError(() => EMPTY)
     );
   }
 

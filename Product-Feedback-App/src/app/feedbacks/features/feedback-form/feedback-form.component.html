@@ -11,7 +11,7 @@
       <h3 class="text-dark-blue text-sm font-medium">Feedback Title</h3>
       <label for="title" class="text-gray text-xs">Add a short, descriptive headline</label>
       <input
-        formControlName="title"
+        [formControl]="feedbackForm.controls.title"
         type="text"
         id="title"
         class="bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue"
@@ -27,7 +27,7 @@
       <h3 class="text-dark-blue text-sm font-medium">Category</h3>
       <label for="category" class="text-gray text-xs"> Choose a category, for your feedback </label>
       <select
-        formControlName="category"
+        [formControl]="feedbackForm.controls.category"
         id="category"
         class="select-arrow bg-body w-full text-sm p-3 mt-3 rounded-lg outline-blue">
         <option *ngFor="let category of categoryOptions" [value]="category.value">
@@ -40,7 +40,7 @@
       <h3 class="text-dark-blue text-sm font-medium">Update Status</h3>
       <label for="status" class="text-gray text-xs">Change Feature State</label>
       <select
-        formControlName="status"
+        [formControl]="feedbackForm.controls.status"
         id="status"
         class="select-arrow bg-body text-sm w-full p-3 mt-3 rounded-lg outline-blue">
         <option *ngFor="let status of statusOptions" [value]="status.value">
@@ -55,7 +55,7 @@
         Include any specific comments on what should be improved, added, etc.
       </label>
       <textarea
-        formControlName="detail"
+        [formControl]="feedbackForm.controls.detail"
         id="detail"
         class="bg-body w-full text-sm p-3 mt-3 rounded-lg min-h-[96px] h-24 max-h-24 outline-blue"
         [ngClass]="{

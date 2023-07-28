@@ -4,8 +4,3 @@ export enum StatusEnum {
   IN_PROGRESS = 'In-Progress',
   LIVE = 'Live',
 }
-
-export interface StatusSelectOption<T> {
-  label: string;
-  value: T;
-}

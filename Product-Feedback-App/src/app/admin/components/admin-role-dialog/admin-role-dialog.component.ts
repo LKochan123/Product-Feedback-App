@@ -20,14 +20,11 @@ export class AdminRoleDialogComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.futureRole = this.getFutureRole(this.data.currentRole);
+    const { role } = this.adminService.getUserFutureRole(this.data.currentRole);
+    this.futureRole = role;
   }
 
   onChangeRole(id: string, role: UserRoleEnum) {
     this.adminService.changeUserRole(id, role);
-  }
-
-  private getFutureRole(role: UserRoleEnum) {
-    return role === UserRoleEnum.USER ? UserRoleEnum.MODERATOR : UserRoleEnum.USER;
   }
 }

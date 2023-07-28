@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environemnt } from 'src/environments/environment';
 import { UserStatusEnum } from 'src/app/shared/models/enums/user-status';
 import { UserRoleEnum } from 'src/app/shared/models/enums/user-role';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { UsersResponse } from 'src/app/shared/models/interfaces/users-response';
 
 @Injectable({
@@ -23,25 +23,27 @@ export class AdminService {
 
   changeUserStatus(id: string, currStatus: UserStatusEnum) {
     const status = this.getUserFutureStatus(currStatus);
-    this.http.patch<{ message: string }>(this.url + 'status/' + id, status).subscribe(() => {
-      window.location.reload();
-    });
+    this.http
+      .patch<{ message: string }>(this.url + 'status/' + id, status)
+      .pipe(tap(() => window.location.reload()))
+      .subscribe();
   }
 
   changeUserRole(id: string, currRole: UserRoleEnum) {
     const role = this.getUserFutureRole(currRole);
-    this.http.patch<{ message: string }>(this.url + 'role/' + id, role).subscribe(() => {
-      window.location.reload();
-    });
+    this.http
+      .patch<{ message: string }>(this.url + 'role/' + id, role)
+      .pipe(tap(() => window.location.reload()))
+      .subscribe();
   }
 
-  private getUserFutureStatus(currStatus: UserStatusEnum): { status: UserStatusEnum } {
+  getUserFutureRole(currRole: UserRoleEnum): { role: UserRoleEnum } {
+    return { role: currRole === UserRoleEnum.USER ? UserRoleEnum.MODERATOR : UserRoleEnum.USER };
+  }
+
+  getUserFutureStatus(currStatus: UserStatusEnum): { status: UserStatusEnum } {
     return {
       status: currStatus === UserStatusEnum.ACTIVE ? UserStatusEnum.BANNED : UserStatusEnum.ACTIVE,
     };
-  }
-
-  private getUserFutureRole(currRole: UserRoleEnum): { role: UserRoleEnum } {
-    return { role: currRole === UserRoleEnum.USER ? UserRoleEnum.MODERATOR : UserRoleEnum.USER };
   }
 }

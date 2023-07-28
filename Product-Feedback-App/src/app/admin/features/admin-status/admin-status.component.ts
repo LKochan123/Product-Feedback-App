@@ -12,7 +12,7 @@ import { AdminService } from '../../services/admin.service';
 })
 export class AdminStatusComponent implements OnInit {
   users$!: Observable<{ users: User[]; occurance: number }>;
-  section!: UserStatusEnum;
+  section: UserStatusEnum = this.route.snapshot.data['section'];
   searchData = '';
 
   constructor(
@@ -21,7 +21,6 @@ export class AdminStatusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.section = this.route.snapshot.data['section'];
     this.loadUsersByStatus(this.section);
   }
 

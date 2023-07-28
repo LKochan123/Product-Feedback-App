@@ -1,6 +1,6 @@
 <ng-container *ngIf="users$ | async as users; else loading">
   <div>
-    <p class="text-dark-blue">All {{ section.toLowerCase() }} users: {{ users.occurance }}</p>
+    <p class="text-dark-blue">All {{ section | lowercase }} users: {{ users.occurance }}</p>
     <input
       type="text"
       placeholder="Search user..."

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from 'src/app/shared/models/interfaces/comment.model';
@@ -7,18 +7,14 @@ import { Comment } from 'src/app/shared/models/interfaces/comment.model';
   selector: 'app-comment-content',
   templateUrl: './comment-content.component.html',
 })
-export class CommentContentComponent implements OnInit {
+export class CommentContentComponent {
   @Input() comment!: Comment;
-  isAuthenticated = false;
+  isAuthenticated = this.authService.isAuthenticated;
 
   constructor(
     private commentService: CommentService,
     private authService: AuthService
   ) {}
-
-  ngOnInit() {
-    this.isAuthenticated = this.authService.isAuthenticated;
-  }
 
   onReplyComment() {
     this.commentService.setReplyComment(this.comment._id);

@@ -1,12 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Validators, NonNullableFormBuilder } from '@angular/forms';
+import { Validators, NonNullableFormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FeedbackService } from '../../services/feedback.service';
 import { tap } from 'rxjs/operators';
-import { CategorySelectOption, CategoryTagEnum } from 'src/app/shared/models/enums/category-tag';
+import { CategoryTagEnum } from 'src/app/shared/models/enums/category-tag';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { StatusEnum, StatusSelectOption } from 'src/app/shared/models/enums/status';
+import { StatusEnum } from 'src/app/shared/models/enums/status';
 import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
+import { SelectOption } from 'src/app/shared/models/interfaces/select-option.model';
+import { statusOptions, categoryOptions } from 'src/app/shared/selects/select-options';
+import { FeedbackForm } from 'src/app/shared/models/types/feedback-form.type';
 
 @Component({
   selector: 'app-feedback-form',
@@ -14,42 +17,9 @@ import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
   styleUrls: ['./feedback-form.component.css'],
 })
 export class FeedbackFormComponent implements OnInit {
-  feedbackForm = this.fb.group({
-    title: [
-      '',
-      {
-        validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
-      },
-    ],
-    category: [
-      CategoryTagEnum.FEATURE,
-      {
-        validators: [Validators.required],
-      },
-    ],
-    status: StatusEnum.SUGGESTION,
-    detail: [
-      '',
-      {
-        validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
-      },
-    ],
-  });
-
-  statusOptions: StatusSelectOption<StatusEnum>[] = [
-    { label: 'Suggestion', value: StatusEnum.SUGGESTION },
-    { label: 'Planned', value: StatusEnum.PLANNED },
-    { label: 'In-Progress', value: StatusEnum.IN_PROGRESS },
-    { label: 'Live', value: StatusEnum.LIVE },
-  ];
-
-  categoryOptions: CategorySelectOption<CategoryTagEnum>[] = [
-    { label: 'Bug', value: CategoryTagEnum.BUG },
-    { label: 'Enhancment', value: CategoryTagEnum.ENHANCEMENT },
-    { label: 'Feature', value: CategoryTagEnum.FEATURE },
-    { label: 'UI', value: CategoryTagEnum.UI },
-    { label: 'UX', value: CategoryTagEnum.UX },
-  ];
+  feedbackForm: FormGroup<FeedbackForm> = this.createFeedbackForm();
+  statusOptions: SelectOption<StatusEnum>[] = statusOptions;
+  categoryOptions: SelectOption<CategoryTagEnum>[] = categoryOptions;
 
   headingName!: string;
   isSubmitted = false;
@@ -62,25 +32,29 @@ export class FeedbackFormComponent implements OnInit {
       id: string | null;
     },
     private feedbackServcie: FeedbackService,
-    private router: Router,
-    private fb: NonNullableFormBuilder
+    private router: Router
   ) {}
 
   ngOnInit() {
     if (this.data.id) {
-      this.feedbackServcie.getFeedbackById$(this.data.id).subscribe(res => {
-        this.headingName = `Editing "${res.feedback.title}"`;
-        this.setFeedbackFormValues(res.feedback);
-      });
+      this.feedbackServcie
+        .getFeedbackById$(this.data.id)
+        .pipe(
+          tap(res => {
+            this.headingName = `Editing "${res.feedback.title}"`;
+            this.setFeedbackFormValues(res.feedback);
+          })
+        )
+        .subscribe();
     }
   }
 
   onSubmit() {
     if (this.feedbackForm.valid) {
       if (this.data.id) {
-        this.feedbackServcie.updateFeedback(this.data.id, this.feedbackForm.value);
+        this.feedbackServcie.updateFeedback(this.data.id, this.feedbackForm);
       } else {
-        this.feedbackServcie.addFeedback(this.feedbackForm.value);
+        this.feedbackServcie.addFeedback(this.feedbackForm);
       }
     } else {
       this.errorTitleText = this.getErrorMessage('title');
@@ -132,5 +106,26 @@ export class FeedbackFormComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  private createFeedbackForm() {
+    return new FormGroup<FeedbackForm>({
+      title: new FormControl('', {
+        validators: [Validators.required, Validators.maxLength(30), Validators.pattern(/\S/)],
+        nonNullable: true,
+      }),
+      category: new FormControl(CategoryTagEnum.FEATURE, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      status: new FormControl(StatusEnum.SUGGESTION, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      detail: new FormControl('', {
+        validators: [Validators.required, Validators.maxLength(200), Validators.pattern(/\S/)],
+        nonNullable: true,
+      }),
+    });
   }
 }

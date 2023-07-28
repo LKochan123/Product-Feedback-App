@@ -20,7 +20,6 @@ export class LoginComponent {
   }
 
   onLogin(form: NgForm) {
-    const { username, password } = form.value;
-    form.invalid || this.authService.login$(username, password);
+    form.invalid || this.authService.login$(form.value);
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, Observable, map } from 'rxjs';
+import { Subject, Observable, map, tap } from 'rxjs';
 import { FeedbackService } from 'src/app/feedbacks/services/feedback.service';
 import { Comment } from 'src/app/shared/models/interfaces/comment.model';
 import { environemnt } from 'src/environments/environment';
@@ -34,9 +34,8 @@ export class CommentService {
     const request = { text };
     this.http
       .post<{ message: string }>(this.url + feedbackID + '/comments', request)
-      .subscribe(() => {
-        window.location.reload();
-      });
+      .pipe(tap(() => window.location.reload()))
+      .subscribe();
   }
 
   getCommentsToEachFeedback(feedbackID: string) {
@@ -57,7 +56,7 @@ export class CommentService {
   }
 
   getCommentsResult(commentIDs: string[]): Observable<Comment[]> {
-    const commentAuthors$ = this.getAutorDetails(commentIDs);
+    const commentAuthors$ = this.getAuthorDetails(commentIDs);
     const comments$ = this.getCommentsByIDs(commentIDs).pipe(map(res => res.comments));
     const combined$ = combineLatest([commentAuthors$, comments$]);
 
@@ -77,7 +76,7 @@ export class CommentService {
     );
   }
 
-  private getAutorDetails(commentIDs: string[]): Observable<User[]> {
+  private getAuthorDetails(commentIDs: string[]): Observable<User[]> {
     return this.getCommentsByIDs(commentIDs).pipe(
       map(res => res.comments),
       switchMap(commentsObs => {

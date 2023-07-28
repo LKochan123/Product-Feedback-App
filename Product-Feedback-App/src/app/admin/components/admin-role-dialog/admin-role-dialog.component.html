@@ -4,7 +4,7 @@
     <p class="text-base">
       Are you sure you want to change
       <span class="font-medium">{{ data.username }}</span> role to
-      <span class="font-medium">{{ futureRole.toLocaleLowerCase() }}</span
+      <span class="font-medium">{{ futureRole | lowercase }}</span
       >?
     </p>
   </div>
