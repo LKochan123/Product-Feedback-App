@@ -1,6 +1,6 @@
 # Product-Feedback-App
 
-Product-feedback-app is a full stack application which is similiar to the some kind of blog. Users can create account, add/edit/delete their suggestions, comments other people ideas or upvote them. Moreover you can filter feedbacks by category or sort them by upvotes and comments, so you can easily see who had the best idea. This app has also admin panel on wich moderators & admins can ban users. Admins can also change roles to eventually add new moderator or remove it from someone.
+Product-feedback-app is a full stack application which is similiar to the some kind of blog. Users can create account, add/edit/delete their feedbacks, comments other people ideas or upvote them. Moreover you can filter feedbacks by category or sort them by upvotes and comments, so you can easily see who had the best idea. This app has also admin panel on wich moderators & admins can ban users. Admins can also change roles to eventually add new moderator or remove it from someone.
 
 Design and logic of this app is inspired by [Frontend Mentor challenge](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6) but I added a lot of own features. Some asspects can be different because my goal wasn't to built in the same style but generally design is very simliar.
 
@@ -26,15 +26,24 @@ Design and logic of this app is inspired by [Frontend Mentor challenge](https://
 - ban user accoucnts (both)
 - change users roles (only admin)
 
+### How to run the project?
+// To add
+
 ### Screenshots: 📓
+Screenshots of mobile view you can check [here](https://github.com/LKochan123/Product-Feedback-App/tree/main/Product-Feedback-App/src/assets/app-screenshots). 
+Below you can see only PC view. 
+
 Home page:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_home.png">
-Add/edit/delete feedback:
+Add feedback:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_add_feedback.png">
+Edit/delete feedback:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_edit_feedback.png">
 Feedback information & comments:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_feedback_id.png">
-Admin panel to ban/change role for users:
+Modeartor & admin panel to ban users:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_admin.png">
+Admin panel to change user roles:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_admin_role.png">
-
+Signup form:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_signup.png">
