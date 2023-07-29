@@ -6,7 +6,7 @@
         <a
           (click)="onStatusChange('Planned')"
           [ngClass]="{ 'active planned': currentStatus === 'Planned' }">
-          Planned ({{ countPlanned ?? 'x' }})
+          Planned ({{ countPlanned ?? '..' }})
         </a>
       </li>
       <li>
