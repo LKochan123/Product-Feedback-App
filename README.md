@@ -2,7 +2,7 @@
 
 Product-feedback-app is a full stack application which is similiar to the some kind of blog. Users can create account, add/edit/delete their feedbacks, comments other people ideas or upvote them. Moreover you can filter feedbacks by category or sort them by upvotes and comments, so you can easily see who had the best idea. This app has also admin panel on wich moderators & admins can ban users. Admins can also change roles to eventually add new moderator or remove it from someone.
 
-Design and logic of this app is inspired by [Frontend Mentor challenge](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6) but I added a lot of own features. Some asspects can be different because my goal wasn't to built in the same style but generally design is very simliar.
+Design and logic of this app is inspired by [Frontend Mentor challenge](https://www.frontendmentor.io/challenges/product-feedback-app-wbvUYqjR6) but I added a lot of own features. Some asspects can be different because my goal wasn't to built it in the same style but generally design is very simliar.
 
 ### Used technologies: ⚙️
 - Angular v15 (with RxJs library to state management)
@@ -39,6 +39,8 @@ Add feedback:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_add_feedback.png">
 Edit/delete feedback:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_edit_feedback.png">
+Feedback roadmap:
+<img src="Product-Feedback-App/src/assets/app-screenshots/PC_roadmap.png">
 Feedback information & comments:
 <img src="Product-Feedback-App/src/assets/app-screenshots/PC_feedback_id.png">
 Modeartor & admin panel to ban users:

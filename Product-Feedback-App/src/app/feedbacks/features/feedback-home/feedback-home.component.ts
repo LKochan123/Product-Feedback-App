@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryTagEnum } from 'src/app/shared/models/enums/category-tag';
 import { SortingFeedbackEnum } from 'src/app/shared/models/enums/sorting-feedback';
 import { Feedback } from 'src/app/shared/models/interfaces/feedback.model';
-import { Subscription, map, catchError, throwError, combineLatest } from 'rxjs';
+import { map, catchError, throwError, combineLatest } from 'rxjs';
 import { FeedbackService } from '../../services/feedback.service';
 import { CategoryTagService } from '../../services/category-tag.service';
+import { StatusEnum } from 'src/app/shared/models/enums/status';
 
 @Component({
   templateUrl: './feedback-home.component.html',
@@ -13,8 +14,6 @@ export class FeedbackHomeComponent implements OnInit {
   feedbackSuggestions!: Feedback[];
   category!: CategoryTagEnum;
   sortingMethod!: SortingFeedbackEnum;
-  suggestionSubscription!: Subscription;
-  categorySubscription!: Subscription;
   isLoadingData = true;
   connectionsError = false;
 
@@ -28,7 +27,9 @@ export class FeedbackHomeComponent implements OnInit {
     const category$ = this.categoryTagService.getCurrentTag$();
     const suggestions$ = this.feedbackService
       .getFeedbacksUpdate$()
-      .pipe(map(feedbacks => feedbacks.filter(feedback => feedback.status === 'Suggestion')));
+      .pipe(
+        map(feedbacks => feedbacks.filter(feedback => feedback.status === StatusEnum.SUGGESTION))
+      );
 
     this.feedbackService
       .getFeedbacks()
